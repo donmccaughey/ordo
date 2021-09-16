@@ -16,14 +16,6 @@ impl Default for Numerus {
 }
 
 
-fn minue(summa: u16, litterae: &str, reliquum: &mut u16, s: &mut String) {
-    while *reliquum >= summa {
-        *s += litterae;
-        *reliquum -= summa;
-    }
-}
-
-
 impl fmt::Display for Numerus {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         debug_assert!(self.vis != 0);
@@ -32,19 +24,26 @@ impl fmt::Display for Numerus {
         let mut s = String::default();
         let mut reliquum = self.vis;
 
-        minue(1000, "M", &mut reliquum, &mut s);
-        minue(900, "CM", &mut reliquum, &mut s);
-        minue(500, "D", &mut reliquum, &mut s);
-        minue(400, "CD", &mut reliquum, &mut s);
-        minue(100, "C", &mut reliquum, &mut s);
-        minue(90, "XC", &mut reliquum, &mut s);
-        minue(50, "L", &mut reliquum, &mut s);
-        minue(40, "XL", &mut reliquum, &mut s);
-        minue(10, "X", &mut reliquum, &mut s);
-        minue(9, "IX", &mut reliquum, &mut s);
-        minue(5, "V", &mut reliquum, &mut s);
-        minue(4, "IV", &mut reliquum, &mut s);
-        minue(1, "I", &mut reliquum, &mut s);
+        let mut minue = |summa: u16, litterae: &str| {
+            while reliquum >= summa {
+                s += litterae;
+                reliquum -= summa;
+            }
+        };
+
+        minue(1000, "M");
+        minue(900, "CM");
+        minue(500, "D");
+        minue(400, "CD");
+        minue(100, "C");
+        minue(90, "XC");
+        minue(50, "L");
+        minue(40, "XL");
+        minue(10, "X");
+        minue(9, "IX");
+        minue(5, "V");
+        minue(4, "IV");
+        minue(1, "I");
 
         debug_assert_eq!(0, reliquum);
 
