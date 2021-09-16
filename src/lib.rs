@@ -1,11 +1,50 @@
 use std::{fmt, error};
 use std::convert::TryFrom;
 use std::fmt::Formatter;
+use std::ops::{Add, AddAssign};
 
 
 #[derive(Copy, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 struct Numerus {
     vis: u16,
+}
+
+
+impl Add for Numerus {
+    type Output = Self;
+
+    fn add(self, rhs: Self) -> Self::Output {
+        let summa = self.vis + rhs.vis;
+        debug_assert!(summa < 4000);
+        Numerus {
+            vis: summa,
+        }
+    }
+}
+
+
+impl Add for &Numerus {
+    type Output = Numerus;
+
+    fn add(self, rhs: Self) -> Self::Output {
+        Numerus::add(*self, *rhs)
+    }
+}
+
+
+impl AddAssign for Numerus {
+    fn add_assign(&mut self, rhs: Self) {
+        let summa = self.vis + rhs.vis;
+        debug_assert!(summa < 4000);
+        self.vis = summa;
+    }
+}
+
+
+impl AddAssign<&Numerus> for Numerus {
+    fn add_assign(&mut self, rhs: &Numerus) {
+        Numerus::add_assign(self, *rhs);
+    }
 }
 
 
@@ -90,6 +129,64 @@ impl TryFrom<u16> for Numerus {
 mod tests {
     use crate::Numerus;
     use std::convert::TryFrom;
+
+    #[test]
+    fn test_add() {
+        let n3 = Numerus::try_from(3).unwrap();
+        let n8 = Numerus::try_from(8).unwrap();
+
+        let n11 = n3 + n8;
+
+        assert_eq!(11, n11.vis);
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_add_nimis() {
+        let n3999 = Numerus::try_from(3999).unwrap();
+        let n1 = Numerus::try_from(1).unwrap();
+
+        let _ = n3999 + n1;
+    }
+
+    #[test]
+    fn test_add_ref() {
+        let n42 = Numerus::try_from(42).unwrap();
+        let n11 = Numerus::try_from(11).unwrap();
+
+        let n53 = &n42 + &n11;
+
+        assert_eq!(53, n53.vis);
+    }
+
+    #[test]
+    fn test_add_assign() {
+        let mut n = Numerus::try_from(11).unwrap();
+        let n6 = Numerus::try_from(6).unwrap();
+
+        n += n6;
+
+        assert_eq!(17, n.vis);
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_add_assign_nimis() {
+        let mut n = Numerus::try_from(3999).unwrap();
+        let n1 = Numerus::try_from(1).unwrap();
+
+        n += n1;
+    }
+
+    #[test]
+    fn test_add_assign_ref() {
+        let mut n = Numerus::try_from(42).unwrap();
+        let n6 = Numerus::try_from(6).unwrap();
+
+        n += &n6;
+
+        assert_eq!(48, n.vis);
+    }
 
     #[test]
     fn test_default() {
