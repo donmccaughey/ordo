@@ -18,22 +18,67 @@ impl Default for Numerus {
 
 impl fmt::Display for Numerus {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        let s = match self.vis {
-            0 => panic!(),
-            1 => "I",
-            2 => "II",
-            3 => "III",
-            4 => "IV",
-            5 => "V",
-            6 => "VI",
-            7 => "VII",
-            8 => "VIII",
-            9 => "IX",
-            10 => "X",
-            4000.. => panic!(),
-            _ => "?",
-        };
-        f.write_str(s)
+        debug_assert!(self.vis != 0);
+        debug_assert!(self.vis < 4000);
+
+        let mut s = String::default();
+        let mut n = self.vis;
+        while n >= 1000 {
+            s += "M";
+            n -= 1000;
+        }
+        if n >= 900 {
+            s += "CM";
+            n -= 900;
+        }
+        if n >= 500 {
+            s += "D";
+            n -= 500;
+        }
+        if n >= 400 {
+            s += "CD";
+            n -= 400;
+        }
+        while n >= 100 {
+            s += "C";
+            n -= 100;
+        }
+        if n >= 90 {
+            s += "XC";
+            n -= 90;
+        }
+        if n >= 50 {
+            s += "L";
+            n -= 50;
+        }
+        if n >= 40 {
+            s += "XL";
+            n -= 40;
+        }
+        while n >= 10 {
+            s += "X";
+            n -= 10;
+        }
+        if n >= 9 {
+            s += "IX";
+            n -= 9;
+        }
+        if n >= 5 {
+            s += "V";
+            n -= 5;
+        }
+        if n >= 4 {
+            s += "IV";
+            n -= 4;
+        }
+        while n >= 1 {
+            s += "I";
+            n -= 1;
+        }
+
+        debug_assert_eq!(0, n);
+
+        f.write_str(&s)
     }
 }
 
@@ -96,6 +141,58 @@ mod tests {
             (8, "VIII"),
             (9, "IX"),
             (10, "X"),
+
+            (11, "XI"),
+            (12, "XII"),
+            (13, "XIII"),
+            (14, "XIV"),
+            (15, "XV"),
+            (16, "XVI"),
+            (17, "XVII"),
+            (18, "XVIII"),
+            (19, "XIX"),
+            (20, "XX"),
+
+            (30, "XXX"),
+            (40, "XL"),
+            (50, "L"),
+            (60, "LX"),
+            (70, "LXX"),
+            (80, "LXXX"),
+            (90, "XC"),
+
+            (100, "C"),
+            (200, "CC"),
+            (300, "CCC"),
+            (400, "CD"),
+            (500, "D"),
+            (600, "DC"),
+            (700, "DCC"),
+            (800, "DCCC"),
+            (900, "CM"),
+
+            (1000, "M"),
+            (2000, "MM"),
+            (3000, "MMM"),
+
+            // examples from https://en.wikipedia.org/wiki/Roman_numerals
+            // in section "Standard form"
+            (39, "XXXIX"),
+            (246, "CCXLVI"),
+            (789, "DCCLXXXIX"),
+            (2421, "MMCDXXI"),
+
+            (160, "CLX"),
+            (207, "CCVII"),
+            (1009, "MIX"),
+            (1066, "MLXVI"),
+
+            (1776, "MDCCLXXVI"),
+            (1918, "MCMXVIII"),
+            (1954, "MCMLIV"),
+            (2014, "MMXIV"),
+
+            (3999, "MMMCMXCIX"),
         ];
         for (verus, expectans) in verus_expectans {
             let n = Numerus::try_from(verus).unwrap();
