@@ -132,39 +132,39 @@ mod tests {
 
     #[test]
     fn test_add() {
-        let n3 = Numerus::try_from(3).unwrap();
-        let n8 = Numerus::try_from(8).unwrap();
+        let iii = Numerus::try_from(3).unwrap();
+        let viii = Numerus::try_from(8).unwrap();
 
-        let n11 = n3 + n8;
+        let xi = iii + viii;
 
-        assert_eq!(11, n11.vis);
+        assert_eq!(11, xi.vis);
     }
 
     #[test]
     #[should_panic]
     fn test_add_nimis() {
-        let n3999 = Numerus::try_from(3999).unwrap();
-        let n1 = Numerus::try_from(1).unwrap();
+        let mmmcmxcix = Numerus::try_from(3999).unwrap();
+        let i = Numerus::try_from(1).unwrap();
 
-        let _ = n3999 + n1;
+        let _ = mmmcmxcix + i;
     }
 
     #[test]
     fn test_add_ref() {
-        let n42 = Numerus::try_from(42).unwrap();
-        let n11 = Numerus::try_from(11).unwrap();
+        let xlii = Numerus::try_from(42).unwrap();
+        let xi = Numerus::try_from(11).unwrap();
 
-        let n53 = &n42 + &n11;
+        let liii = &xlii + &xi;
 
-        assert_eq!(53, n53.vis);
+        assert_eq!(53, liii.vis);
     }
 
     #[test]
     fn test_add_assign() {
         let mut n = Numerus::try_from(11).unwrap();
-        let n6 = Numerus::try_from(6).unwrap();
+        let vi = Numerus::try_from(6).unwrap();
 
-        n += n6;
+        n += vi;
 
         assert_eq!(17, n.vis);
     }
@@ -173,17 +173,17 @@ mod tests {
     #[should_panic]
     fn test_add_assign_nimis() {
         let mut n = Numerus::try_from(3999).unwrap();
-        let n1 = Numerus::try_from(1).unwrap();
+        let i = Numerus::try_from(1).unwrap();
 
-        n += n1;
+        n += i;
     }
 
     #[test]
     fn test_add_assign_ref() {
         let mut n = Numerus::try_from(42).unwrap();
-        let n6 = Numerus::try_from(6).unwrap();
+        let vi = Numerus::try_from(6).unwrap();
 
-        n += &n6;
+        n += &vi;
 
         assert_eq!(48, n.vis);
     }
@@ -268,25 +268,25 @@ mod tests {
 
     #[test]
     fn test_into_u16() {
-        let n = Numerus::try_from(42).unwrap();
-        let u: u16 = n.into();
+        let xlii = Numerus::try_from(42).unwrap();
+        let u: u16 = xlii.into();
         assert_eq!(42, u);
     }
 
     #[test]
     fn test_try_from() {
-        let n0 = Numerus::try_from(0);
-        assert!(n0.is_err());
+        let nihil = Numerus::try_from(0);
+        assert!(nihil.is_err());
 
-        let n1 = Numerus::try_from(1);
-        assert!(n1.is_ok());
-        assert_eq!(1, n1.unwrap().vis);
+        let i = Numerus::try_from(1);
+        assert!(i.is_ok());
+        assert_eq!(1, i.unwrap().vis);
 
-        let n3999 = Numerus::try_from(3999);
-        assert!(n3999.is_ok());
-        assert_eq!(3999, n3999.unwrap().vis);
+        let mmmcmxcix = Numerus::try_from(3999);
+        assert!(mmmcmxcix.is_ok());
+        assert_eq!(3999, mmmcmxcix.unwrap().vis);
 
-        let n4000 = Numerus::try_from(4000);
-        assert!(n4000.is_err());
+        let mmmm = Numerus::try_from(4000);
+        assert!(mmmm.is_err());
     }
 }
