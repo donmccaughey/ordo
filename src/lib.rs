@@ -16,67 +16,37 @@ impl Default for Numerus {
 }
 
 
+fn minue(summa: u16, litterae: &str, reliquum: &mut u16, s: &mut String) {
+    while *reliquum >= summa {
+        *s += litterae;
+        *reliquum -= summa;
+    }
+}
+
+
 impl fmt::Display for Numerus {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         debug_assert!(self.vis != 0);
         debug_assert!(self.vis < 4000);
 
         let mut s = String::default();
-        let mut n = self.vis;
-        while n >= 1000 {
-            s += "M";
-            n -= 1000;
-        }
-        if n >= 900 {
-            s += "CM";
-            n -= 900;
-        }
-        if n >= 500 {
-            s += "D";
-            n -= 500;
-        }
-        if n >= 400 {
-            s += "CD";
-            n -= 400;
-        }
-        while n >= 100 {
-            s += "C";
-            n -= 100;
-        }
-        if n >= 90 {
-            s += "XC";
-            n -= 90;
-        }
-        if n >= 50 {
-            s += "L";
-            n -= 50;
-        }
-        if n >= 40 {
-            s += "XL";
-            n -= 40;
-        }
-        while n >= 10 {
-            s += "X";
-            n -= 10;
-        }
-        if n >= 9 {
-            s += "IX";
-            n -= 9;
-        }
-        if n >= 5 {
-            s += "V";
-            n -= 5;
-        }
-        if n >= 4 {
-            s += "IV";
-            n -= 4;
-        }
-        while n >= 1 {
-            s += "I";
-            n -= 1;
-        }
+        let mut reliquum = self.vis;
 
-        debug_assert_eq!(0, n);
+        minue(1000, "M", &mut reliquum, &mut s);
+        minue(900, "CM", &mut reliquum, &mut s);
+        minue(500, "D", &mut reliquum, &mut s);
+        minue(400, "CD", &mut reliquum, &mut s);
+        minue(100, "C", &mut reliquum, &mut s);
+        minue(90, "XC", &mut reliquum, &mut s);
+        minue(50, "L", &mut reliquum, &mut s);
+        minue(40, "XL", &mut reliquum, &mut s);
+        minue(10, "X", &mut reliquum, &mut s);
+        minue(9, "IX", &mut reliquum, &mut s);
+        minue(5, "V", &mut reliquum, &mut s);
+        minue(4, "IV", &mut reliquum, &mut s);
+        minue(1, "I", &mut reliquum, &mut s);
+
+        debug_assert_eq!(0, reliquum);
 
         f.write_str(&s)
     }
