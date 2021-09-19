@@ -1,7 +1,8 @@
 use std::{fmt, error};
 use std::convert::TryFrom;
+use std::fmt::Display;
 use std::fmt::Formatter;
-use std::ops::{Add, AddAssign};
+use std::ops::{Add, AddAssign, Sub, SubAssign};
 
 
 #[derive(Copy, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
@@ -55,7 +56,7 @@ impl Default for Numerus {
 }
 
 
-impl fmt::Display for Numerus {
+impl Display for Numerus {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         debug_assert!(self.vis != 0);
         debug_assert!(self.vis < 4000);
@@ -94,6 +95,44 @@ impl fmt::Display for Numerus {
 impl From<Numerus> for u16 {
     fn from(n: Numerus) -> Self {
         n.vis
+    }
+}
+
+
+impl Sub for Numerus {
+    type Output = Self;
+
+    fn sub(self, rhs: Self) -> Self::Output {
+        let summa = self.vis - rhs.vis;
+        debug_assert!(summa > 0);
+        Numerus {
+            vis: summa,
+        }
+    }
+}
+
+
+impl Sub for &Numerus {
+    type Output = Numerus;
+
+    fn sub(self, rhs: Self) -> Self::Output {
+        Numerus::sub(*self, *rhs)
+    }
+}
+
+
+impl SubAssign for Numerus {
+    fn sub_assign(&mut self, rhs: Self) {
+        let summa = self.vis - rhs.vis;
+        debug_assert!(summa > 0);
+        self.vis = summa;
+    }
+}
+
+
+impl SubAssign<&Numerus> for Numerus {
+    fn sub_assign(&mut self, rhs: &Numerus) {
+        Numerus::sub_assign(self, *rhs);
     }
 }
 
@@ -192,6 +231,82 @@ mod tests {
     fn test_default() {
         let n = Numerus::default();
         assert_eq!("I", &n.to_string());
+    }
+
+    #[test]
+    fn test_sub() {
+        let viii = Numerus::try_from(8).unwrap();
+        let iii = Numerus::try_from(3).unwrap();
+
+        let v = viii - iii;
+
+        assert_eq!(5, v.vis);
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_sub_nimis_nihil() {
+        let a = Numerus::try_from(7).unwrap();
+        let b = Numerus::try_from(7).unwrap();
+
+        let _ = a - b;
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_sub_nimis() {
+        let a = Numerus::try_from(7).unwrap();
+        let b = Numerus::try_from(8).unwrap();
+
+        let _ = a - b;
+    }
+
+    #[test]
+    fn test_sub_ref() {
+        let xlii = Numerus::try_from(42).unwrap();
+        let xi = Numerus::try_from(11).unwrap();
+
+        let xxxi = &xlii - &xi;
+
+        assert_eq!(31, xxxi.vis);
+    }
+
+    #[test]
+    fn test_sub_assign() {
+        let mut n = Numerus::try_from(11).unwrap();
+        let vi = Numerus::try_from(6).unwrap();
+
+        n -= vi;
+
+        assert_eq!(5, n.vis);
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_sub_assign_nimis_nihil() {
+        let mut n = Numerus::try_from(10).unwrap();
+        let x = Numerus::try_from(10).unwrap();
+
+        n -= x;
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_sub_assign_nimis() {
+        let mut n = Numerus::try_from(10).unwrap();
+        let ix = Numerus::try_from(11).unwrap();
+
+        n -= ix;
+    }
+
+    #[test]
+    fn test_sub_assign_ref() {
+        let mut n = Numerus::try_from(42).unwrap();
+        let vi = Numerus::try_from(6).unwrap();
+
+        n -= &vi;
+
+        assert_eq!(36, n.vis);
     }
 
     #[test]
