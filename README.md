@@ -2,6 +2,7 @@
 
 Latin language utility library for Rust.
 
+[![Tests](https://github.com/donmccaughey/ordo/actions/workflows/tests.yml/badge.svg)](https://github.com/donmccaughey/ordo/actions/workflows/tests.yml)
 
 ## Usage
 
