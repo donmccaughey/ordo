@@ -1,16 +1,14 @@
-use std::{fmt, error};
 use std::convert::TryFrom;
 use std::fmt::Display;
 use std::fmt::Formatter;
 use std::ops::{Add, AddAssign, Sub, SubAssign};
 use std::str::FromStr;
-
+use std::{error, fmt};
 
 #[derive(Copy, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 struct Numerus {
     vis: u16,
 }
-
 
 impl Add for Numerus {
     type Output = Self;
@@ -18,12 +16,9 @@ impl Add for Numerus {
     fn add(self, rhs: Self) -> Self::Output {
         let summa = self.vis + rhs.vis;
         debug_assert!(summa < 4000);
-        Numerus {
-            vis: summa,
-        }
+        Numerus { vis: summa }
     }
 }
-
 
 impl Add for &Numerus {
     type Output = Numerus;
@@ -33,7 +28,6 @@ impl Add for &Numerus {
     }
 }
 
-
 impl AddAssign for Numerus {
     fn add_assign(&mut self, rhs: Self) {
         let summa = self.vis + rhs.vis;
@@ -42,20 +36,17 @@ impl AddAssign for Numerus {
     }
 }
 
-
 impl AddAssign<&Numerus> for Numerus {
     fn add_assign(&mut self, rhs: &Numerus) {
         Numerus::add_assign(self, *rhs);
     }
 }
 
-
 impl Default for Numerus {
     fn default() -> Self {
         Numerus { vis: 1 }
     }
 }
-
 
 impl Display for Numerus {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
@@ -92,13 +83,11 @@ impl Display for Numerus {
     }
 }
 
-
 impl From<Numerus> for u16 {
     fn from(n: Numerus) -> Self {
         n.vis
     }
 }
-
 
 #[derive(Debug)]
 struct Irritus;
@@ -182,19 +171,15 @@ impl FromStr for Numerus {
     }
 }
 
-
 impl Sub for Numerus {
     type Output = Self;
 
     fn sub(self, rhs: Self) -> Self::Output {
         let summa = self.vis - rhs.vis;
         debug_assert!(summa > 0);
-        Numerus {
-            vis: summa,
-        }
+        Numerus { vis: summa }
     }
 }
-
 
 impl Sub for &Numerus {
     type Output = Numerus;
@@ -204,7 +189,6 @@ impl Sub for &Numerus {
     }
 }
 
-
 impl SubAssign for Numerus {
     fn sub_assign(&mut self, rhs: Self) {
         let summa = self.vis - rhs.vis;
@@ -213,13 +197,11 @@ impl SubAssign for Numerus {
     }
 }
 
-
 impl SubAssign<&Numerus> for Numerus {
     fn sub_assign(&mut self, rhs: &Numerus) {
         Numerus::sub_assign(self, *rhs);
     }
 }
-
 
 #[derive(Debug)]
 struct Nimis;
@@ -243,7 +225,6 @@ impl TryFrom<u16> for Numerus {
         }
     }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -327,7 +308,6 @@ mod tests {
             ("VIII", 8),
             ("IX", 9),
             ("X", 10),
-
             ("XI", 11),
             ("XII", 12),
             ("XIII", 13),
@@ -338,7 +318,6 @@ mod tests {
             ("XVIII", 18),
             ("XIX", 19),
             ("XX", 20),
-
             ("XXX", 30),
             ("XL", 40),
             ("L", 50),
@@ -346,7 +325,6 @@ mod tests {
             ("LXX", 70),
             ("LXXX", 80),
             ("XC", 90),
-
             ("C", 100),
             ("CC", 200),
             ("CCC", 300),
@@ -356,28 +334,23 @@ mod tests {
             ("DCC", 700),
             ("DCCC", 800),
             ("CM", 900),
-
             ("M", 1000),
             ("MM", 2000),
             ("MMM", 3000),
-
             // examples from https://en.wikipedia.org/wiki/Roman_numerals
             // in section "Standard form"
             ("XXXIX", 39),
             ("CCXLVI", 246),
             ("DCCLXXXIX", 789),
             ("MMCDXXI", 2421),
-
             ("CLX", 160),
             ("CCVII", 207),
             ("MIX", 1009),
             ("MLXVI", 1066),
-
             ("MDCCLXXVI", 1776),
             ("MCMXVIII", 1918),
             ("MCMLIV", 1954),
             ("MMXIV", 2014),
-
             ("MMMCMXCIX", 3999),
         ];
         for (verus, expectans) in verus_expectans {
@@ -388,11 +361,7 @@ mod tests {
 
     #[test]
     fn test_from_str_incompositus() {
-        let incompositi = [
-            ("IIII", 4),
-            ("XXXX", 40),
-            ("CCCC", 400),
-        ];
+        let incompositi = [("IIII", 4), ("XXXX", 40), ("CCCC", 400)];
         for (verus, expectans) in incompositi {
             let n = verus.parse::<Numerus>().unwrap();
             assert_eq!(expectans, n.vis);
@@ -401,12 +370,7 @@ mod tests {
 
     #[test]
     fn test_from_str_irritus() {
-        let irriti = [
-            "", "A", "B", "E", "F", "G", "H",
-            " I",
-            "I ",
-            "VX",
-        ];
+        let irriti = ["", "A", "B", "E", "F", "G", "H", " I", "I ", "VX"];
         for irritus in irriti {
             assert!(irritus.parse::<Numerus>().is_err());
         }
@@ -501,7 +465,6 @@ mod tests {
             (8, "VIII"),
             (9, "IX"),
             (10, "X"),
-
             (11, "XI"),
             (12, "XII"),
             (13, "XIII"),
@@ -512,7 +475,6 @@ mod tests {
             (18, "XVIII"),
             (19, "XIX"),
             (20, "XX"),
-
             (30, "XXX"),
             (40, "XL"),
             (50, "L"),
@@ -520,7 +482,6 @@ mod tests {
             (70, "LXX"),
             (80, "LXXX"),
             (90, "XC"),
-
             (100, "C"),
             (200, "CC"),
             (300, "CCC"),
@@ -530,28 +491,23 @@ mod tests {
             (700, "DCC"),
             (800, "DCCC"),
             (900, "CM"),
-
             (1000, "M"),
             (2000, "MM"),
             (3000, "MMM"),
-
             // examples from https://en.wikipedia.org/wiki/Roman_numerals
             // in section "Standard form"
             (39, "XXXIX"),
             (246, "CCXLVI"),
             (789, "DCCLXXXIX"),
             (2421, "MMCDXXI"),
-
             (160, "CLX"),
             (207, "CCVII"),
             (1009, "MIX"),
             (1066, "MLXVI"),
-
             (1776, "MDCCLXXVI"),
             (1918, "MCMXVIII"),
             (1954, "MCMLIV"),
             (2014, "MMXIV"),
-
             (3999, "MMMCMXCIX"),
         ];
         for (verus, expectans) in verus_expectans {
