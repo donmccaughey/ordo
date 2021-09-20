@@ -9,5 +9,6 @@ keywords = ["Latin", "lingua Latina", "Roman numerals"]
 readme = "README.md"
 repository = "https://github.com/donmccaughey/ordo"
 license = "BSD-2-Clause"
+exclude = [".gitignore", ".github/*", ".idea/*"]
 
 [dependencies]
