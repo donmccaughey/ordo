@@ -218,10 +218,10 @@ impl TryFrom<u16> for Numerus {
     type Error = Nimis;
 
     fn try_from(vis: u16) -> Result<Self, Self::Error> {
-        if vis < 1 || vis > 3999 {
-            Err(Nimis)
-        } else {
+        if (1..=3999).contains(&vis) {
             Ok(Numerus { vis })
+        } else {
+            Err(Nimis)
         }
     }
 }
