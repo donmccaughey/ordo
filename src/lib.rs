@@ -78,7 +78,8 @@ use std::{error, fmt};
     let mmmcmxcix = Numerus::try_from(3999).unwrap();
     let i = Numerus::try_from(1).unwrap();
 
-    let nimis = mmmcmxcix + i; /// panics
+    /// panics
+    let nimis = mmmcmxcix + i;
     ```
  */
 #[derive(Copy, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
@@ -199,16 +200,20 @@ impl FromStr for Numerus {
     use ordo::Numerus;
     use std::str::FromStr;
 
-    let result = Numerus::from_str(" XVI"); /// whitespace is invalid
+    /// whitespace is invalid
+    let result = Numerus::from_str(" XVI");
     assert!(matches!(result, Err(Irritus)));
 
-    let result = Numerus::from_str("xvi"); /// lower case is invalid
+    /// lower case is invalid
+    let result = Numerus::from_str("xvi");
     assert!(matches!(result, Err(Irritus)));
 
-    let result = Numerus::from_str("XVI."); /// punctuation is invalid
+    /// punctuation is invalid
+    let result = Numerus::from_str("XVI.");
     assert!(matches!(result, Err(Irritus)));
 
-    let result = Numerus::from_str("IIC"); /// malformed Roman numeral
+    /// malformed Roman numeral
+    let result = Numerus::from_str("IIC");
     assert!(matches!(result, Err(Irritus)));
     ```
      */
