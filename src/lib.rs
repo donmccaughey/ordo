@@ -1,87 +1,83 @@
-/*! Latin language utility library.
+//! Latin language utility library.
+//!
+//! # License
+//! `ordo` is made available under a BSD-style license; see the `LICENSE` for details.
 
-    # License
-    `ordo` is made available under a BSD-style license; see the `LICENSE` for details.
-
-    # Contents
-
-    [Numerus]: standard form Roman numerals
- */
+pub mod errors;
 
 use std::convert::TryFrom;
+use std::fmt;
 use std::fmt::Display;
 use std::fmt::Formatter;
 use std::ops::{Add, AddAssign, Sub, SubAssign};
 use std::str::FromStr;
-use std::{error, fmt};
 
-/** A [standard form](https://en.wikipedia.org/wiki/Roman_numerals#Standard_form) Roman numeral in
-    the range `1..=3999` (__I__ to __MMMCMXCIX__).
-
-    _Numerus_ is an integer value type that represents a Roman numeral like __XVII__ or __IX__.
-    _Numeri_ are unsigned integers with a limited range that display as Roman numerals.
-
-    Create _Numeri_ from integers using [`try_from()`](TryFrom) or
-    [`try_into()`](std::convert::TryInto).  Get a string representation of a _Numerus_ using
-    [`to_string()`](ToString) or [format!()].
-    ```
-    use ordo::Numerus;
-    use std::convert::TryFrom;
-    use std::convert::TryInto;
-
-    let xxvi = Numerus::try_from(26).unwrap();
-    assert_eq!("XXVI", &xxvi.to_string());
-
-    let cxi: Numerus = 111.try_into().unwrap();
-    assert_eq!("CXI", &format!("{}", cxi));
-    ```
-
-    Create _Numeri_ from strings using [`from_str()`](FromStr) or [`str::parse()`].  Read the
-    integer value of a _Numerus_ using [`from()`](From) or [`into()`](Into).
-    ```
-    use ordo::Numerus;
-    use std::str::FromStr;
-
-    let xvii = Numerus::from_str("XVII").unwrap();
-    assert_eq!(17, u16::from(xvii));
-
-    let xcix = "XCIX".parse::<Numerus>().unwrap();
-    assert_eq!(99_u16, xcix.into());
-    ```
-
-    _Numeri_ act like unsigned integers, implementing traits [Eq], [Ord], [Hash], [Add],
-    [AddAssign], [Sub] and [SubAssign].
-    ```
-    use ordo::Numerus;
-    use std::convert::TryFrom;
-
-    let xxxv = Numerus::try_from(35).unwrap();
-    let xvii = "XVII".parse::<Numerus>().unwrap();
-    let ix = Numerus::try_from(9).unwrap();
-
-    assert!(xxxv > ix);
-    assert!(ix <= xvii);
-    assert_ne!(xxxv, ix);
-
-    let xxvi = xxxv - ix;
-    assert_eq!("XXVI", &xxvi.to_string());
-
-    let xxvi = xvii + ix;
-    assert_eq!("XVII", &xvii.to_string());
-    ```
-
-    Like other Rust integer types, _Numeri_ will panic on overflow in debug builds.
-    ```should_panic
-    use ordo::Numerus;
-    use std::convert::TryFrom;
-
-    let mmmcmxcix = Numerus::try_from(3999).unwrap();
-    let i = Numerus::try_from(1).unwrap();
-
-    /// panics
-    let nimis = mmmcmxcix + i;
-    ```
- */
+/// A [standard form](https://en.wikipedia.org/wiki/Roman_numerals#Standard_form) Roman numeral in
+/// the range `1..=3999` (__I__ to __MMMCMXCIX__).
+///
+/// _Numerus_ is an integer value type that represents a Roman numeral like __XVII__ or __IX__.
+/// _Numeri_ are unsigned integers with a limited range that display as Roman numerals.
+///
+/// Create _Numeri_ from integers using [`try_from()`](TryFrom) or
+/// [`try_into()`](std::convert::TryInto).  Get a string representation of a _Numerus_ using
+/// [`to_string()`](ToString) or [format!()].
+/// ```
+/// use ordo::Numerus;
+/// use std::convert::TryFrom;
+/// use std::convert::TryInto;
+///
+/// let xxvi = Numerus::try_from(26).unwrap();
+/// assert_eq!("XXVI", &xxvi.to_string());
+///
+/// let cxi: Numerus = 111.try_into().unwrap();
+/// assert_eq!("CXI", &format!("{}", cxi));
+/// ```
+///
+/// Create _Numeri_ from strings using [`from_str()`](FromStr) or [`str::parse()`].  Read the
+/// integer value of a _Numerus_ using [`from()`](From) or [`into()`](Into).
+/// ```
+/// use ordo::Numerus;
+/// use std::str::FromStr;
+///
+/// let xvii = Numerus::from_str("XVII").unwrap();
+/// assert_eq!(17, u16::from(xvii));
+///
+/// let xcix = "XCIX".parse::<Numerus>().unwrap();
+/// assert_eq!(99_u16, xcix.into());
+/// ```
+///
+/// _Numeri_ act like unsigned integers, implementing traits [Eq], [Ord], [Hash], [Add],
+/// [AddAssign], [Sub] and [SubAssign].
+/// ```
+/// use ordo::Numerus;
+/// use std::convert::TryFrom;
+///
+/// let xxxv = Numerus::try_from(35).unwrap();
+/// let xvii = "XVII".parse::<Numerus>().unwrap();
+/// let ix = Numerus::try_from(9).unwrap();
+///
+/// assert!(xxxv > ix);
+/// assert!(ix <= xvii);
+/// assert_ne!(xxxv, ix);
+///
+/// let xxvi = xxxv - ix;
+/// assert_eq!("XXVI", &xxvi.to_string());
+///
+/// let xxvi = xvii + ix;
+/// assert_eq!("XVII", &xvii.to_string());
+/// ```
+///
+/// Like other Rust integer types, _Numeri_ will panic on overflow in debug builds.
+/// ```should_panic
+/// use ordo::Numerus;
+/// use std::convert::TryFrom;
+///
+/// let mmmcmxcix = Numerus::try_from(3999).unwrap();
+/// let i = Numerus::try_from(1).unwrap();
+///
+/// /// panics
+/// let nimis = mmmcmxcix + i;
+/// ```
 #[derive(Copy, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct Numerus {
     vis: u16,
@@ -166,57 +162,44 @@ impl From<Numerus> for u16 {
     }
 }
 
-/// Invalid ([_irritus_](https://logeion.uchicago.edu/irritus)) error type for [FromStr].
-#[derive(Debug)]
-pub struct Irritus;
-
-impl Display for Irritus {
-    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(f, "irritus")
-    }
-}
-
-impl error::Error for Irritus {}
-
 impl FromStr for Numerus {
-    type Err = Irritus;
+    type Err = errors::Irritus;
 
-    /** Create a _Numerus_ from a string.
-    ```
-    use ordo::Numerus;
-    use std::str::FromStr;
-
-    let xvii = Numerus::from_str("XVII").unwrap();
-    assert_eq!(17_u16, xvii.into());
-
-    let xcix = "XCIX".parse::<Numerus>().unwrap();
-    assert_eq!(99_u16, xcix.into());
-    ```
-
-    This is a strict parse that only recognizes characters `MDCLXVI`.  Valid Roman numeral strings
-    must follow the [standard form](https://en.wikipedia.org/wiki/Roman_numerals#Standard_form)
-    rules.  For invalid strings, `Err(Irritus)` (_invalid_) is returned.
-    ```
-    use ordo::Numerus;
-    use std::str::FromStr;
-
-    /// whitespace is invalid
-    let result = Numerus::from_str(" XVI");
-    assert!(matches!(result, Err(Irritus)));
-
-    /// lower case is invalid
-    let result = Numerus::from_str("xvi");
-    assert!(matches!(result, Err(Irritus)));
-
-    /// punctuation is invalid
-    let result = Numerus::from_str("XVI.");
-    assert!(matches!(result, Err(Irritus)));
-
-    /// malformed Roman numeral
-    let result = Numerus::from_str("IIC");
-    assert!(matches!(result, Err(Irritus)));
-    ```
-     */
+    /// Create a _Numerus_ from a string.
+    /// ```
+    /// use ordo::Numerus;
+    /// use std::str::FromStr;
+    ///
+    /// let xvii = Numerus::from_str("XVII").unwrap();
+    /// assert_eq!(17_u16, xvii.into());
+    ///
+    /// let xcix = "XCIX".parse::<Numerus>().unwrap();
+    /// assert_eq!(99_u16, xcix.into());
+    /// ```
+    ///
+    /// This is a strict parse that only recognizes characters `MDCLXVI`.  Valid Roman numeral strings
+    /// must follow the [standard form](https://en.wikipedia.org/wiki/Roman_numerals#Standard_form)
+    /// rules.  For invalid strings, `Err(Irritus)` (_invalid_) is returned.
+    /// ```
+    /// use ordo::Numerus;
+    /// use std::str::FromStr;
+    ///
+    /// /// whitespace is invalid
+    /// let result = Numerus::from_str(" XVI");
+    /// assert!(matches!(result, Err(Irritus)));
+    ///
+    /// /// lower case is invalid
+    /// let result = Numerus::from_str("xvi");
+    /// assert!(matches!(result, Err(Irritus)));
+    ///
+    /// /// punctuation is invalid
+    /// let result = Numerus::from_str("XVI.");
+    /// assert!(matches!(result, Err(Irritus)));
+    ///
+    /// /// malformed Roman numeral
+    /// let result = Numerus::from_str("IIC");
+    /// assert!(matches!(result, Err(Irritus)));
+    /// ```
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let mut summa: u16 = 0;
         let mut prior: char = ' ';
@@ -234,45 +217,45 @@ impl FromStr for Numerus {
                 summa += match prior {
                     ' ' => 10,
                     'I' => 8,
-                    'V' => return Err(Irritus),
+                    'V' => return Err(errors::Irritus),
                     _ => 10,
                 };
             } else if ch == 'L' {
                 summa += match prior {
                     ' ' => 50,
-                    'I' => return Err(Irritus),
-                    'V' => return Err(Irritus),
+                    'I' => return Err(errors::Irritus),
+                    'V' => return Err(errors::Irritus),
                     'X' => 30,
                     _ => 50,
                 }
             } else if ch == 'C' {
                 summa += match prior {
                     ' ' => 100,
-                    'I' => return Err(Irritus),
-                    'V' => return Err(Irritus),
+                    'I' => return Err(errors::Irritus),
+                    'V' => return Err(errors::Irritus),
                     'X' => 80,
                     _ => 100,
                 }
             } else if ch == 'D' {
                 summa += match prior {
                     ' ' => 500,
-                    'I' => return Err(Irritus),
-                    'V' => return Err(Irritus),
-                    'X' => return Err(Irritus),
+                    'I' => return Err(errors::Irritus),
+                    'V' => return Err(errors::Irritus),
+                    'X' => return Err(errors::Irritus),
                     'C' => 300,
                     _ => 500,
                 }
             } else if ch == 'M' {
                 summa += match prior {
                     ' ' => 1000,
-                    'I' => return Err(Irritus),
-                    'V' => return Err(Irritus),
-                    'X' => return Err(Irritus),
+                    'I' => return Err(errors::Irritus),
+                    'V' => return Err(errors::Irritus),
+                    'X' => return Err(errors::Irritus),
                     'C' => 800,
                     _ => 1000,
                 }
             } else {
-                return Err(Irritus);
+                return Err(errors::Irritus);
             }
             prior = ch;
         }
@@ -280,7 +263,7 @@ impl FromStr for Numerus {
         if summa > 0 {
             Ok(Numerus { vis: summa })
         } else {
-            Err(Irritus)
+            Err(errors::Irritus)
         }
     }
 }
@@ -317,53 +300,38 @@ impl SubAssign<&Numerus> for Numerus {
     }
 }
 
-/** Too big ([_nimis_](https://logeion.uchicago.edu/nimis)) error type for [TryFrom].
-
-    Also returned for zero or smaller values.
- */
-#[derive(Debug)]
-pub struct Nimis;
-
-impl Display for Nimis {
-    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(f, "nimis")
-    }
-}
-
-impl error::Error for Nimis {}
 impl TryFrom<u16> for Numerus {
-    type Error = Nimis;
+    type Error = errors::Nimis;
 
-    /** Create a _Numerus_ from an integer.
-    ```
-    use ordo::Numerus;
-    use std::convert::TryFrom;
-    use std::convert::TryInto;
-
-    let xxvi = Numerus::try_from(26).unwrap();
-    assert_eq!("XXVI", &xxvi.to_string());
-
-    let cxi: Numerus = 111.try_into().unwrap();
-    assert_eq!("CXI", &cxi.to_string());
-    ```
-
-    If the integer is outside the range `1..=3999`, `Err(Nimis)` (_too much_) is returned.
-    ```
-    use ordo::{Numerus, Nimis};
-    use std::convert::TryFrom;
-
-    let result = Numerus::try_from(0);
-    assert!(matches!(result, Err(Nimis)));
-
-    let result = Numerus::try_from(4000);
-    assert!(matches!(result, Err(Nimis)));
-    ```
-     */
+    /// Create a _Numerus_ from an integer.
+    /// ```
+    /// use ordo::Numerus;
+    /// use std::convert::TryFrom;
+    /// use std::convert::TryInto;
+    ///
+    /// let xxvi = Numerus::try_from(26).unwrap();
+    /// assert_eq!("XXVI", &xxvi.to_string());
+    ///
+    /// let cxi: Numerus = 111.try_into().unwrap();
+    /// assert_eq!("CXI", &cxi.to_string());
+    /// ```
+    ///
+    /// If the integer is outside the range `1..=3999`, `Err(Nimis)` (_too much_) is returned.
+    /// ```
+    /// use ordo::Numerus;
+    /// use std::convert::TryFrom;
+    ///
+    /// let result = Numerus::try_from(0);
+    /// assert!(matches!(result, Err(Nimis)));
+    ///
+    /// let result = Numerus::try_from(4000);
+    /// assert!(matches!(result, Err(Nimis)));
+    /// ```
     fn try_from(vis: u16) -> Result<Self, Self::Error> {
         if (1..=3999).contains(&vis) {
             Ok(Numerus { vis })
         } else {
-            Err(Nimis)
+            Err(errors::Nimis)
         }
     }
 }
