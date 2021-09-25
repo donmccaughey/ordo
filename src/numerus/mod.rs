@@ -1,11 +1,10 @@
-mod from_str;
-
-use crate::errors;
-use std::convert::TryFrom;
 use std::fmt;
 use std::fmt::Display;
 use std::fmt::Formatter;
 use std::ops::{Add, AddAssign, Sub, SubAssign};
+
+mod from_str;
+mod try_from;
 
 /// A [standard form](https://en.wikipedia.org/wiki/Roman_numerals#Standard_form) Roman numeral in
 /// the range `1..=3999` (__I__ to __MMMCMXCIX__).
@@ -13,7 +12,7 @@ use std::ops::{Add, AddAssign, Sub, SubAssign};
 /// _Numerus_ is an integer value type that represents a Roman numeral like __XVII__ or __IX__.
 /// _Numeri_ are unsigned integers with a limited range that display as Roman numerals.
 ///
-/// Create _Numeri_ from integers using [`try_from()`](TryFrom) or
+/// Create _Numeri_ from integers using [`try_from()`](std::convert::TryFrom) or
 /// [`try_into()`](std::convert::TryInto).  Get a string representation of a _Numerus_ using
 /// [`to_string()`](ToString) or [`format!()`].
 /// ```
@@ -189,46 +188,11 @@ impl SubAssign<&Numerus> for Numerus {
     }
 }
 
-impl TryFrom<u16> for Numerus {
-    type Error = errors::Nimis;
-
-    /// Create a _Numerus_ from an integer.
-    /// ```
-    /// use ordo::Numerus;
-    /// use std::convert::TryFrom;
-    /// use std::convert::TryInto;
-    ///
-    /// let xxvi = Numerus::try_from(26).unwrap();
-    /// assert_eq!("XXVI", &xxvi.to_string());
-    ///
-    /// let cxi: Numerus = 111.try_into().unwrap();
-    /// assert_eq!("CXI", &cxi.to_string());
-    /// ```
-    ///
-    /// If the integer is outside the range `1..=3999`, `Err(Nimis)` (_too much_) is returned.
-    /// ```
-    /// use ordo::Numerus;
-    /// use std::convert::TryFrom;
-    ///
-    /// let result = Numerus::try_from(0);
-    /// assert!(matches!(result, Err(Nimis)));
-    ///
-    /// let result = Numerus::try_from(4000);
-    /// assert!(matches!(result, Err(Nimis)));
-    /// ```
-    fn try_from(vis: u16) -> Result<Self, Self::Error> {
-        if (1..=3999).contains(&vis) {
-            Ok(Numerus { vis })
-        } else {
-            Err(errors::Nimis)
-        }
-    }
-}
-
 #[cfg(test)]
 mod tests {
-    use crate::numerus::Numerus;
     use std::convert::TryFrom;
+
+    use crate::numerus::Numerus;
 
     #[test]
     fn test_add() {
@@ -439,22 +403,5 @@ mod tests {
         let xlii = Numerus::try_from(42).unwrap();
         let u: u16 = xlii.into();
         assert_eq!(42, u);
-    }
-
-    #[test]
-    fn test_try_from() {
-        let nihil = Numerus::try_from(0);
-        assert!(nihil.is_err());
-
-        let i = Numerus::try_from(1);
-        assert!(i.is_ok());
-        assert_eq!(1, i.unwrap().vis);
-
-        let mmmcmxcix = Numerus::try_from(3999);
-        assert!(mmmcmxcix.is_ok());
-        assert_eq!(3999, mmmcmxcix.unwrap().vis);
-
-        let mmmm = Numerus::try_from(4000);
-        assert!(mmmm.is_err());
     }
 }
