@@ -9,6 +9,8 @@ mod try_from;
 
 #[cfg(test)]
 mod from_str_tests;
+#[cfg(test)]
+mod try_from_tests;
 
 /// A [standard form](https://en.wikipedia.org/wiki/Roman_numerals#Standard_form) Roman numeral in
 /// the range `1..=3999` (__I__ to __MMMCMXCIX__).
