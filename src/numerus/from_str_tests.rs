@@ -1,3 +1,4 @@
+use crate::errors::Irritus;
 use crate::numerus::Numerus;
 
 #[test]
@@ -77,6 +78,7 @@ fn test_from_str_incompositus() {
 fn test_from_str_irritus() {
     let irriti = ["", "A", "B", "E", "F", "G", "H", " I", "I ", "VX"];
     for irritus in irriti {
-        assert!(irritus.parse::<Numerus>().is_err());
+        let result = irritus.parse::<Numerus>();
+        assert!(matches!(result, Err(Irritus)));
     }
 }
