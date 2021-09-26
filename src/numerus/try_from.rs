@@ -38,3 +38,29 @@ impl TryFrom<u16> for Numerus {
         }
     }
 }
+
+impl TryFrom<Numerus> for i8 {
+    type Error = Nimis;
+
+    /// Get the i8 value of a _Numerus_.
+    fn try_from(n: Numerus) -> Result<Self, Self::Error> {
+        if n.vis <= (i8::MAX as u16) {
+            Ok(n.vis as i8)
+        } else {
+            Err(Nimis)
+        }
+    }
+}
+
+impl TryFrom<Numerus> for u8 {
+    type Error = Nimis;
+
+    /// Get the u8 value of a _Numerus_.
+    fn try_from(n: Numerus) -> Result<Self, Self::Error> {
+        if n.vis <= (u8::MAX as u16) {
+            Ok(n.vis as u8)
+        } else {
+            Err(Nimis)
+        }
+    }
+}

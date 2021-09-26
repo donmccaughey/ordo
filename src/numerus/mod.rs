@@ -41,8 +41,8 @@ mod try_from_tests;
 /// assert_eq!("CXI", &format!("{}", cxi));
 /// ```
 ///
-/// Create _Numeri_ from strings using [`from_str()`](std::str::FromStr) or [`str::parse()`].  Read the
-/// integer value of a _Numerus_ using [`from()`](From) or [`into()`](Into).
+/// Create _Numeri_ from strings using [`from_str()`](std::str::FromStr) or [`str::parse()`].  Get
+/// the integer value of a _Numerus_ using [`from()`](From) or [`into()`](Into).
 /// ```
 /// use ordo::Numerus;
 /// use std::str::FromStr;
@@ -51,7 +51,7 @@ mod try_from_tests;
 /// assert_eq!(17, u16::from(xvii));
 ///
 /// let xcix = "XCIX".parse::<Numerus>().unwrap();
-/// assert_eq!(99_u16, xcix.into());
+/// assert_eq!(99, xcix.into());
 /// ```
 ///
 /// _Numeri_ act like unsigned integers, implementing traits [Eq], [Ord], [Hash], [std::ops::Add],
