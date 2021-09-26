@@ -90,3 +90,8 @@ mod try_from_tests;
 pub struct Numerus {
     vis: u16,
 }
+
+impl Numerus {
+    pub const MIN: Self = Numerus { vis: 1 };
+    pub const MAX: Self = Numerus { vis: 3999 };
+}
