@@ -17,4 +17,3 @@ fn test_try_from() {
     let mmmm = Numerus::try_from(4000);
     assert!(mmmm.is_err());
 }
-

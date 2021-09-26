@@ -1,16 +1,17 @@
+mod add;
+#[cfg(test)]
+mod add_tests;
+mod from_str;
+#[cfg(test)]
+mod from_str_tests;
+mod sub;
+mod try_from;
+#[cfg(test)]
+mod try_from_tests;
+
 use std::fmt;
 use std::fmt::Display;
 use std::fmt::Formatter;
-
-mod add;
-mod from_str;
-mod sub;
-mod try_from;
-
-#[cfg(test)]
-mod from_str_tests;
-#[cfg(test)]
-mod try_from_tests;
 
 /// A [standard form](https://en.wikipedia.org/wiki/Roman_numerals#Standard_form) Roman numeral in
 /// the range `1..=3999` (__I__ to __MMMCMXCIX__).
