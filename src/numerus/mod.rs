@@ -5,6 +5,8 @@ mod from_str;
 #[cfg(test)]
 mod from_str_tests;
 mod sub;
+#[cfg(test)]
+mod sub_tests;
 mod try_from;
 #[cfg(test)]
 mod try_from_tests;
