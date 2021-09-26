@@ -5,8 +5,12 @@ use crate::Numerus;
 
 impl Display for Numerus {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        debug_assert!(self.vis != 0);
-        debug_assert!(self.vis < 4000);
+        if self < &Numerus::MIN {
+            return write!(f, "nihil ({})", self.vis);
+        }
+        if self > &Numerus::MAX {
+            return write!(f, "nimis ({})", self.vis);
+        }
 
         let mut s = String::default();
         let mut reliquum = self.vis;
