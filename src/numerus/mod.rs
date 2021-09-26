@@ -1,6 +1,9 @@
 mod add;
 #[cfg(test)]
 mod add_tests;
+mod default;
+#[cfg(test)]
+mod default_tests;
 mod display;
 #[cfg(test)]
 mod display_tests;
@@ -86,21 +89,4 @@ mod try_from_tests;
 #[derive(Copy, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct Numerus {
     vis: u16,
-}
-
-impl Default for Numerus {
-    fn default() -> Self {
-        Numerus { vis: 1 }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use crate::numerus::Numerus;
-
-    #[test]
-    fn test_default() {
-        let n = Numerus::default();
-        assert_eq!("I", &n.to_string());
-    }
 }
