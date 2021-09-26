@@ -16,6 +16,8 @@ mod from_tests;
 mod sub;
 #[cfg(test)]
 mod sub_tests;
+#[cfg(test)]
+mod test;
 mod try_from;
 #[cfg(test)]
 mod try_from_tests;
