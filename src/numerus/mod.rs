@@ -78,13 +78,9 @@ mod try_from_tests;
 /// Like other Rust integer types, _Numeri_ will panic on overflow in debug builds.
 /// ```should_panic
 /// use ordo::Numerus;
-/// use std::convert::TryFrom;
-///
-/// let mmmcmxcix = Numerus::try_from(3999).unwrap();
-/// let i = Numerus::try_from(1).unwrap();
 ///
 /// /// panics
-/// let nimis = mmmcmxcix + i;
+/// let nimis = Numerus::MAX + Numerus::MIN;
 /// ```
 #[derive(Copy, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct Numerus {
@@ -92,6 +88,9 @@ pub struct Numerus {
 }
 
 impl Numerus {
+    /// The smallest _Numerus_ value of __I__ (1).
     pub const MIN: Self = Numerus { vis: 1 };
+
+    /// The largest _Numerus_ value of __MMMCMXCIX__ (3999).
     pub const MAX: Self = Numerus { vis: 3999 };
 }

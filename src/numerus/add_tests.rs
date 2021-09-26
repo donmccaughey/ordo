@@ -15,8 +15,8 @@ fn test_add() {
 #[test]
 #[should_panic]
 fn test_add_nimis() {
-    let mmmcmxcix = Numerus::try_from(3999).unwrap();
-    let i = Numerus::try_from(1).unwrap();
+    let mmmcmxcix = Numerus::MAX;
+    let i = Numerus::MIN;
 
     let _ = mmmcmxcix + i;
 }
@@ -44,8 +44,8 @@ fn test_add_assign() {
 #[test]
 #[should_panic]
 fn test_add_assign_nimis() {
-    let mut n = Numerus::try_from(3999).unwrap();
-    let i = Numerus::try_from(1).unwrap();
+    let mut n = Numerus::MAX;
+    let i = Numerus::MIN;
 
     n += i;
 }
