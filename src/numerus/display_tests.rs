@@ -58,6 +58,7 @@ fn test_to_strings() {
         (1918, "MCMXVIII"),
         (1954, "MCMLIV"),
         (2014, "MMXIV"),
+        (3888, "MMMDCCCLXXXVIII"),
         (3999, "MMMCMXCIX"),
     ];
     for (verus, expectans) in verus_expectans {

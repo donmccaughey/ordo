@@ -57,6 +57,7 @@ fn test_from_str() {
         ("MCMXVIII", 1918),
         ("MCMLIV", 1954),
         ("MMXIV", 2014),
+        ("MMMDCCCLXXXVIII", 3888),
         ("MMMCMXCIX", 3999),
     ];
     for (verus, expectans) in verus_expectans {
