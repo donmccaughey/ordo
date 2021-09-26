@@ -4,9 +4,12 @@ mod add_tests;
 mod display;
 #[cfg(test)]
 mod display_tests;
+mod from;
 mod from_str;
 #[cfg(test)]
 mod from_str_tests;
+#[cfg(test)]
+mod from_tests;
 mod sub;
 #[cfg(test)]
 mod sub_tests;
@@ -91,28 +94,13 @@ impl Default for Numerus {
     }
 }
 
-impl From<Numerus> for u16 {
-    fn from(n: Numerus) -> Self {
-        n.vis
-    }
-}
-
 #[cfg(test)]
 mod tests {
-    use std::convert::TryFrom;
-
     use crate::numerus::Numerus;
 
     #[test]
     fn test_default() {
         let n = Numerus::default();
         assert_eq!("I", &n.to_string());
-    }
-
-    #[test]
-    fn test_into_u16() {
-        let xlii = Numerus::try_from(42).unwrap();
-        let u: u16 = xlii.into();
-        assert_eq!(42, u);
     }
 }
