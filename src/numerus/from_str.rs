@@ -3,6 +3,47 @@ use crate::numerus::Numerus;
 
 use std::str::FromStr;
 
+static MILLIPI: [(&str, u16); 3] = [("MMM", 3000), ("MM", 2000), ("M", 1000)];
+
+static CENTUPLI: [(&str, u16); 10] = [
+    ("CM", 900),
+    ("DCCC", 800),
+    ("DCC", 700),
+    ("DC", 600),
+    ("D", 500),
+    ("CD", 400),
+    ("CCCC", 400),
+    ("CCC", 300),
+    ("CC", 200),
+    ("C", 100),
+];
+
+static DECUPLI: [(&str, u16); 10] = [
+    ("XC", 90),
+    ("LXXX", 80),
+    ("LXX", 70),
+    ("LX", 60),
+    ("L", 50),
+    ("XL", 40),
+    ("XXXX", 40),
+    ("XXX", 30),
+    ("XX", 20),
+    ("X", 10),
+];
+
+static SIMPLI: [(&str, u16); 10] = [
+    ("IX", 9),
+    ("VIII", 8),
+    ("VII", 7),
+    ("VI", 6),
+    ("V", 5),
+    ("IV", 4),
+    ("IIII", 4),
+    ("III", 3),
+    ("II", 2),
+    ("I", 1),
+];
+
 impl FromStr for Numerus {
     type Err = Irritus;
 
@@ -43,65 +84,24 @@ impl FromStr for Numerus {
     /// ```
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let mut summa: u16 = 0;
-        let mut prior: char = ' ';
+        let mut digiti = s;
 
-        for ch in s.chars() {
-            if ch == 'I' {
-                summa += 1;
-            } else if ch == 'V' {
-                if prior == 'I' {
-                    summa += 3;
-                } else {
-                    summa += 5;
+        let mut minue = |positus: &[(&str, u16)]| {
+            for (litterae, vis) in positus {
+                if let Some(s) = digiti.strip_prefix(litterae) {
+                    summa += vis;
+                    digiti = s;
+                    break;
                 }
-            } else if ch == 'X' {
-                summa += match prior {
-                    ' ' => 10,
-                    'I' => 8,
-                    'V' => return Err(Irritus),
-                    _ => 10,
-                };
-            } else if ch == 'L' {
-                summa += match prior {
-                    ' ' => 50,
-                    'I' => return Err(Irritus),
-                    'V' => return Err(Irritus),
-                    'X' => 30,
-                    _ => 50,
-                }
-            } else if ch == 'C' {
-                summa += match prior {
-                    ' ' => 100,
-                    'I' => return Err(Irritus),
-                    'V' => return Err(Irritus),
-                    'X' => 80,
-                    _ => 100,
-                }
-            } else if ch == 'D' {
-                summa += match prior {
-                    ' ' => 500,
-                    'I' => return Err(Irritus),
-                    'V' => return Err(Irritus),
-                    'X' => return Err(Irritus),
-                    'C' => 300,
-                    _ => 500,
-                }
-            } else if ch == 'M' {
-                summa += match prior {
-                    ' ' => 1000,
-                    'I' => return Err(Irritus),
-                    'V' => return Err(Irritus),
-                    'X' => return Err(Irritus),
-                    'C' => 800,
-                    _ => 1000,
-                }
-            } else {
-                return Err(Irritus);
             }
-            prior = ch;
-        }
+        };
 
-        if summa > 0 {
+        minue(&MILLIPI);
+        minue(&CENTUPLI);
+        minue(&DECUPLI);
+        minue(&SIMPLI);
+
+        if digiti.is_empty() && summa > 0 {
             Ok(Numerus { vis: summa })
         } else {
             Err(Irritus)
