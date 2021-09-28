@@ -12,16 +12,28 @@ fn test_from_str() {
 
 #[test]
 fn test_from_str_incompositus() {
-    let incompositi = [("IIII", 4), ("XXXX", 40), ("CCCC", 400)];
-    for (verus, expectans) in incompositi {
-        let n = verus.parse::<Numerus>().unwrap();
-        assert_eq!(expectans, n.vis);
+    let incompositi = ["MMMM", "CCCC", "XXXX", "IIII"];
+    for incompositus in incompositi {
+        let result = incompositus.parse::<Numerus>();
+        assert!(matches!(result, Err(Irritus)));
     }
 }
 
 #[test]
-fn test_from_str_irritus() {
-    let irriti = ["", "A", "B", "E", "F", "G", "H", " I", "I ", "VX"];
+fn test_from_str_irritus_litterae() {
+    let irriti = [
+        "A", "B", "E", "F", "G", "H", "J", "K", "N", "O", "P", "Q", "R", "S", "T", "U", "W", "Y",
+        "Z", "c", "d", "i", "l", "m", "v", "x",
+    ];
+    for irritus in irriti {
+        let result = irritus.parse::<Numerus>();
+        assert!(matches!(result, Err(Irritus)));
+    }
+}
+
+#[test]
+fn test_from_str_irritus_formae() {
+    let irriti = ["", " I", "I ", "I.", "IA", "VX", "IL", "VL", "VIL", "CCM"];
     for irritus in irriti {
         let result = irritus.parse::<Numerus>();
         assert!(matches!(result, Err(Irritus)));
