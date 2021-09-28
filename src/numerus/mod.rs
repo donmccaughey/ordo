@@ -7,6 +7,9 @@ mod default_tests;
 mod display;
 #[cfg(test)]
 mod display_tests;
+mod div;
+#[cfg(test)]
+mod div_tests;
 mod from;
 mod from_str;
 #[cfg(test)]
@@ -60,8 +63,8 @@ mod try_from_tests;
 /// ```
 ///
 /// _Numeri_ act like unsigned integers, implementing traits [Eq], [Ord], [Hash], [std::ops::Add],
-/// [std::ops::AddAssign], [std::ops::Sub], [std::ops::SubAssign], [std::ops::Mul] and
-/// [std::ops::MulAssign].
+/// [std::ops::AddAssign], [std::ops::Sub], [std::ops::SubAssign], [std::ops::Mul],
+/// [std::ops::MulAssign], [std::ops::Div] and [std::ops::DivAssign].
 /// ```
 /// use ordo::Numerus;
 /// use std::convert::TryFrom;
