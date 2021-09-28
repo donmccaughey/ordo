@@ -13,6 +13,9 @@ mod from_str;
 mod from_str_tests;
 #[cfg(test)]
 mod from_tests;
+mod mul;
+#[cfg(test)]
+mod mul_tests;
 mod sub;
 #[cfg(test)]
 mod sub_tests;
@@ -57,7 +60,8 @@ mod try_from_tests;
 /// ```
 ///
 /// _Numeri_ act like unsigned integers, implementing traits [Eq], [Ord], [Hash], [std::ops::Add],
-/// [std::ops::AddAssign], [std::ops::Sub] and [std::ops::SubAssign].
+/// [std::ops::AddAssign], [std::ops::Sub], [std::ops::SubAssign], [std::ops::Mul] and
+/// [std::ops::MulAssign].
 /// ```
 /// use ordo::Numerus;
 /// use std::convert::TryFrom;
