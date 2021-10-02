@@ -5,8 +5,10 @@
 
 pub mod errors;
 pub mod litterae;
+#[cfg(test)]
+mod litterae_tests;
 mod numerus;
-mod verbum;
+mod vocabulum;
 
 pub use numerus::Numerus;
-pub use verbum::Verbum;
+pub use vocabulum::Orthographia;
