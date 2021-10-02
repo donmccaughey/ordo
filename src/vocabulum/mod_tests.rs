@@ -1,5 +1,38 @@
 use crate::errors::Irritus;
 use crate::vocabulum::Orthographia;
+use std::collections::HashMap;
+
+#[test]
+fn test_clone() {
+    let og1 = Orthographia::try_from_canonical("vacca").unwrap();
+    let og2 = og1.clone();
+    assert_eq!(og1.s, og2.s);
+}
+
+#[test]
+fn test_eq() {
+    let og1 = Orthographia::try_from_canonical("h\u{014d}ra").unwrap();
+    let og2 = Orthographia::try_from_ascii("ho'ra").unwrap();
+    assert_eq!(og1, og2);
+}
+
+#[test]
+fn test_ord() {
+    let dies = Orthographia::try_from_ascii("die's").unwrap();
+    let hora = Orthographia::try_from_canonical("h\u{014d}ra").unwrap();
+    assert!(dies < hora);
+    assert!(hora > dies);
+}
+
+#[test]
+fn test_hash() {
+    let dies = Orthographia::try_from_ascii("die's").unwrap();
+    let hora = Orthographia::try_from_ascii("ho'ra").unwrap();
+    let mut dict = HashMap::new();
+    dict.insert(dies, "day");
+    dict.insert(hora, "hour");
+    assert_eq!(dict.len(), 2);
+}
 
 #[test]
 fn test_try_from_ascii() {

@@ -34,6 +34,7 @@ mod mod_tests;
 /// contexts, such as "Iūppiter", "Juppiter" or "IVPPITER".  The default
 /// display format uses both "v" and "u" for __V__ but only "i" for __I__; long
 /// vowel marks and compound word hyphens are omitted.
+#[derive(Clone, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct Orthographia {
     s: String,
 }
