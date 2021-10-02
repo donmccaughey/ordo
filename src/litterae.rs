@@ -63,7 +63,7 @@ pub fn to_long_vowel(ch: char) -> Option<char> {
 pub fn remove_macron(ch: char) -> char {
     if let Some(i) = LONG_VOWELS.iter().position(|&v| v == ch) {
         VOWELS[i]
-    } else{
+    } else {
         ch
     }
 }

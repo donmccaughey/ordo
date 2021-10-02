@@ -1,6 +1,9 @@
 use crate::errors::Irritus;
 use crate::litterae::*;
 
+mod debug;
+#[cfg(test)]
+mod debug_tests;
 mod default;
 #[cfg(test)]
 mod default_tests;
@@ -31,7 +34,6 @@ mod mod_tests;
 /// contexts, such as "Iūppiter", "Juppiter" or "IVPPITER".  The default
 /// display format uses both "v" and "u" for __V__ but only "i" for __I__; long
 /// vowel marks and compound word hyphens are omitted.
-#[derive(Debug)]
 pub struct Orthographia {
     s: String,
 }
@@ -158,7 +160,7 @@ impl Orthographia {
                             s.pop();
                             s.push(vowel);
                         }
-                    }
+                    },
                 },
                 _ => return Err(Irritus),
             }

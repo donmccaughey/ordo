@@ -17,7 +17,7 @@ impl Display for Orthographia {
                     if i == 0 || i == self.s.len() - 1 {
                         s.push(ch);
                     }
-                },
+                }
                 'J' => s.push('I'),
                 'j' => s.push('i'),
                 CAPITAL_LONG_A | CAPITAL_LONG_E | CAPITAL_LONG_I | CAPITAL_LONG_O
