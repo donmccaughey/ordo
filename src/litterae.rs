@@ -57,5 +57,13 @@ static LONG_VOWELS: [char; 12] = [
 ];
 
 pub fn to_long_vowel(ch: char) -> Option<char> {
-    VOWELS.iter().position(|&x| x == ch).map(|i| LONG_VOWELS[i])
+    VOWELS.iter().position(|&v| v == ch).map(|i| LONG_VOWELS[i])
+}
+
+pub fn remove_macron(ch: char) -> char {
+    if let Some(i) = LONG_VOWELS.iter().position(|&v| v == ch) {
+        VOWELS[i]
+    } else{
+        ch
+    }
 }
