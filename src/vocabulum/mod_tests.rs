@@ -155,3 +155,96 @@ fn test_try_from_canonical() {
     let og = Orthographia::try_from_canonical("S.P.Q.R.");
     assert!(matches!(og, Err(Irritus)));
 }
+
+#[test]
+fn test_to_classical_format() {
+    // long vowels
+    let og = Orthographia::try_from_ascii("i'nfa'ns").unwrap();
+    assert_eq!("INFANS", og.to_classical_format());
+
+    // semivowel j, vowel i and initial capital
+    let og = Orthographia::try_from_ascii("Ju'ppiter").unwrap();
+    assert_eq!("IVPPITER", og.to_classical_format());
+
+    // semivowel j
+    let og = Orthographia::try_from_ascii("jam").unwrap();
+    assert_eq!("IAM", og.to_classical_format());
+
+    // semivowel v and vowel u
+    let og = Orthographia::try_from_ascii("ve'rum").unwrap();
+    assert_eq!("VERVM", og.to_classical_format());
+
+    // compound word
+    let og = Orthographia::try_from_ascii("duo-decim").unwrap();
+    assert_eq!("DVODECIM", og.to_classical_format());
+
+    // stem
+    let og = Orthographia::try_from_ascii("magn-").unwrap();
+    assert_eq!("MAGN-", og.to_classical_format());
+
+    // suffix
+    let og = Orthographia::try_from_ascii("-que").unwrap();
+    assert_eq!("-QVE", og.to_classical_format());
+}
+
+#[test]
+fn test_to_modern_format() {
+    // long vowels
+    let og = Orthographia::try_from_ascii("i'nfa'ns").unwrap();
+    assert_eq!("infans", og.to_modern_format());
+
+    // semivowel j, vowel i and initial capital
+    let og = Orthographia::try_from_ascii("Ju'ppiter").unwrap();
+    assert_eq!("Iuppiter", og.to_modern_format());
+
+    // semivowel j
+    let og = Orthographia::try_from_ascii("jam").unwrap();
+    assert_eq!("iam", og.to_modern_format());
+
+    // semivowel v and vowel u
+    let og = Orthographia::try_from_ascii("ve'rum").unwrap();
+    assert_eq!("verum", og.to_modern_format());
+
+    // compound word
+    let og = Orthographia::try_from_ascii("duo-decim").unwrap();
+    assert_eq!("duodecim", og.to_modern_format());
+
+    // stem
+    let og = Orthographia::try_from_ascii("magn-").unwrap();
+    assert_eq!("magn-", og.to_modern_format());
+
+    // suffix
+    let og = Orthographia::try_from_ascii("-que").unwrap();
+    assert_eq!("-que", og.to_modern_format());
+}
+
+#[test]
+fn test_to_teaching_format() {
+    // long vowels
+    let og = Orthographia::try_from_ascii("i'nfa'ns").unwrap();
+    assert_eq!("\u{012b}nf\u{0101}ns", og.to_teaching_format());
+
+    // semivowel j, vowel i and initial capital
+    let og = Orthographia::try_from_ascii("Ju'ppiter").unwrap();
+    assert_eq!("I\u{016b}ppiter", og.to_teaching_format());
+
+    // semivowel j
+    let og = Orthographia::try_from_ascii("jam").unwrap();
+    assert_eq!("iam", og.to_teaching_format());
+
+    // semivowel v and vowel u
+    let og = Orthographia::try_from_ascii("ve'rum").unwrap();
+    assert_eq!("v\u{0113}rum", og.to_teaching_format());
+
+    // compound word
+    let og = Orthographia::try_from_ascii("duo-decim").unwrap();
+    assert_eq!("duodecim", og.to_teaching_format());
+
+    // stem
+    let og = Orthographia::try_from_ascii("magn-").unwrap();
+    assert_eq!("magn-", og.to_teaching_format());
+
+    // suffix
+    let og = Orthographia::try_from_ascii("-que").unwrap();
+    assert_eq!("-que", og.to_teaching_format());
+}

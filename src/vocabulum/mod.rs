@@ -169,4 +169,76 @@ impl Orthographia {
         }
         Ok(Orthographia { s })
     }
+
+    /// Format an _Orthographia_ as a String in the classical way.
+    ///
+    /// The classical format uses only "v" __V__ and only "i" for __I__;  only
+    /// capital letters are used.  Long vowel marks and compound word hyphens
+    /// are omitted.
+    pub fn to_classical_format(&self) -> String {
+        let mut modern = String::with_capacity(self.s.len());
+        for (i, ch) in self.s.char_indices() {
+            let ch = to_capital(ch);
+            match ch {
+                '-' => {
+                    if i == 0 || i == self.s.len() - 1 {
+                        modern.push(ch);
+                    }
+                }
+                'J' => modern.push('I'),
+                'U' => modern.push('V'),
+                CAPITAL_LONG_U => modern.push('V'),
+                CAPITAL_LONG_A | CAPITAL_LONG_E | CAPITAL_LONG_I | CAPITAL_LONG_O
+                | CAPITAL_LONG_Y  => modern.push(remove_macron(ch)),
+                _ => modern.push(ch),
+            }
+        }
+        modern
+    }
+
+    /// Format an _Orthographia_ as a String in the common modern way.
+    ///
+    /// The common modern format uses both "v" and "u" for __V__ but only "i"
+    /// for __I__; long vowel marks and compound word hyphens are omitted.
+    pub fn to_modern_format(&self) -> String {
+        let mut modern = String::with_capacity(self.s.len());
+        for (i, ch) in self.s.char_indices() {
+            match ch {
+                '-' => {
+                    if i == 0 || i == self.s.len() - 1 {
+                        modern.push(ch);
+                    }
+                }
+                'J' => modern.push('I'),
+                'j' => modern.push('i'),
+                CAPITAL_LONG_A | CAPITAL_LONG_E | CAPITAL_LONG_I | CAPITAL_LONG_O
+                | CAPITAL_LONG_U | CAPITAL_LONG_Y | SMALL_LONG_A | SMALL_LONG_E | SMALL_LONG_I
+                | SMALL_LONG_O | SMALL_LONG_U | SMALL_LONG_Y => modern.push(remove_macron(ch)),
+                _ => modern.push(ch),
+            }
+        }
+        modern
+    }
+
+    /// Format an _Orthographia_ as a String for teaching.
+    ///
+    /// The teaching format uses both "v" and "u" for __V__ but only "i"
+    /// for __I__; long vowel marks are shown but compound word hyphens are
+    /// omitted.
+    pub fn to_teaching_format(&self) -> String {
+        let mut modern = String::with_capacity(self.s.len());
+        for (i, ch) in self.s.char_indices() {
+            match ch {
+                '-' => {
+                    if i == 0 || i == self.s.len() - 1 {
+                        modern.push(ch);
+                    }
+                }
+                'J' => modern.push('I'),
+                'j' => modern.push('i'),
+                _ => modern.push(ch),
+            }
+        }
+        modern
+    }
 }
