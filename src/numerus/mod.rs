@@ -16,6 +16,8 @@ mod from_str;
 mod from_str_tests;
 #[cfg(test)]
 mod from_tests;
+#[cfg(test)]
+mod mod_tests;
 mod mul;
 #[cfg(test)]
 mod mul_tests;
