@@ -5,8 +5,6 @@
 
 pub mod errors;
 pub mod litterae;
-#[cfg(test)]
-mod litterae_tests;
 mod numerus;
 mod vocabulum;
 

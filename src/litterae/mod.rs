@@ -1,5 +1,8 @@
 //! Useful Unicode characters
 
+#[cfg(test)]
+mod mod_tests;
+
 /// Precomposed `'Ā'` character
 pub const CAPITAL_LONG_A: char = '\u{0100}';
 

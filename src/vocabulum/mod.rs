@@ -189,7 +189,7 @@ impl Orthographia {
                 'U' => modern.push('V'),
                 CAPITAL_LONG_U => modern.push('V'),
                 CAPITAL_LONG_A | CAPITAL_LONG_E | CAPITAL_LONG_I | CAPITAL_LONG_O
-                | CAPITAL_LONG_Y  => modern.push(remove_macron(ch)),
+                | CAPITAL_LONG_Y => modern.push(remove_macron(ch)),
                 _ => modern.push(ch),
             }
         }
