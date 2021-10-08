@@ -88,11 +88,12 @@ impl Orthographia {
                 'a'..='v' | 'x'..='z' => s.push(ch),
                 '\'' => match prior {
                     None => return Err(Irritus),
-                    Some(prior) => match to_long_vowel(prior) {
-                        None => return Err(Irritus),
-                        Some(vowel) => {
+                    Some(prior) => {
+                        if is_short_vowel(prior) {
                             s.pop();
-                            s.push(vowel);
+                            s.push(to_long_vowel(prior));
+                        } else {
+                            return Err(Irritus);
                         }
                     },
                 },
@@ -155,11 +156,12 @@ impl Orthographia {
                 | SMALL_LONG_O | SMALL_LONG_U | SMALL_LONG_Y => s.push(ch),
                 MACRON => match prior {
                     None => return Err(Irritus),
-                    Some(prior) => match to_long_vowel(prior) {
-                        None => return Err(Irritus),
-                        Some(vowel) => {
+                    Some(prior) => {
+                        if is_short_vowel(prior) {
                             s.pop();
-                            s.push(vowel);
+                            s.push(to_long_vowel(prior));
+                        } else {
+                            return Err(Irritus);
                         }
                     },
                 },

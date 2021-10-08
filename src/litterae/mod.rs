@@ -55,6 +55,36 @@ pub const SMALL_LONG_Y: char = '\u{0233}';
 /// Combining macron character `'¯'`
 pub const MACRON: char = '\u{0304}';
 
+pub fn is_long_vowel(ch: char) -> bool {
+    ch == CAPITAL_LONG_A
+    || ch == SMALL_LONG_A
+    || ch == CAPITAL_LONG_E
+    || ch == SMALL_LONG_E
+    || ch == CAPITAL_LONG_I
+    || ch == SMALL_LONG_I
+    || ch == CAPITAL_LONG_O
+    || ch == SMALL_LONG_O
+    || ch == CAPITAL_LONG_U
+    || ch == SMALL_LONG_U
+    || ch == CAPITAL_LONG_Y
+    || ch == SMALL_LONG_Y
+}
+
+pub fn is_short_vowel(ch: char) -> bool {
+    ch == 'A'
+    || ch == 'E'
+    || ch == 'I'
+    || ch == 'O'
+    || ch == 'U'
+    || ch == 'Y'
+    || ch == 'a'
+    || ch == 'e'
+    || ch == 'i'
+    || ch == 'o'
+    || ch == 'u'
+    || ch == 'y'
+}
+
 pub fn to_capital(ch: char) -> char {
     match ch {
         SMALL_LONG_A => CAPITAL_LONG_A,
@@ -67,8 +97,8 @@ pub fn to_capital(ch: char) -> char {
     }
 }
 
-pub fn to_long_vowel(ch: char) -> Option<char> {
-    Some(match ch {
+pub fn to_long_vowel(ch: char) -> char {
+    match ch {
         'A' => CAPITAL_LONG_A,
         'E' => CAPITAL_LONG_E,
         'I' => CAPITAL_LONG_I,
@@ -81,8 +111,8 @@ pub fn to_long_vowel(ch: char) -> Option<char> {
         'o' => SMALL_LONG_O,
         'u' => SMALL_LONG_U,
         'y' => SMALL_LONG_Y,
-        _ => return None,
-    })
+        _ => ch,
+    }
 }
 
 pub fn remove_macron(ch: char) -> char {

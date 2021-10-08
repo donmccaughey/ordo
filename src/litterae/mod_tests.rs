@@ -1,6 +1,32 @@
 use crate::litterae::*;
 
 #[test]
+fn test_is_long_vowel() {
+    assert!(!is_long_vowel('A'));
+    assert!(is_long_vowel(CAPITAL_LONG_A));
+    assert!(!is_long_vowel('a'));
+    assert!(is_long_vowel(SMALL_LONG_A));
+
+    assert!(!is_long_vowel('Y'));
+    assert!(is_long_vowel(CAPITAL_LONG_Y));
+    assert!(!is_long_vowel('y'));
+    assert!(is_long_vowel(SMALL_LONG_Y));
+}
+
+#[test]
+fn test_is_short_vowel() {
+    assert!(is_short_vowel('A'));
+    assert!(!is_short_vowel(CAPITAL_LONG_A));
+    assert!(is_short_vowel('a'));
+    assert!(!is_short_vowel(SMALL_LONG_A));
+
+    assert!(is_short_vowel('Y'));
+    assert!(!is_short_vowel(CAPITAL_LONG_Y));
+    assert!(is_short_vowel('y'));
+    assert!(!is_short_vowel(SMALL_LONG_Y));
+}
+
+#[test]
 fn test_to_capital() {
     assert_eq!(to_capital('A'), 'A');
     assert_eq!(to_capital(CAPITAL_LONG_A), CAPITAL_LONG_A);
@@ -16,15 +42,15 @@ fn test_to_capital() {
 
 #[test]
 fn test_to_long_vowel() {
-    assert!(matches!(to_long_vowel('A'), Some(CAPITAL_LONG_A)));
-    assert!(matches!(to_long_vowel('Y'), Some(CAPITAL_LONG_Y)));
+    assert_eq!(to_long_vowel('A'), CAPITAL_LONG_A);
+    assert_eq!(to_long_vowel('Y'), CAPITAL_LONG_Y);
 
-    assert!(matches!(to_long_vowel('a'), Some(SMALL_LONG_A)));
-    assert!(matches!(to_long_vowel('y'), Some(SMALL_LONG_Y)));
+    assert_eq!(to_long_vowel('a'), SMALL_LONG_A);
+    assert_eq!(to_long_vowel('y'), SMALL_LONG_Y);
 
-    assert!(matches!(to_long_vowel('B'), None));
-    assert!(matches!(to_long_vowel('s'), None));
-    assert!(matches!(to_long_vowel('-'), None));
+    assert_eq!(to_long_vowel('B'), 'B');
+    assert_eq!(to_long_vowel('s'), 's');
+    assert_eq!(to_long_vowel('-'), '-');
 }
 
 #[test]
