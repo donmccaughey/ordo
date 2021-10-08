@@ -1,10 +1,20 @@
 //! Useful Unicode characters
 
-use std::iter::Peekable;
-use std::str::Chars;
+pub use all_caps::AllCaps;
+pub use char_transforms::CharTransforms;
+pub use consonant_i::ConsonantI;
+pub use no_compound_words::NoCompoundWords;
+pub use no_macrons::NoMacrons;
+pub use vowel_v::VowelV;
 
+mod all_caps;
+mod char_transforms;
+mod consonant_i;
 #[cfg(test)]
 mod mod_tests;
+mod no_compound_words;
+mod no_macrons;
+mod vowel_v;
 
 /// Precomposed `'Ā'` character
 pub const CAPITAL_LONG_A: char = '\u{0100}';
@@ -147,152 +157,5 @@ pub fn remove_macron(ch: char) -> char {
         VOWELS[i]
     } else {
         ch
-    }
-}
-
-pub trait CharTransforms: Iterator<Item = char> + Sized {
-    fn all_caps(self) -> AllCaps<Self> {
-        AllCaps::new(self)
-    }
-
-    fn consonant_i(self) -> ConsonantI<Self> {
-        ConsonantI::new(self)
-    }
-
-    fn vowel_v(self) -> VowelV<Self> {
-        VowelV::new(self)
-    }
-
-    fn no_compound_words(self) -> NoCompoundWords<Self> {
-        NoCompoundWords::new(self)
-    }
-
-    fn no_macrons(self) -> NoMacrons<Self> {
-        NoMacrons::new(self)
-    }
-}
-
-impl<'a> CharTransforms for Chars<'a> {}
-
-pub struct ConsonantI<I> {
-    iter: I,
-}
-
-impl<I: Iterator<Item = char>> ConsonantI<I> {
-    fn new(iter: I) -> ConsonantI<I> {
-        ConsonantI { iter }
-    }
-}
-
-impl<I: Iterator<Item = char>> CharTransforms for ConsonantI<I> {}
-
-impl<I: Iterator<Item = char>> Iterator for ConsonantI<I> {
-    type Item = char;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.iter.next().map(|ch| match ch {
-            'J' => 'I',
-            'j' => 'i',
-            _ => ch,
-        })
-    }
-}
-
-pub struct VowelV<I> {
-    iter: I,
-}
-
-impl<I: Iterator<Item = char>> VowelV<I> {
-    fn new(iter: I) -> VowelV<I> {
-        VowelV { iter }
-    }
-}
-
-impl<I: Iterator<Item = char>> CharTransforms for VowelV<I> {}
-
-impl<I: Iterator<Item = char>> Iterator for VowelV<I> {
-    type Item = char;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.iter.next().map(|ch| match ch {
-            'U' => 'V',
-            'u' => 'v',
-            CAPITAL_LONG_U => 'V',
-            SMALL_LONG_U => 'v',
-            _ => ch,
-        })
-    }
-}
-
-pub struct NoCompoundWords<I: Iterator<Item = char>> {
-    iter: Peekable<I>,
-    prior: Option<char>,
-}
-
-impl<I: Iterator<Item = char>> NoCompoundWords<I> {
-    fn new(iter: I) -> NoCompoundWords<I> {
-        NoCompoundWords {
-            iter: iter.peekable(),
-            prior: None,
-        }
-    }
-}
-
-impl<I: Iterator<Item = char>> CharTransforms for NoCompoundWords<I> {}
-
-impl<I: Iterator<Item = char>> Iterator for NoCompoundWords<I> {
-    type Item = char;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        let is_first = self.prior.is_none();
-        let mut ch = self.iter.next();
-        let is_last = self.iter.peek().is_none();
-
-        if !is_first && !is_last && matches!(ch, Some('-')) {
-            ch = self.iter.next();
-        }
-
-        self.prior = ch;
-        ch
-    }
-}
-
-pub struct NoMacrons<I> {
-    iter: I,
-}
-
-impl<I: Iterator<Item = char>> NoMacrons<I> {
-    fn new(iter: I) -> NoMacrons<I> {
-        NoMacrons { iter }
-    }
-}
-
-impl<I: Iterator<Item = char>> CharTransforms for NoMacrons<I> {}
-
-impl<I: Iterator<Item = char>> Iterator for NoMacrons<I> {
-    type Item = char;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.iter.next().map(remove_macron)
-    }
-}
-
-pub struct AllCaps<I> {
-    iter: I,
-}
-
-impl<I: Iterator<Item = char>> AllCaps<I> {
-    fn new(iter: I) -> AllCaps<I> {
-        AllCaps { iter }
-    }
-}
-
-impl<I: Iterator<Item = char>> CharTransforms for AllCaps<I> {}
-
-impl<I: Iterator<Item = char>> Iterator for AllCaps<I> {
-    type Item = char;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.iter.next().map(to_capital)
     }
 }
