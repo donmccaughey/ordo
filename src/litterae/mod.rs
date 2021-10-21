@@ -57,32 +57,32 @@ pub const MACRON: char = '\u{0304}';
 
 pub fn is_long_vowel(ch: char) -> bool {
     ch == CAPITAL_LONG_A
-    || ch == SMALL_LONG_A
-    || ch == CAPITAL_LONG_E
-    || ch == SMALL_LONG_E
-    || ch == CAPITAL_LONG_I
-    || ch == SMALL_LONG_I
-    || ch == CAPITAL_LONG_O
-    || ch == SMALL_LONG_O
-    || ch == CAPITAL_LONG_U
-    || ch == SMALL_LONG_U
-    || ch == CAPITAL_LONG_Y
-    || ch == SMALL_LONG_Y
+        || ch == SMALL_LONG_A
+        || ch == CAPITAL_LONG_E
+        || ch == SMALL_LONG_E
+        || ch == CAPITAL_LONG_I
+        || ch == SMALL_LONG_I
+        || ch == CAPITAL_LONG_O
+        || ch == SMALL_LONG_O
+        || ch == CAPITAL_LONG_U
+        || ch == SMALL_LONG_U
+        || ch == CAPITAL_LONG_Y
+        || ch == SMALL_LONG_Y
 }
 
 pub fn is_short_vowel(ch: char) -> bool {
     ch == 'A'
-    || ch == 'E'
-    || ch == 'I'
-    || ch == 'O'
-    || ch == 'U'
-    || ch == 'Y'
-    || ch == 'a'
-    || ch == 'e'
-    || ch == 'i'
-    || ch == 'o'
-    || ch == 'u'
-    || ch == 'y'
+        || ch == 'E'
+        || ch == 'I'
+        || ch == 'O'
+        || ch == 'U'
+        || ch == 'Y'
+        || ch == 'a'
+        || ch == 'e'
+        || ch == 'i'
+        || ch == 'o'
+        || ch == 'u'
+        || ch == 'y'
 }
 
 pub fn to_capital(ch: char) -> char {

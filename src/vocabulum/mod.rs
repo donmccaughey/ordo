@@ -95,7 +95,7 @@ impl Orthographia {
                         } else {
                             return Err(Irritus);
                         }
-                    },
+                    }
                 },
                 _ => return Err(Irritus),
             }
@@ -163,7 +163,7 @@ impl Orthographia {
                         } else {
                             return Err(Irritus);
                         }
-                    },
+                    }
                 },
                 _ => return Err(Irritus),
             }
