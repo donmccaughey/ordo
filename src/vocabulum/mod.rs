@@ -1,3 +1,5 @@
+use std::iter::Peekable;
+use std::str::Chars;
 use crate::errors::Irritus;
 use crate::litterae::*;
 
@@ -66,42 +68,15 @@ impl Orthographia {
     /// - "magn-" (stem of magnus)
     /// - "-que" (suffix, e.g. populusque)
     pub fn try_from_ascii(ascii: &str) -> Result<Orthographia, Irritus> {
-        if ascii.is_empty() {
-            return Err(Irritus);
-        }
-        let mut s = String::with_capacity(ascii.len());
-        let mut prior: Option<char> = None;
-        for ch in ascii.chars() {
-            match ch {
-                '-' => {
-                    if let Some('-') = prior {
-                        return Err(Irritus);
-                    }
-                    s.push(ch)
-                }
-                'A'..='V' | 'X'..='Z' => {
-                    if prior.is_some() {
-                        return Err(Irritus);
-                    }
-                    s.push(ch)
-                }
-                'a'..='v' | 'x'..='z' => s.push(ch),
-                '\'' => match prior {
-                    None => return Err(Irritus),
-                    Some(prior) => {
-                        if is_short_vowel(prior) {
-                            s.pop();
-                            s.push(to_long_vowel(prior));
-                        } else {
-                            return Err(Irritus);
-                        }
-                    }
-                },
-                _ => return Err(Irritus),
-            }
-            prior = Some(ch);
-        }
-        Ok(Orthographia { s })
+        ascii
+            .char_filter()
+            .not_empty()
+            .ascii_chars()
+            .initial_caps()
+            .long_vowel_ticks()
+            .solo_hyphens()
+            .collect::<Result<_, _>>()
+            .map(|s| Orthographia { s })
     }
 
     /// Create an _Orthographia_ from a canonical UTF-8 representation.
@@ -131,45 +106,15 @@ impl Orthographia {
     /// - "magn-" (stem of magnus)
     /// - "-que" (suffix, e.g. populusque)
     pub fn try_from_canonical(canonical: &str) -> Result<Orthographia, Irritus> {
-        if canonical.is_empty() {
-            return Err(Irritus);
-        }
-        let mut s = String::with_capacity(canonical.len());
-        let mut prior: Option<char> = None;
-        for ch in canonical.chars() {
-            match ch {
-                '-' => {
-                    if let Some('-') = prior {
-                        return Err(Irritus);
-                    }
-                    s.push(ch)
-                }
-                'A'..='V' | 'X'..='Z' => {
-                    if prior.is_some() {
-                        return Err(Irritus);
-                    }
-                    s.push(ch)
-                }
-                'a'..='v' | 'x'..='z' => s.push(ch),
-                CAPITAL_LONG_A | CAPITAL_LONG_E | CAPITAL_LONG_I | CAPITAL_LONG_O
-                | CAPITAL_LONG_U | CAPITAL_LONG_Y | SMALL_LONG_A | SMALL_LONG_E | SMALL_LONG_I
-                | SMALL_LONG_O | SMALL_LONG_U | SMALL_LONG_Y => s.push(ch),
-                MACRON => match prior {
-                    None => return Err(Irritus),
-                    Some(prior) => {
-                        if is_short_vowel(prior) {
-                            s.pop();
-                            s.push(to_long_vowel(prior));
-                        } else {
-                            return Err(Irritus);
-                        }
-                    }
-                },
-                _ => return Err(Irritus),
-            }
-            prior = Some(ch);
-        }
-        Ok(Orthographia { s })
+        canonical
+            .char_filter()
+            .not_empty()
+            .canonical_chars()
+            .initial_caps()
+            .long_vowel_macrons()
+            .solo_hyphens()
+            .collect::<Result<_, _>>()
+            .map(|s| Orthographia { s })
     }
 
     /// Format an _Orthographia_ as a String in the classical way.
@@ -210,3 +155,362 @@ impl Orthographia {
         self.s.chars().consonant_i().no_compound_words().collect()
     }
 }
+
+pub trait ToCharFilter<'a> {
+    fn char_filter(self) -> CharFilter<'a>;
+}
+
+impl<'a> ToCharFilter<'a> for &'a str {
+    fn char_filter(self) -> CharFilter<'a> {
+        CharFilter::new(self.chars())
+    }
+}
+
+pub trait CharFilters: Iterator<Item = Result<char, Irritus>> + Sized {
+    fn ascii_chars(self) -> AsciiChars<Self> {
+        AsciiChars::new(self)
+    }
+
+    fn canonical_chars(self) -> CanonicalChars<Self> {
+        CanonicalChars::new(self)
+    }
+
+    fn initial_caps(self) -> InitialCaps<Self> {
+        InitialCaps::new(self)
+    }
+
+    fn long_vowel_macrons(self) -> LongVowelMacrons<Self> {
+        LongVowelMacrons::new(self)
+    }
+
+    fn long_vowel_ticks(self) -> LongVowelTicks<Self> {
+        LongVowelTicks::new(self)
+    }
+
+    fn not_empty(self) -> NotEmpty<Self> {
+        NotEmpty::new(self)
+    }
+
+    fn solo_hyphens(self) -> SoloHyphens<Self> {
+        SoloHyphens::new(self)
+    }
+}
+
+pub struct CharFilter<'a> {
+    chars: Chars<'a>,
+}
+
+impl<'a> CharFilter<'a> {
+    pub fn new(chars: Chars<'a>) -> CharFilter<'a> {
+        CharFilter {
+            chars,
+        }
+    }
+}
+
+impl<'a> Iterator for CharFilter<'a> {
+    type Item = Result<char, Irritus>;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        match self.chars.next() {
+            None => None,
+            Some(ch) => Some(Ok(ch))
+        }
+    }
+}
+
+impl<'a> CharFilters for CharFilter<'a> {}
+
+pub struct AsciiChars<I> {
+    iter: I,
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> AsciiChars<I> {
+    pub fn new(iter: I) -> AsciiChars<I> {
+        AsciiChars {
+            iter,
+        }
+    }
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for AsciiChars<I> {
+    type Item = I::Item;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        match self.iter.next() {
+            None => None,
+            Some(result) => {
+                match result {
+                    Err(e) => Some(Err(e)),
+                    Ok(ch) => {
+                        match ch {
+                            '\'' | '-' => Some(Ok(ch)),
+                            'A'..='V' | 'X'..='Z' => Some(Ok(ch)),
+                            'a'..='v' | 'x'..='z' => Some(Ok(ch)),
+                            _ => Some(Err(Irritus)),
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> CharFilters for AsciiChars<I> {}
+
+pub struct CanonicalChars<I> {
+    iter: I,
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> CanonicalChars<I> {
+    pub fn new(iter: I) -> CanonicalChars<I> {
+        CanonicalChars {
+            iter,
+        }
+    }
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for CanonicalChars<I> {
+    type Item = I::Item;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        match self.iter.next() {
+            None => None,
+            Some(result) => {
+                match result {
+                    Err(e) => Some(Err(e)),
+                    Ok(ch) => {
+                        match ch {
+                            '\'' | '-' => Some(Ok(ch)),
+                            'A'..='V' | 'X'..='Z' => Some(Ok(ch)),
+                            'a'..='v' | 'x'..='z' => Some(Ok(ch)),
+                            CAPITAL_LONG_A | SMALL_LONG_A => Some(Ok(ch)),
+                            CAPITAL_LONG_E | SMALL_LONG_E => Some(Ok(ch)),
+                            CAPITAL_LONG_I | SMALL_LONG_I => Some(Ok(ch)),
+                            CAPITAL_LONG_O | SMALL_LONG_O => Some(Ok(ch)),
+                            CAPITAL_LONG_U | SMALL_LONG_U => Some(Ok(ch)),
+                            CAPITAL_LONG_Y | SMALL_LONG_Y => Some(Ok(ch)),
+                            MACRON => Some(Ok(ch)),
+                            _ => Some(Err(Irritus)),
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> CharFilters for CanonicalChars<I> {}
+
+pub struct InitialCaps<I> {
+    iter: I,
+    prior: Option<char>,
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> InitialCaps<I> {
+    pub fn new(iter: I) -> InitialCaps<I> {
+        InitialCaps {
+            iter,
+            prior: None,
+        }
+    }
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for InitialCaps<I> {
+    type Item = Result<char, Irritus>;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        match self.iter.next() {
+            None => None,
+            Some(result) => {
+                match result {
+                    Err(e) => Some(Err(e)),
+                    Ok(ch) => {
+                        match ch {
+                            'A'..='V' | 'X'..='Z' => {
+                                if self.prior.is_some() {
+                                    return Some(Err(Irritus));
+                                }
+                            },
+                            _ => (),
+                        }
+                        self.prior = Some(ch);
+                        Some(Ok(ch))
+                    }
+                }
+            }
+        }
+    }
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> CharFilters for InitialCaps<I> {}
+
+pub struct SoloHyphens<I> {
+    iter: I,
+    prior: Option<char>,
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> SoloHyphens<I> {
+    pub fn new(iter: I) -> SoloHyphens<I> {
+        SoloHyphens {
+            iter,
+            prior: None,
+        }
+    }
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for SoloHyphens<I> {
+    type Item = Result<char, Irritus>;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        return match self.iter.next() {
+            None => None,
+            Some(result) => {
+                match result {
+                    Err(e) => Some(Err(e)),
+                    Ok(ch) => {
+                        if ch == '-' {
+                            if let Some('-') = self.prior {
+                                return Some(Err(Irritus));
+                            }
+                        }
+                        self.prior = Some(ch);
+                        Some(Ok(ch))
+                    }
+                }
+            }
+        }
+    }
+}
+
+pub struct LongVowelMacrons<I: Iterator> {
+    iter: Peekable<I>,
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> LongVowelMacrons<I> {
+    pub fn new(iter: I) -> LongVowelMacrons<I> {
+        LongVowelMacrons {
+            iter: iter.peekable(),
+        }
+    }
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for LongVowelMacrons<I> {
+    type Item = I::Item;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        match self.iter.next() {
+            None => None,
+            Some(result) => {
+                match result {
+                    Err(e) => Some(Err(e)),
+                    Ok(ch) => {
+                        Some(
+                            if is_short_vowel(ch) {
+                                Ok(
+                                    if let Some(Ok(MACRON)) = self.iter.peek() {
+                                        self.iter.next();
+                                        to_long_vowel(ch)
+                                    } else {
+                                        ch
+                                    }
+                                )
+                            } else if ch == MACRON {
+                                Err(Irritus)
+                            } else {
+                                Ok(ch)
+                            }
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> CharFilters for LongVowelMacrons<I> {}
+
+pub struct LongVowelTicks<I: Iterator> {
+    iter: Peekable<I>,
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> LongVowelTicks<I> {
+    pub fn new(iter: I) -> LongVowelTicks<I> {
+        LongVowelTicks {
+            iter: iter.peekable(),
+        }
+    }
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for LongVowelTicks<I> {
+    type Item = I::Item;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        match self.iter.next() {
+            None => None,
+            Some(result) => {
+                match result {
+                    Err(e) => Some(Err(e)),
+                    Ok(ch) => {
+                        Some(
+                            if is_short_vowel(ch) {
+                                Ok(
+                                    if let Some(Ok('\'')) = self.iter.peek() {
+                                        self.iter.next();
+                                        to_long_vowel(ch)
+                                    } else {
+                                        ch
+                                    }
+                                )
+                            } else if ch == '\'' {
+                                Err(Irritus)
+                            } else {
+                                Ok(ch)
+                            }
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> CharFilters for LongVowelTicks<I> {}
+
+pub struct NotEmpty<I> {
+    iter: I,
+    prior: Option<char>,
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> NotEmpty<I> {
+    pub fn new(iter: I) -> NotEmpty<I> {
+        NotEmpty {
+            iter,
+            prior: None,
+        }
+    }
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for NotEmpty<I> {
+    type Item = I::Item;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        match self.iter.next() {
+            None => {
+                if self.prior.is_none() {
+                    Some(Err(Irritus))
+                } else {
+                    None
+                }
+            }
+            Some(result) => {
+                if let Ok(ch) = result {
+                    self.prior = Some(ch);
+                }
+                Some(result)
+            }
+        }
+    }
+}
+
+impl<I: Iterator<Item = Result<char, Irritus>>> CharFilters for NotEmpty<I> {}
