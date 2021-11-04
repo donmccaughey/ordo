@@ -10,6 +10,7 @@ pub use vowel_v::VowelV;
 mod all_caps;
 mod char_transforms;
 mod consonant_i;
+pub mod filters;
 #[cfg(test)]
 mod mod_tests;
 mod no_compound_words;

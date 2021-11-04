@@ -2,6 +2,7 @@ use std::iter::Peekable;
 use std::str::Chars;
 use crate::errors::Irritus;
 use crate::litterae::*;
+use crate::litterae::filters::AsciiChars;
 
 mod debug;
 #[cfg(test)]
@@ -220,43 +221,6 @@ impl<'a> Iterator for CharFilter<'a> {
 }
 
 impl<'a> CharFilters for CharFilter<'a> {}
-
-pub struct AsciiChars<I> {
-    iter: I,
-}
-
-impl<I: Iterator<Item = Result<char, Irritus>>> AsciiChars<I> {
-    pub fn new(iter: I) -> AsciiChars<I> {
-        AsciiChars {
-            iter,
-        }
-    }
-}
-
-impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for AsciiChars<I> {
-    type Item = I::Item;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        match self.iter.next() {
-            None => None,
-            Some(result) => {
-                match result {
-                    Err(e) => Some(Err(e)),
-                    Ok(ch) => {
-                        match ch {
-                            '\'' | '-' => Some(Ok(ch)),
-                            'A'..='V' | 'X'..='Z' => Some(Ok(ch)),
-                            'a'..='v' | 'x'..='z' => Some(Ok(ch)),
-                            _ => Some(Err(Irritus)),
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-impl<I: Iterator<Item = Result<char, Irritus>>> CharFilters for AsciiChars<I> {}
 
 pub struct CanonicalChars<I> {
     iter: I,
