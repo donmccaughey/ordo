@@ -1,8 +1,8 @@
+use crate::errors::Irritus;
+use crate::litterae::filters::AsciiChars;
+use crate::litterae::*;
 use std::iter::Peekable;
 use std::str::Chars;
-use crate::errors::Irritus;
-use crate::litterae::*;
-use crate::litterae::filters::AsciiChars;
 
 mod debug;
 #[cfg(test)]
@@ -203,9 +203,7 @@ pub struct CharFilter<'a> {
 
 impl<'a> CharFilter<'a> {
     pub fn new(chars: Chars<'a>) -> CharFilter<'a> {
-        CharFilter {
-            chars,
-        }
+        CharFilter { chars }
     }
 }
 
@@ -225,9 +223,7 @@ pub struct CanonicalChars<I> {
 
 impl<I: Iterator<Item = Result<char, Irritus>>> CanonicalChars<I> {
     pub fn new(iter: I) -> CanonicalChars<I> {
-        CanonicalChars {
-            iter,
-        }
+        CanonicalChars { iter }
     }
 }
 
@@ -237,26 +233,22 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for CanonicalChars<I> {
     fn next(&mut self) -> Option<Self::Item> {
         match self.iter.next() {
             None => None,
-            Some(result) => {
-                match result {
-                    Err(e) => Some(Err(e)),
-                    Ok(ch) => {
-                        match ch {
-                            '\'' | '-' => Some(Ok(ch)),
-                            'A'..='V' | 'X'..='Z' => Some(Ok(ch)),
-                            'a'..='v' | 'x'..='z' => Some(Ok(ch)),
-                            CAPITAL_LONG_A | SMALL_LONG_A => Some(Ok(ch)),
-                            CAPITAL_LONG_E | SMALL_LONG_E => Some(Ok(ch)),
-                            CAPITAL_LONG_I | SMALL_LONG_I => Some(Ok(ch)),
-                            CAPITAL_LONG_O | SMALL_LONG_O => Some(Ok(ch)),
-                            CAPITAL_LONG_U | SMALL_LONG_U => Some(Ok(ch)),
-                            CAPITAL_LONG_Y | SMALL_LONG_Y => Some(Ok(ch)),
-                            MACRON => Some(Ok(ch)),
-                            _ => Some(Err(Irritus)),
-                        }
-                    }
-                }
-            }
+            Some(result) => match result {
+                Err(e) => Some(Err(e)),
+                Ok(ch) => match ch {
+                    '\'' | '-' => Some(Ok(ch)),
+                    'A'..='V' | 'X'..='Z' => Some(Ok(ch)),
+                    'a'..='v' | 'x'..='z' => Some(Ok(ch)),
+                    CAPITAL_LONG_A | SMALL_LONG_A => Some(Ok(ch)),
+                    CAPITAL_LONG_E | SMALL_LONG_E => Some(Ok(ch)),
+                    CAPITAL_LONG_I | SMALL_LONG_I => Some(Ok(ch)),
+                    CAPITAL_LONG_O | SMALL_LONG_O => Some(Ok(ch)),
+                    CAPITAL_LONG_U | SMALL_LONG_U => Some(Ok(ch)),
+                    CAPITAL_LONG_Y | SMALL_LONG_Y => Some(Ok(ch)),
+                    MACRON => Some(Ok(ch)),
+                    _ => Some(Err(Irritus)),
+                },
+            },
         }
     }
 }
@@ -270,10 +262,7 @@ pub struct InitialCaps<I> {
 
 impl<I: Iterator<Item = Result<char, Irritus>>> InitialCaps<I> {
     pub fn new(iter: I) -> InitialCaps<I> {
-        InitialCaps {
-            iter,
-            prior: None,
-        }
+        InitialCaps { iter, prior: None }
     }
 }
 
@@ -283,23 +272,21 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for InitialCaps<I> {
     fn next(&mut self) -> Option<Self::Item> {
         match self.iter.next() {
             None => None,
-            Some(result) => {
-                match result {
-                    Err(e) => Some(Err(e)),
-                    Ok(ch) => {
-                        match ch {
-                            'A'..='V' | 'X'..='Z' => {
-                                if self.prior.is_some() {
-                                    return Some(Err(Irritus));
-                                }
-                            },
-                            _ => (),
+            Some(result) => match result {
+                Err(e) => Some(Err(e)),
+                Ok(ch) => {
+                    match ch {
+                        'A'..='V' | 'X'..='Z' => {
+                            if self.prior.is_some() {
+                                return Some(Err(Irritus));
+                            }
                         }
-                        self.prior = Some(ch);
-                        Some(Ok(ch))
+                        _ => (),
                     }
+                    self.prior = Some(ch);
+                    Some(Ok(ch))
                 }
-            }
+            },
         }
     }
 }
@@ -313,10 +300,7 @@ pub struct SoloHyphens<I> {
 
 impl<I: Iterator<Item = Result<char, Irritus>>> SoloHyphens<I> {
     pub fn new(iter: I) -> SoloHyphens<I> {
-        SoloHyphens {
-            iter,
-            prior: None,
-        }
+        SoloHyphens { iter, prior: None }
     }
 }
 
@@ -326,20 +310,18 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for SoloHyphens<I> {
     fn next(&mut self) -> Option<Self::Item> {
         match self.iter.next() {
             None => None,
-            Some(result) => {
-                match result {
-                    Err(e) => Some(Err(e)),
-                    Ok(ch) => {
-                        if ch == '-' {
-                            if let Some('-') = self.prior {
-                                return Some(Err(Irritus));
-                            }
+            Some(result) => match result {
+                Err(e) => Some(Err(e)),
+                Ok(ch) => {
+                    if ch == '-' {
+                        if let Some('-') = self.prior {
+                            return Some(Err(Irritus));
                         }
-                        self.prior = Some(ch);
-                        Some(Ok(ch))
                     }
+                    self.prior = Some(ch);
+                    Some(Ok(ch))
                 }
-            }
+            },
         }
     }
 }
@@ -362,29 +344,21 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for LongVowelMacrons<I>
     fn next(&mut self) -> Option<Self::Item> {
         match self.iter.next() {
             None => None,
-            Some(result) => {
-                match result {
-                    Err(e) => Some(Err(e)),
-                    Ok(ch) => {
-                        Some(
-                            if is_short_vowel(ch) {
-                                Ok(
-                                    if let Some(Ok(MACRON)) = self.iter.peek() {
-                                        self.iter.next();
-                                        to_long_vowel(ch)
-                                    } else {
-                                        ch
-                                    }
-                                )
-                            } else if ch == MACRON {
-                                Err(Irritus)
-                            } else {
-                                Ok(ch)
-                            }
-                        )
-                    }
-                }
-            }
+            Some(result) => match result {
+                Err(e) => Some(Err(e)),
+                Ok(ch) => Some(if is_short_vowel(ch) {
+                    Ok(if let Some(Ok(MACRON)) = self.iter.peek() {
+                        self.iter.next();
+                        to_long_vowel(ch)
+                    } else {
+                        ch
+                    })
+                } else if ch == MACRON {
+                    Err(Irritus)
+                } else {
+                    Ok(ch)
+                }),
+            },
         }
     }
 }
@@ -409,29 +383,21 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for LongVowelTicks<I> {
     fn next(&mut self) -> Option<Self::Item> {
         match self.iter.next() {
             None => None,
-            Some(result) => {
-                match result {
-                    Err(e) => Some(Err(e)),
-                    Ok(ch) => {
-                        Some(
-                            if is_short_vowel(ch) {
-                                Ok(
-                                    if let Some(Ok('\'')) = self.iter.peek() {
-                                        self.iter.next();
-                                        to_long_vowel(ch)
-                                    } else {
-                                        ch
-                                    }
-                                )
-                            } else if ch == '\'' {
-                                Err(Irritus)
-                            } else {
-                                Ok(ch)
-                            }
-                        )
-                    }
-                }
-            }
+            Some(result) => match result {
+                Err(e) => Some(Err(e)),
+                Ok(ch) => Some(if is_short_vowel(ch) {
+                    Ok(if let Some(Ok('\'')) = self.iter.peek() {
+                        self.iter.next();
+                        to_long_vowel(ch)
+                    } else {
+                        ch
+                    })
+                } else if ch == '\'' {
+                    Err(Irritus)
+                } else {
+                    Ok(ch)
+                }),
+            },
         }
     }
 }
@@ -445,10 +411,7 @@ pub struct NotEmpty<I> {
 
 impl<I: Iterator<Item = Result<char, Irritus>>> NotEmpty<I> {
     pub fn new(iter: I) -> NotEmpty<I> {
-        NotEmpty {
-            iter,
-            prior: None,
-        }
+        NotEmpty { iter, prior: None }
     }
 }
 

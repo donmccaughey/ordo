@@ -7,9 +7,7 @@ pub struct AsciiChars<I> {
 
 impl<I: Iterator<Item = Result<char, Irritus>>> AsciiChars<I> {
     pub fn new(iter: I) -> AsciiChars<I> {
-        AsciiChars {
-            iter,
-        }
+        AsciiChars { iter }
     }
 }
 
@@ -19,19 +17,15 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for AsciiChars<I> {
     fn next(&mut self) -> Option<Self::Item> {
         match self.iter.next() {
             None => None,
-            Some(result) => {
-                match result {
-                    Err(e) => Some(Err(e)),
-                    Ok(ch) => {
-                        match ch {
-                            '\'' | '-' => Some(Ok(ch)),
-                            'A'..='V' | 'X'..='Z' => Some(Ok(ch)),
-                            'a'..='v' | 'x'..='z' => Some(Ok(ch)),
-                            _ => Some(Err(Irritus)),
-                        }
-                    }
-                }
-            }
+            Some(result) => match result {
+                Err(e) => Some(Err(e)),
+                Ok(ch) => match ch {
+                    '\'' | '-' => Some(Ok(ch)),
+                    'A'..='V' | 'X'..='Z' => Some(Ok(ch)),
+                    'a'..='v' | 'x'..='z' => Some(Ok(ch)),
+                    _ => Some(Err(Irritus)),
+                },
+            },
         }
     }
 }
