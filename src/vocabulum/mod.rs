@@ -213,10 +213,7 @@ impl<'a> Iterator for CharFilter<'a> {
     type Item = Result<char, Irritus>;
 
     fn next(&mut self) -> Option<Self::Item> {
-        match self.chars.next() {
-            None => None,
-            Some(ch) => Some(Ok(ch))
-        }
+        self.chars.next().map(Ok)
     }
 }
 
@@ -327,7 +324,7 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for SoloHyphens<I> {
     type Item = Result<char, Irritus>;
 
     fn next(&mut self) -> Option<Self::Item> {
-        return match self.iter.next() {
+        match self.iter.next() {
             None => None,
             Some(result) => {
                 match result {
