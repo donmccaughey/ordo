@@ -1,6 +1,7 @@
 use crate::errors::Irritus;
 use crate::litterae::filters::AsciiChars;
 use crate::litterae::filters::CanonicalChars;
+use crate::litterae::filters::InitialCaps;
 use crate::litterae::filters::SoloHyphens;
 use crate::litterae::*;
 use std::iter::Peekable;
@@ -218,44 +219,6 @@ impl<'a> Iterator for CharFilter<'a> {
 }
 
 impl<'a> CharFilters for CharFilter<'a> {}
-
-pub struct InitialCaps<I> {
-    iter: I,
-    prior: Option<char>,
-}
-
-impl<I: Iterator<Item = Result<char, Irritus>>> InitialCaps<I> {
-    pub fn new(iter: I) -> InitialCaps<I> {
-        InitialCaps { iter, prior: None }
-    }
-}
-
-impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for InitialCaps<I> {
-    type Item = Result<char, Irritus>;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        match self.iter.next() {
-            None => None,
-            Some(result) => match result {
-                Err(e) => Some(Err(e)),
-                Ok(ch) => {
-                    match ch {
-                        'A'..='V' | 'X'..='Z' => {
-                            if self.prior.is_some() {
-                                return Some(Err(Irritus));
-                            }
-                        }
-                        _ => (),
-                    }
-                    self.prior = Some(ch);
-                    Some(Ok(ch))
-                }
-            },
-        }
-    }
-}
-
-impl<I: Iterator<Item = Result<char, Irritus>>> CharFilters for InitialCaps<I> {}
 
 pub struct LongVowelMacrons<I: Iterator> {
     iter: Peekable<I>,
