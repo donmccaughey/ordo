@@ -1,12 +1,5 @@
 //! Useful Unicode characters
 
-pub use transforms::all_caps::AllCaps;
-pub use transforms::char_transforms::CharTransforms;
-pub use transforms::consonant_i::ConsonantI;
-pub use transforms::no_compound_words::NoCompoundWords;
-pub use transforms::no_macrons::NoMacrons;
-pub use transforms::vowel_v::VowelV;
-
 pub mod filters;
 #[cfg(test)]
 mod mod_tests;

@@ -1,5 +1,5 @@
 use crate::litterae;
-use crate::litterae::CharTransforms;
+use crate::litterae::transforms::CharTransforms;
 
 pub struct NoMacrons<I> {
     iter: I,

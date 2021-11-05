@@ -1,4 +1,5 @@
-use crate::litterae::{CharTransforms, CAPITAL_LONG_U, SMALL_LONG_U};
+use crate::litterae::transforms::CharTransforms;
+use crate::litterae::{CAPITAL_LONG_U, SMALL_LONG_U};
 
 pub struct VowelV<I> {
     iter: I,

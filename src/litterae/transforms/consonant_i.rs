@@ -1,4 +1,4 @@
-use crate::litterae::CharTransforms;
+use crate::litterae::transforms::CharTransforms;
 
 pub struct ConsonantI<I> {
     iter: I,

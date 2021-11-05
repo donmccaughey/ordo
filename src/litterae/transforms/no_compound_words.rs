@@ -1,4 +1,4 @@
-use crate::litterae::CharTransforms;
+use crate::litterae::transforms::CharTransforms;
 use std::iter::Peekable;
 
 pub struct NoCompoundWords<I: Iterator<Item = char>> {

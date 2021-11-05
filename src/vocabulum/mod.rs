@@ -1,6 +1,6 @@
 use crate::errors::Irritus;
 use crate::litterae::filters::*;
-use crate::litterae::*;
+use crate::litterae::transforms::*;
 
 mod debug;
 #[cfg(test)]
