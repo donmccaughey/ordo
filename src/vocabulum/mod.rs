@@ -1,7 +1,6 @@
 use crate::errors::Irritus;
 use crate::litterae::filters::*;
 use crate::litterae::*;
-use std::str::Chars;
 
 mod debug;
 #[cfg(test)]
@@ -195,23 +194,3 @@ pub trait CharFilters: Iterator<Item = Result<char, Irritus>> + Sized {
         SoloHyphens::new(self)
     }
 }
-
-pub struct CharFilter<'a> {
-    chars: Chars<'a>,
-}
-
-impl<'a> CharFilter<'a> {
-    pub fn new(chars: Chars<'a>) -> CharFilter<'a> {
-        CharFilter { chars }
-    }
-}
-
-impl<'a> Iterator for CharFilter<'a> {
-    type Item = Result<char, Irritus>;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.chars.next().map(Ok)
-    }
-}
-
-impl<'a> CharFilters for CharFilter<'a> {}
