@@ -7,6 +7,7 @@ pub use long_vowel_macrons::LongVowelMacrons;
 pub use long_vowel_ticks::LongVowelTicks;
 pub use not_empty::NotEmpty;
 pub use solo_hyphen::SoloHyphens;
+pub use to_char_filter::ToCharFilter;
 
 mod ascii_chars;
 mod canonical_chars;
@@ -17,3 +18,4 @@ mod long_vowel_macrons;
 mod long_vowel_ticks;
 mod not_empty;
 mod solo_hyphen;
+mod to_char_filter;

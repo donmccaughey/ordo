@@ -154,13 +154,3 @@ impl Orthographia {
         self.s.chars().consonant_i().no_compound_words().collect()
     }
 }
-
-pub trait ToCharFilter<'a> {
-    fn char_filter(self) -> CharFilter<'a>;
-}
-
-impl<'a> ToCharFilter<'a> for &'a str {
-    fn char_filter(self) -> CharFilter<'a> {
-        CharFilter::new(self.chars())
-    }
-}
