@@ -1,6 +1,6 @@
 use crate::errors::Irritus;
+use crate::litterae::filters::CharFilters;
 use crate::litterae::{is_short_vowel, to_long_vowel, MACRON};
-use crate::vocabulum::CharFilters;
 use std::iter::Peekable;
 
 pub struct LongVowelMacrons<I: Iterator> {

@@ -1,6 +1,6 @@
 use crate::errors::Irritus;
+use crate::litterae::filters::CharFilters;
 use crate::litterae::{is_short_vowel, to_long_vowel};
-use crate::vocabulum::CharFilters;
 use std::iter::Peekable;
 
 pub struct LongVowelTicks<I: Iterator> {

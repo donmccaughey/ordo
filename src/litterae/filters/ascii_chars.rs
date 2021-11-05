@@ -1,5 +1,5 @@
 use crate::errors::Irritus;
-use crate::vocabulum::CharFilters;
+use crate::litterae::filters::CharFilters;
 
 pub struct AsciiChars<I> {
     iter: I,
