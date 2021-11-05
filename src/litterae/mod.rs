@@ -1,21 +1,16 @@
 //! Useful Unicode characters
 
-pub use all_caps::AllCaps;
-pub use char_transforms::CharTransforms;
-pub use consonant_i::ConsonantI;
-pub use no_compound_words::NoCompoundWords;
-pub use no_macrons::NoMacrons;
-pub use vowel_v::VowelV;
+pub use transforms::all_caps::AllCaps;
+pub use transforms::char_transforms::CharTransforms;
+pub use transforms::consonant_i::ConsonantI;
+pub use transforms::no_compound_words::NoCompoundWords;
+pub use transforms::no_macrons::NoMacrons;
+pub use transforms::vowel_v::VowelV;
 
-mod all_caps;
-mod char_transforms;
-mod consonant_i;
 pub mod filters;
 #[cfg(test)]
 mod mod_tests;
-mod no_compound_words;
-mod no_macrons;
-mod vowel_v;
+pub mod transforms;
 
 /// Precomposed `'Ā'` character
 pub const CAPITAL_LONG_A: char = '\u{0100}';

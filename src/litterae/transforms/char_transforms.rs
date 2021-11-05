@@ -1,10 +1,10 @@
 use std::str::Chars;
 
-use crate::litterae::all_caps::AllCaps;
-use crate::litterae::consonant_i::ConsonantI;
-use crate::litterae::no_compound_words::NoCompoundWords;
-use crate::litterae::no_macrons::NoMacrons;
-use crate::litterae::vowel_v::VowelV;
+use crate::litterae::transforms::all_caps::AllCaps;
+use crate::litterae::transforms::consonant_i::ConsonantI;
+use crate::litterae::transforms::no_compound_words::NoCompoundWords;
+use crate::litterae::transforms::no_macrons::NoMacrons;
+use crate::litterae::transforms::vowel_v::VowelV;
 
 pub trait CharTransforms: Iterator<Item = char> + Sized {
     fn all_caps(self) -> AllCaps<Self> {
