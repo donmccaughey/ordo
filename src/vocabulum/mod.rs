@@ -1,8 +1,5 @@
 use crate::errors::Irritus;
-use crate::litterae::filters::AsciiChars;
-use crate::litterae::filters::CanonicalChars;
-use crate::litterae::filters::InitialCaps;
-use crate::litterae::filters::SoloHyphens;
+use crate::litterae::filters::*;
 use crate::litterae::*;
 use std::iter::Peekable;
 use std::str::Chars;
@@ -219,45 +216,6 @@ impl<'a> Iterator for CharFilter<'a> {
 }
 
 impl<'a> CharFilters for CharFilter<'a> {}
-
-pub struct LongVowelMacrons<I: Iterator> {
-    iter: Peekable<I>,
-}
-
-impl<I: Iterator<Item = Result<char, Irritus>>> LongVowelMacrons<I> {
-    pub fn new(iter: I) -> LongVowelMacrons<I> {
-        LongVowelMacrons {
-            iter: iter.peekable(),
-        }
-    }
-}
-
-impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for LongVowelMacrons<I> {
-    type Item = I::Item;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        match self.iter.next() {
-            None => None,
-            Some(result) => match result {
-                Err(e) => Some(Err(e)),
-                Ok(ch) => Some(if is_short_vowel(ch) {
-                    Ok(if let Some(Ok(MACRON)) = self.iter.peek() {
-                        self.iter.next();
-                        to_long_vowel(ch)
-                    } else {
-                        ch
-                    })
-                } else if ch == MACRON {
-                    Err(Irritus)
-                } else {
-                    Ok(ch)
-                }),
-            },
-        }
-    }
-}
-
-impl<I: Iterator<Item = Result<char, Irritus>>> CharFilters for LongVowelMacrons<I> {}
 
 pub struct LongVowelTicks<I: Iterator> {
     iter: Peekable<I>,
