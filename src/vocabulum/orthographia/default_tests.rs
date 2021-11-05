@@ -1,4 +1,4 @@
-use crate::vocabulum::Orthographia;
+use crate::vocabulum::orthographia::Orthographia;
 
 #[test]
 fn test_default() {

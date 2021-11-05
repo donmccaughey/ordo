@@ -1,5 +1,5 @@
 use crate::litterae::*;
-use crate::Orthographia;
+use crate::vocabulum::orthographia::Orthographia;
 use std::fmt::{Debug, Formatter};
 
 impl Debug for Orthographia {

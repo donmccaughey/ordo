@@ -1,5 +1,5 @@
 use crate::errors::Irritus;
-use crate::vocabulum::Orthographia;
+use crate::vocabulum::orthographia::Orthographia;
 use std::collections::HashMap;
 
 #[test]
