@@ -1,10 +1,10 @@
 use crate::errors::Irritus;
-use crate::litterae::filters::{
+use crate::iter::char::fallible::{
     AsciiChars, CanonicalChars, InitialCaps, LongVowelMacrons, LongVowelTicks, NotEmpty,
     SoloHyphens,
 };
 
-pub trait CharFilters: Iterator<Item = Result<char, Irritus>> + Sized {
+pub trait Iterators: Iterator<Item = Result<char, Irritus>> + Sized {
     fn ascii_chars(self) -> AsciiChars<Self> {
         AsciiChars::new(self)
     }

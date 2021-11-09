@@ -4,6 +4,7 @@
 //! `ordo` is made available under a BSD-style license; see the `LICENSE` file for details.
 
 pub mod errors;
+pub mod iter;
 pub mod litterae;
 mod numerus;
 mod orthographia;

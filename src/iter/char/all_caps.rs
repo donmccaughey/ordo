@@ -1,5 +1,5 @@
+use crate::iter::char::Iterators;
 use crate::litterae;
-use crate::litterae::transforms::CharTransforms;
 
 pub struct AllCaps<I> {
     iter: I,
@@ -11,7 +11,7 @@ impl<I: Iterator<Item = char>> AllCaps<I> {
     }
 }
 
-impl<I: Iterator<Item = char>> CharTransforms for AllCaps<I> {}
+impl<I: Iterator<Item = char>> Iterators for AllCaps<I> {}
 
 impl<I: Iterator<Item = char>> Iterator for AllCaps<I> {
     type Item = char;

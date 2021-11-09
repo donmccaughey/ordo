@@ -1,5 +1,5 @@
 use crate::errors::Irritus;
-use crate::litterae::filters::CharFilters;
+use crate::iter::char::fallible::Iterators;
 
 pub struct NotEmpty<I> {
     iter: I,
@@ -34,4 +34,4 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for NotEmpty<I> {
     }
 }
 
-impl<I: Iterator<Item = Result<char, Irritus>>> CharFilters for NotEmpty<I> {}
+impl<I: Iterator<Item = Result<char, Irritus>>> Iterators for NotEmpty<I> {}

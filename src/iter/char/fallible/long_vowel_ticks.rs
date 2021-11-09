@@ -1,5 +1,5 @@
 use crate::errors::Irritus;
-use crate::litterae::filters::CharFilters;
+use crate::iter::char::fallible::Iterators;
 use crate::litterae::{is_short_vowel, to_long_vowel};
 use std::iter::Peekable;
 
@@ -40,4 +40,4 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for LongVowelTicks<I> {
     }
 }
 
-impl<I: Iterator<Item = Result<char, Irritus>>> CharFilters for LongVowelTicks<I> {}
+impl<I: Iterator<Item = Result<char, Irritus>>> Iterators for LongVowelTicks<I> {}

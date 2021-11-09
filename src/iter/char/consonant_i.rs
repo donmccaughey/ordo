@@ -1,4 +1,4 @@
-use crate::litterae::transforms::CharTransforms;
+use crate::iter::char::Iterators;
 
 pub struct ConsonantI<I> {
     iter: I,
@@ -10,7 +10,7 @@ impl<I: Iterator<Item = char>> ConsonantI<I> {
     }
 }
 
-impl<I: Iterator<Item = char>> CharTransforms for ConsonantI<I> {}
+impl<I: Iterator<Item = char>> Iterators for ConsonantI<I> {}
 
 impl<I: Iterator<Item = char>> Iterator for ConsonantI<I> {
     type Item = char;

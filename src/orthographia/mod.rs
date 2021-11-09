@@ -1,6 +1,6 @@
 use crate::errors::Irritus;
-use crate::litterae::filters::{CharFilters, ToCharFilter};
-use crate::litterae::transforms::CharTransforms;
+use crate::iter::char::fallible::{Filter, Iterators};
+use crate::iter::char::Iterators as _;
 
 mod debug;
 #[cfg(test)]
@@ -68,7 +68,7 @@ impl Orthographia {
     /// - "-que" (suffix, e.g. populusque)
     pub fn try_from_ascii(ascii: &str) -> Result<Orthographia, Irritus> {
         ascii
-            .char_filter()
+            .filter()
             .not_empty()
             .ascii_chars()
             .initial_caps()
@@ -106,7 +106,7 @@ impl Orthographia {
     /// - "-que" (suffix, e.g. populusque)
     pub fn try_from_canonical(canonical: &str) -> Result<Orthographia, Irritus> {
         canonical
-            .char_filter()
+            .filter()
             .not_empty()
             .canonical_chars()
             .initial_caps()

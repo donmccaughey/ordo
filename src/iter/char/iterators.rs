@@ -1,12 +1,12 @@
 use std::str::Chars;
 
-use crate::litterae::transforms::all_caps::AllCaps;
-use crate::litterae::transforms::consonant_i::ConsonantI;
-use crate::litterae::transforms::no_compound_words::NoCompoundWords;
-use crate::litterae::transforms::no_macrons::NoMacrons;
-use crate::litterae::transforms::vowel_v::VowelV;
+use crate::iter::char::all_caps::AllCaps;
+use crate::iter::char::consonant_i::ConsonantI;
+use crate::iter::char::no_compound_words::NoCompoundWords;
+use crate::iter::char::no_macrons::NoMacrons;
+use crate::iter::char::vowel_v::VowelV;
 
-pub trait CharTransforms: Iterator<Item = char> + Sized {
+pub trait Iterators: Iterator<Item = char> + Sized {
     fn all_caps(self) -> AllCaps<Self> {
         AllCaps::new(self)
     }
@@ -28,4 +28,4 @@ pub trait CharTransforms: Iterator<Item = char> + Sized {
     }
 }
 
-impl<'a> CharTransforms for Chars<'a> {}
+impl<'a> Iterators for Chars<'a> {}

@@ -1,5 +1,5 @@
 use crate::errors::Irritus;
-use crate::litterae::filters::CharFilters;
+use crate::iter::char::fallible::Iterators;
 use crate::litterae::{
     CAPITAL_LONG_A, CAPITAL_LONG_E, CAPITAL_LONG_I, CAPITAL_LONG_O, CAPITAL_LONG_U, CAPITAL_LONG_Y,
     MACRON, SMALL_LONG_A, SMALL_LONG_E, SMALL_LONG_I, SMALL_LONG_O, SMALL_LONG_U, SMALL_LONG_Y,
@@ -41,4 +41,4 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for CanonicalChars<I> {
     }
 }
 
-impl<I: Iterator<Item = Result<char, Irritus>>> CharFilters for CanonicalChars<I> {}
+impl<I: Iterator<Item = Result<char, Irritus>>> Iterators for CanonicalChars<I> {}

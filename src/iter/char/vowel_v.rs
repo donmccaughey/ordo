@@ -1,4 +1,4 @@
-use crate::litterae::transforms::CharTransforms;
+use crate::iter::char::Iterators;
 use crate::litterae::{CAPITAL_LONG_U, SMALL_LONG_U};
 
 pub struct VowelV<I> {
@@ -11,7 +11,7 @@ impl<I: Iterator<Item = char>> VowelV<I> {
     }
 }
 
-impl<I: Iterator<Item = char>> CharTransforms for VowelV<I> {}
+impl<I: Iterator<Item = char>> Iterators for VowelV<I> {}
 
 impl<I: Iterator<Item = char>> Iterator for VowelV<I> {
     type Item = char;

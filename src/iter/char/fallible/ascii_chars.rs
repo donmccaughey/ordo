@@ -1,5 +1,5 @@
 use crate::errors::Irritus;
-use crate::litterae::filters::CharFilters;
+use crate::iter::char::fallible::Iterators;
 
 pub struct AsciiChars<I> {
     iter: I,
@@ -30,4 +30,4 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for AsciiChars<I> {
     }
 }
 
-impl<I: Iterator<Item = Result<char, Irritus>>> CharFilters for AsciiChars<I> {}
+impl<I: Iterator<Item = Result<char, Irritus>>> Iterators for AsciiChars<I> {}

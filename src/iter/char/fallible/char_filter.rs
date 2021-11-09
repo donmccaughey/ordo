@@ -1,5 +1,5 @@
 use crate::errors::Irritus;
-use crate::litterae::filters::CharFilters;
+use crate::iter::char::fallible::Iterators;
 use std::str::Chars;
 
 pub struct CharFilter<'a> {
@@ -20,4 +20,4 @@ impl<'a> Iterator for CharFilter<'a> {
     }
 }
 
-impl<'a> CharFilters for CharFilter<'a> {}
+impl<'a> Iterators for CharFilter<'a> {}

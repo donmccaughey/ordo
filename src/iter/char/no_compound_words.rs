@@ -1,4 +1,4 @@
-use crate::litterae::transforms::CharTransforms;
+use crate::iter::char::Iterators;
 use std::iter::Peekable;
 
 pub struct NoCompoundWords<I: Iterator<Item = char>> {
@@ -15,7 +15,7 @@ impl<I: Iterator<Item = char>> NoCompoundWords<I> {
     }
 }
 
-impl<I: Iterator<Item = char>> CharTransforms for NoCompoundWords<I> {}
+impl<I: Iterator<Item = char>> Iterators for NoCompoundWords<I> {}
 
 impl<I: Iterator<Item = char>> Iterator for NoCompoundWords<I> {
     type Item = char;

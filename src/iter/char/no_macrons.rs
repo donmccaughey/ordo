@@ -1,5 +1,5 @@
+use crate::iter::char::Iterators;
 use crate::litterae;
-use crate::litterae::transforms::CharTransforms;
 
 pub struct NoMacrons<I> {
     iter: I,
@@ -11,7 +11,7 @@ impl<I: Iterator<Item = char>> NoMacrons<I> {
     }
 }
 
-impl<I: Iterator<Item = char>> CharTransforms for NoMacrons<I> {}
+impl<I: Iterator<Item = char>> Iterators for NoMacrons<I> {}
 
 impl<I: Iterator<Item = char>> Iterator for NoMacrons<I> {
     type Item = char;
