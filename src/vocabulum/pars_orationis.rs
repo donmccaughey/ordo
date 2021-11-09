@@ -1,4 +1,6 @@
-pub enum ParsOrationis {
+use crate::vocabulum::coniunctio::Coniunctio;
+
+pub enum ParsOrationis<'a> {
     Nomen,
     Numerale,
     Pronomen,
@@ -6,5 +8,5 @@ pub enum ParsOrationis {
     Verbum,
     Adverbium,
     Praepositio,
-    Coniunctio,
+    Coniunctio(&'a Coniunctio),
 }
