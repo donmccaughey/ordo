@@ -1,9 +1,16 @@
 pub use crate::vocabulum::pars_orationis::ParsOrationis;
 use crate::Orthographia;
 
+mod casus;
 mod coniunctio;
 #[cfg(test)]
 mod coniunctio_tests;
+mod declinatio;
+mod genus;
+mod nomen;
+#[cfg(test)]
+mod nomen_tests;
+mod numerus;
 mod pars_orationis;
 
 pub trait Vocabulum {

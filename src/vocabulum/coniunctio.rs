@@ -37,7 +37,7 @@ impl Vocabulum for Coniunctio {
 }
 
 pub struct FormaConiunctionis {
-    coniunctio: *mut Coniunctio,
+    coniunctio: *const Coniunctio,
     orthographia: Orthographia,
 }
 
