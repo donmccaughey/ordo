@@ -1,4 +1,4 @@
-use crate::vocabulum::orthographia::Orthographia;
+use crate::orthographia::Orthographia;
 use std::fmt;
 use std::fmt::Display;
 use std::fmt::Formatter;

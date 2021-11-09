@@ -1,4 +1,4 @@
-use crate::vocabulum::orthographia::Orthographia;
+use crate::orthographia::Orthographia;
 
 impl Default for Orthographia {
     fn default() -> Self {

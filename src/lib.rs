@@ -6,7 +6,8 @@
 pub mod errors;
 pub mod litterae;
 mod numerus;
+mod orthographia;
 mod vocabulum;
 
 pub use numerus::Numerus;
-pub use vocabulum::Orthographia;
+pub use orthographia::Orthographia;
