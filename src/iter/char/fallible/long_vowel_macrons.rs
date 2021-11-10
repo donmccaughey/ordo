@@ -3,6 +3,7 @@ use crate::iter::char::fallible::Iterators;
 use crate::litterae::{is_short_vowel, to_long_vowel, MACRON};
 use std::iter::Peekable;
 
+/// Normalize combining macrons into precomposed long vowel characters.
 pub struct LongVowelMacrons<I: Iterator> {
     iter: Peekable<I>,
 }

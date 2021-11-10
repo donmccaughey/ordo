@@ -1,6 +1,7 @@
 use crate::errors::Irritus;
 use crate::iter::char::fallible::Iterators;
 
+/// Reject two or more adjacent hyphens.
 pub struct SoloHyphens<I> {
     iter: I,
     prior: Option<char>,

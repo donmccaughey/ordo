@@ -1,3 +1,5 @@
+//! Custom fallible iterators for `char` sequences.
+
 pub use ascii_chars::AsciiChars;
 pub use canonical_chars::CanonicalChars;
 pub use char_filter::CharFilter;

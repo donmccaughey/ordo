@@ -1,6 +1,7 @@
 use crate::iter::char::Iterators;
 use crate::litterae::{CAPITAL_LONG_U, SMALL_LONG_U};
 
+/// Transforms vowels `U` and `u` into `V` and `v` respectively.
 pub struct VowelV<I> {
     iter: I,
 }

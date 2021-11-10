@@ -1,5 +1,6 @@
 use crate::iter::char::fallible::CharFilter;
 
+/// Method for getting a fallible `char` iterator.
 pub trait Filter<'a> {
     fn filter(self) -> CharFilter<'a>;
 }

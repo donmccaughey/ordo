@@ -4,6 +4,7 @@ use crate::iter::char::fallible::{
     SoloHyphens,
 };
 
+/// Methods for chaining fallible `char` iterators together.
 pub trait Iterators: Iterator<Item = Result<char, Irritus>> + Sized {
     fn ascii_chars(self) -> AsciiChars<Self> {
         AsciiChars::new(self)

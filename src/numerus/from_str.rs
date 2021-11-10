@@ -63,21 +63,17 @@ impl FromStr for Numerus {
     /// use ordo::Numerus;
     /// use std::str::FromStr;
     ///
-    /// /// whitespace is invalid
-    /// let result = Numerus::from_str(" XVI");
-    /// assert!(matches!(result, Err(Irritus)));
+    /// let whitespace_is_invalid = Numerus::from_str(" XVI");
+    /// assert!(matches!(whitespace_is_invalid, Err(Irritus)));
     ///
-    /// /// lower case is invalid
-    /// let result = Numerus::from_str("xvi");
-    /// assert!(matches!(result, Err(Irritus)));
+    /// let lowercase_is_invalid = Numerus::from_str("xvi");
+    /// assert!(matches!(lowercase_is_invalid, Err(Irritus)));
     ///
-    /// /// punctuation is invalid
-    /// let result = Numerus::from_str("XVI.");
-    /// assert!(matches!(result, Err(Irritus)));
+    /// let punctuation_is_invalid = Numerus::from_str("XVI.");
+    /// assert!(matches!(punctuation_is_invalid, Err(Irritus)));
     ///
-    /// /// malformed Roman numeral
-    /// let result = Numerus::from_str("IIC");
-    /// assert!(matches!(result, Err(Irritus)));
+    /// let malformed = Numerus::from_str("IIC");
+    /// assert!(matches!(malformed, Err(Irritus)));
     /// ```
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let mut summa: u16 = 0;

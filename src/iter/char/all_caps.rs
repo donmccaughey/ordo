@@ -1,6 +1,7 @@
 use crate::iter::char::Iterators;
 use crate::litterae;
 
+/// Transforms each `char` in the sequence to an uppercase letter.
 pub struct AllCaps<I> {
     iter: I,
 }

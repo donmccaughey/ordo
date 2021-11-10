@@ -1,3 +1,5 @@
+//! Custom `char` iterators that extend [std::str::Chars].
+
 pub use all_caps::AllCaps;
 pub use consonant_i::ConsonantI;
 pub use iterators::Iterators;

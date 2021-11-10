@@ -13,12 +13,14 @@ mod nomen_tests;
 mod numerus;
 mod pars_orationis;
 
+/// A Latin word with all its forms.
 pub trait Vocabulum {
     fn formae(&self) -> Vec<&dyn Forma>;
     fn lemma(&self) -> &dyn Forma;
     fn pars_orationis(&self) -> ParsOrationis;
 }
 
+/// A particular form of a Latin word.
 pub trait Forma {
     fn orthographia(&self) -> &Orthographia;
     fn vocabulum(&self) -> &dyn Vocabulum;

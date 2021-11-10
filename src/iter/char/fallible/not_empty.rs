@@ -1,6 +1,7 @@
 use crate::errors::Irritus;
 use crate::iter::char::fallible::Iterators;
 
+/// Accept only non-empty `char` sequences.
 pub struct NotEmpty<I> {
     iter: I,
     prior: Option<char>,

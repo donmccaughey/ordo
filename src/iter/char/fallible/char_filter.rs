@@ -2,6 +2,7 @@ use crate::errors::Irritus;
 use crate::iter::char::fallible::Iterators;
 use std::str::Chars;
 
+/// Adapt a `Chars` iterator into a fallible `char` iterator.
 pub struct CharFilter<'a> {
     chars: Chars<'a>,
 }

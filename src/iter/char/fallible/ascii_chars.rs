@@ -1,6 +1,7 @@
 use crate::errors::Irritus;
 use crate::iter::char::fallible::Iterators;
 
+/// Accept only valid characters from the ASCII representation of Latin words.
 pub struct AsciiChars<I> {
     iter: I,
 }

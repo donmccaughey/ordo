@@ -14,7 +14,7 @@ mod display_tests;
 #[cfg(test)]
 mod mod_tests;
 
-/// A single form of a Latin word.
+/// The spelling of a single form of a Latin word.
 ///
 /// An _Orthographia_ ("spelling") is a specific spelling of one form of a
 /// Latin word.  It is a string-like immutable value type that encodes the word
@@ -49,7 +49,7 @@ impl Orthographia {
     ///     [apex](https://en.wikipedia.org/wiki/Apex_(diacritic))
     /// - `'j'` and `'v'` are used when __I__ and __V__ are consonants / semivowels
     /// - `'i'` and `'u'` are used when __I__ and __V__ represent vowels
-    /// - proper names start with a capital letter; all other letters are lower case
+    /// - proper names start with a capital letter; all other letters are lowercase
     /// - dipthongs like "ae" and "oe" are represented decomposed as separate letters
     /// - a hyphen between letters indicates a compound word
     /// - a hyphen at the end indicates that this is a word stem
@@ -82,12 +82,12 @@ impl Orthographia {
     ///
     /// The canonical string must follow these rules:
     /// - long vowels are represented by precomposed Unicode letters with
-    ///     macrons (`'Ā'`, `'Ē'`, etc. -- see [crate::litterae] for the list)
-    ///     or by the plain vowel followed by a combining macron character
-    ///     `'\u{0304}'`
+    ///     macrons (`'Ā'`, `'Ē'`, etc. -- see [ordo::litterae](crate::litterae)
+    ///     for the list) or by the plain vowel followed by a combining macron
+    ///     character `'\u{0304}'`
     /// - `'j'` and `'v'` are used where __I__ and __V__ represent consonants or semivowels
     /// - `'i'` and `'u'` are used where __I__ and __V__ represent vowels
-    /// - proper names start with a capital letter; all other letters are lower case
+    /// - proper names start with a capital letter; all other letters are lowercase
     /// - dipthongs like "ae" and "oe" are represented decomposed as separate letters
     /// - a hyphen between letters indicates a compound word
     /// - a hyphen at the end indicates that this is a word stem

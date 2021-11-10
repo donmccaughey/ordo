@@ -9,8 +9,7 @@ impl TryFrom<i8> for Numerus {
     /// Create a _Numerus_ from an i8 integer.
     /// ```
     /// use ordo::Numerus;
-    /// use std::convert::TryFrom;
-    /// use std::convert::TryInto;
+    /// use std::convert::{TryFrom, TryInto};
     ///
     /// let xxvi = Numerus::try_from(26_i8).unwrap();
     /// assert_eq!("XXVI", &xxvi.to_string());
@@ -19,7 +18,7 @@ impl TryFrom<i8> for Numerus {
     /// assert_eq!("CXI", &cxi.to_string());
     /// ```
     ///
-    /// If the integer is outside the range `1..=3999`, `Err(Nimis)` (_too much_) is returned.
+    /// If the integer is outside the range `1..=3999`, `Err(Nimis)` (_beyond measure_) is returned.
     /// ```
     /// use ordo::Numerus;
     /// use std::convert::TryFrom;
@@ -47,8 +46,7 @@ impl TryFrom<i16> for Numerus {
     /// Create a _Numerus_ from an i16 integer.
     /// ```
     /// use ordo::Numerus;
-    /// use std::convert::TryFrom;
-    /// use std::convert::TryInto;
+    /// use std::convert::{TryFrom, TryInto};
     ///
     /// let xxvi = Numerus::try_from(26_i16).unwrap();
     /// assert_eq!("XXVI", &xxvi.to_string());
@@ -57,7 +55,7 @@ impl TryFrom<i16> for Numerus {
     /// assert_eq!("CXI", &cxi.to_string());
     /// ```
     ///
-    /// If the integer is outside the range `1..=3999`, `Err(Nimis)` (_too much_) is returned.
+    /// If the integer is outside the range `1..=3999`, `Err(Nimis)` (_beyond measure_) is returned.
     /// ```
     /// use ordo::Numerus;
     /// use std::convert::TryFrom;
@@ -95,7 +93,7 @@ impl TryFrom<i32> for Numerus {
     /// assert_eq!("CXI", &cxi.to_string());
     /// ```
     ///
-    /// If the integer is outside the range `1..=3999`, `Err(Nimis)` (_too much_) is returned.
+    /// If the integer is outside the range `1..=3999`, `Err(Nimis)` (_beyond measure_) is returned.
     /// ```
     /// use ordo::Numerus;
     /// use std::convert::TryFrom;
@@ -133,7 +131,7 @@ impl TryFrom<u8> for Numerus {
     /// assert_eq!("CXI", &cxi.to_string());
     /// ```
     ///
-    /// If the integer is outside the range `1..=3999`, `Err(Nimis)` (_too much_) is returned.
+    /// If the integer is outside the range `1..=3999`, `Err(Nimis)` (_beyond measure_) is returned.
     /// ```
     /// use ordo::Numerus;
     /// use std::convert::TryFrom;
@@ -166,7 +164,7 @@ impl TryFrom<u16> for Numerus {
     /// assert_eq!("CXI", &cxi.to_string());
     /// ```
     ///
-    /// If the integer is outside the range `1..=3999`, `Err(Nimis)` (_too much_) is returned.
+    /// If the integer is outside the range `1..=3999`, `Err(Nimis)` (_beyond measure_) is returned.
     /// ```
     /// use ordo::Numerus;
     /// use std::convert::TryFrom;
@@ -202,7 +200,7 @@ impl TryFrom<u32> for Numerus {
     /// assert_eq!("CXI", &cxi.to_string());
     /// ```
     ///
-    /// If the integer is outside the range `1..=3999`, `Err(Nimis)` (_too much_) is returned.
+    /// If the integer is outside the range `1..=3999`, `Err(Nimis)` (_beyond measure_ is returned.
     /// ```
     /// use ordo::Numerus;
     /// use std::convert::TryFrom;
@@ -227,7 +225,8 @@ impl TryFrom<u32> for Numerus {
 impl TryFrom<Numerus> for i8 {
     type Error = Nimis;
 
-    /// Get the i8 value of a _Numerus_.
+    /// Get the i8 value of a _Numerus_.  If the _Numerus_ value is larger than
+    /// `i8::MAX`, `Err(Nimis)` (_beyond measure_) is returned.
     fn try_from(n: Numerus) -> Result<Self, Self::Error> {
         if n.vis <= (i8::MAX as u16) {
             Ok(n.vis as i8)
@@ -240,7 +239,8 @@ impl TryFrom<Numerus> for i8 {
 impl TryFrom<Numerus> for u8 {
     type Error = Nimis;
 
-    /// Get the u8 value of a _Numerus_.
+    /// Get the u8 value of a _Numerus_.  If the _Numerus_ value is larger than
+    /// `u8::MAX`, `Err(Nimis)` (_beyond measure_) is returned.
     fn try_from(n: Numerus) -> Result<Self, Self::Error> {
         if n.vis <= (u8::MAX as u16) {
             Ok(n.vis as u8)

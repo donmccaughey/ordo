@@ -3,6 +3,7 @@ use crate::iter::char::fallible::Iterators;
 use crate::litterae::{is_short_vowel, to_long_vowel};
 use std::iter::Peekable;
 
+/// Normalize trailing ASCII ticks (`'`) into precomposed long vowel characters.
 pub struct LongVowelTicks<I: Iterator> {
     iter: Peekable<I>,
 }

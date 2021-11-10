@@ -33,19 +33,19 @@ mod try_from;
 #[cfg(test)]
 mod try_from_tests;
 
-/// A [standard form](https://en.wikipedia.org/wiki/Roman_numerals#Standard_form) Roman numeral in
-/// the range `1..=3999` (__I__ to __MMMCMXCIX__).
+/// A [standard form](https://en.wikipedia.org/wiki/Roman_numerals#Standard_form)
+/// Roman numeral in the range `1..=3999` (__I__ to __MMMCMXCIX__).
 ///
-/// _Numerus_ is an integer value type that represents a Roman numeral like __XVII__ or __IX__.
-/// _Numeri_ are unsigned integers with a limited range that display as Roman numerals.
+/// _Numerus_ is an integer value type that represents a Roman numeral like
+/// __XVII__ or __IX__.  _Numeri_ are unsigned integers with a limited range
+/// that display as Roman numerals.
 ///
-/// Create _Numeri_ from integers using [`try_from()`](std::convert::TryFrom) or
-/// [`try_into()`](std::convert::TryInto).  Get a string representation of a _Numerus_ using
-/// [`to_string()`](ToString) or [`format!()`].
+/// Create _Numeri_ from integers using [`try_from()`](std::convert::TryFrom)
+/// or [`try_into()`](std::convert::TryInto).  Get a string representation of a
+/// _Numerus_ using [`to_string()`](ToString) or [`format!()`].
 /// ```
 /// use ordo::Numerus;
-/// use std::convert::TryFrom;
-/// use std::convert::TryInto;
+/// use std::convert::{TryFrom, TryInto};
 ///
 /// let xxvi = Numerus::try_from(26).unwrap();
 /// assert_eq!("XXVI", &xxvi.to_string());
@@ -54,8 +54,9 @@ mod try_from_tests;
 /// assert_eq!("CXI", &format!("{}", cxi));
 /// ```
 ///
-/// Create _Numeri_ from strings using [`from_str()`](std::str::FromStr) or [`str::parse()`].  Get
-/// the integer value of a _Numerus_ using [`from()`](From) or [`into()`](Into).
+/// Create _Numeri_ from strings using [`from_str()`](std::str::FromStr) or
+/// [`str::parse()`].  Get the integer value of a _Numerus_ using
+/// [`from()`](From) or [`into()`](Into).
 /// ```
 /// use ordo::Numerus;
 /// use std::str::FromStr;
@@ -67,10 +68,8 @@ mod try_from_tests;
 /// assert_eq!(99, xcix.into());
 /// ```
 ///
-/// _Numeri_ act like unsigned integers, implementing traits [Eq], [Ord], [Hash], [std::ops::Add],
-/// [std::ops::AddAssign], [std::ops::Sub], [std::ops::SubAssign], [std::ops::Mul],
-/// [std::ops::MulAssign], [std::ops::Div], [std::ops::DivAssign], [std::ops::Rem] and
-/// [std::ops::RemAssign].
+/// _Numeri_ act like unsigned integers, implementing traits [Eq], [Ord],
+/// [Hash] and common math operations `+`, `-`, `*`, `/` and `%`.
 /// ```
 /// use ordo::Numerus;
 /// use std::convert::TryFrom;
@@ -90,11 +89,10 @@ mod try_from_tests;
 /// assert_eq!("XVII", &xvii.to_string());
 /// ```
 ///
-/// Like other Rust integer types, _Numeri_ will panic on overflow in debug builds.
+/// Like Rust integers, _Numeri_ **panic on overflow** in debug builds.
 /// ```should_panic
 /// use ordo::Numerus;
 ///
-/// /// panics
 /// let nimis = Numerus::MAX + Numerus::MIN;
 /// ```
 #[derive(Copy, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]

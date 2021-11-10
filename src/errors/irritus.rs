@@ -2,8 +2,8 @@ use std::error;
 use std::fmt;
 use std::fmt::{Display, Formatter};
 
-/// "Invalid" ([_irritus_](https://logeion.uchicago.edu/irritus)) error used by
-/// [`FromStr`](core::str::FromStr) for [`Numerus`](crate::Numerus).
+/// "Invalid" ([_irritus_](https://logeion.uchicago.edu/irritus)) error that
+/// indicates invalid or malformed input.
 #[derive(Debug)]
 pub struct Irritus;
 

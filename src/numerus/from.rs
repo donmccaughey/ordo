@@ -6,6 +6,7 @@ use std::convert::TryInto;
 /// ```
 /// use ordo::Numerus;
 /// use std::str::FromStr;
+///
 /// let xlii = Numerus::from_str("XLII").unwrap();
 ///
 /// let a = i16::from(xlii);
@@ -25,6 +26,7 @@ impl From<Numerus> for i16 {
 /// ```
 /// use ordo::Numerus;
 /// use std::str::FromStr;
+///
 /// let xlii = Numerus::from_str("XLII").unwrap();
 ///
 /// let a = i32::from(xlii);
@@ -43,6 +45,7 @@ impl From<Numerus> for i32 {
 /// ```
 /// use ordo::Numerus;
 /// use std::str::FromStr;
+///
 /// let xlii = Numerus::from_str("XLII").unwrap();
 ///
 /// let a = i64::from(xlii);
@@ -61,6 +64,7 @@ impl From<Numerus> for i64 {
 /// ```
 /// use ordo::Numerus;
 /// use std::str::FromStr;
+///
 /// let xlii = Numerus::from_str("XLII").unwrap();
 ///
 /// let a = i128::from(xlii);
@@ -79,6 +83,7 @@ impl From<Numerus> for i128 {
 /// ```
 /// use ordo::Numerus;
 /// use std::str::FromStr;
+///
 /// let xlii = Numerus::from_str("XLII").unwrap();
 ///
 /// let a = isize::from(xlii);
@@ -98,6 +103,7 @@ impl From<Numerus> for isize {
 /// ```
 /// use ordo::Numerus;
 /// use std::str::FromStr;
+///
 /// let xlii = Numerus::from_str("XLII").unwrap();
 ///
 /// let a = u16::from(xlii);
@@ -116,6 +122,7 @@ impl From<Numerus> for u16 {
 /// ```
 /// use ordo::Numerus;
 /// use std::str::FromStr;
+///
 /// let xlii = Numerus::from_str("XLII").unwrap();
 ///
 /// let a = u32::from(xlii);
@@ -134,6 +141,7 @@ impl From<Numerus> for u32 {
 /// ```
 /// use ordo::Numerus;
 /// use std::str::FromStr;
+///
 /// let xlii = Numerus::from_str("XLII").unwrap();
 ///
 /// let a = u64::from(xlii);
@@ -152,6 +160,7 @@ impl From<Numerus> for u64 {
 /// ```
 /// use ordo::Numerus;
 /// use std::str::FromStr;
+///
 /// let xlii = Numerus::from_str("XLII").unwrap();
 ///
 /// let a = u128::from(xlii);
@@ -170,6 +179,7 @@ impl From<Numerus> for u128 {
 /// ```
 /// use ordo::Numerus;
 /// use std::str::FromStr;
+///
 /// let xlii = Numerus::from_str("XLII").unwrap();
 ///
 /// let a = usize::from(xlii);

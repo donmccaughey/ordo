@@ -1,6 +1,7 @@
 use crate::errors::Irritus;
 use crate::iter::char::fallible::Iterators;
 
+/// Accept uppercase as the first letter only.
 pub struct InitialCaps<I> {
     iter: I,
     prior: Option<char>,

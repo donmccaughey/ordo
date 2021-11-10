@@ -2,10 +2,8 @@ use std::error;
 use std::fmt;
 use std::fmt::{Display, Formatter};
 
-/// "Too big" ([_nimis_](https://logeion.uchicago.edu/nimis)) error used by
-/// [`TryFrom`](std::convert::TryFrom) for [`Numerus`](crate::Numerus).
-///
-/// Also returned for zero or smaller values.
+/// "Beyond measure" ([_nimis_](https://logeion.uchicago.edu/nimis)) error that
+/// indicates input outside the valid range.
 #[derive(Debug)]
 pub struct Nimis;
 

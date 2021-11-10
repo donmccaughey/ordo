@@ -1,6 +1,7 @@
 use crate::iter::char::Iterators;
 use crate::litterae;
 
+/// Strip macrons from the `char` sequence.
 pub struct NoMacrons<I> {
     iter: I,
 }

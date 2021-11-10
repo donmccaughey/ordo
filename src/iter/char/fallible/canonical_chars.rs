@@ -5,6 +5,7 @@ use crate::litterae::{
     MACRON, SMALL_LONG_A, SMALL_LONG_E, SMALL_LONG_I, SMALL_LONG_O, SMALL_LONG_U, SMALL_LONG_Y,
 };
 
+/// Accept only valid characters from the canonical representation of Latin words.
 pub struct CanonicalChars<I> {
     iter: I,
 }

@@ -1,4 +1,4 @@
-//! Error types
+//! Error types.
 
 mod irritus;
 mod nimis;
