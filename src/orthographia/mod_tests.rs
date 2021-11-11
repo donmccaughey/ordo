@@ -157,6 +157,37 @@ fn test_try_from_canonical() {
 }
 
 #[test]
+fn test_to_ascii_format() {
+    // long vowels
+    let og = Orthographia::try_from_ascii("i'nfa'ns").unwrap();
+    assert_eq!("i'nfa'ns", og.to_ascii_format());
+
+    // semivowel j, vowel i and initial capital
+    let og = Orthographia::try_from_ascii("Ju'ppiter").unwrap();
+    assert_eq!("Ju'ppiter", og.to_ascii_format());
+
+    // semivowel j
+    let og = Orthographia::try_from_ascii("jam").unwrap();
+    assert_eq!("jam", og.to_ascii_format());
+
+    // semivowel v and vowel u
+    let og = Orthographia::try_from_ascii("ve'rum").unwrap();
+    assert_eq!("ve'rum", og.to_ascii_format());
+
+    // compound word
+    let og = Orthographia::try_from_ascii("duo-decim").unwrap();
+    assert_eq!("duo-decim", og.to_ascii_format());
+
+    // stem
+    let og = Orthographia::try_from_ascii("magn-").unwrap();
+    assert_eq!("magn-", og.to_ascii_format());
+
+    // suffix
+    let og = Orthographia::try_from_ascii("-que").unwrap();
+    assert_eq!("-que", og.to_ascii_format());
+}
+
+#[test]
 fn test_to_classical_format() {
     // long vowels
     let og = Orthographia::try_from_ascii("i'nfa'ns").unwrap();

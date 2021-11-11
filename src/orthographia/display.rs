@@ -9,7 +9,6 @@ use std::fmt::Formatter;
 /// __I__; long vowel marks and compound word hyphens are omitted.
 impl Display for Orthographia {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        let modern = self.to_modern_format();
-        f.write_str(&modern)
+        f.write_str(&self.to_modern_format())
     }
 }

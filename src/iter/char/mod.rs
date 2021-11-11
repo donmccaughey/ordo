@@ -11,6 +11,10 @@ mod all_caps;
 mod consonant_i;
 pub mod fallible;
 mod iterators;
+mod long_vowel_ticks;
 mod no_compound_words;
 mod no_macrons;
 mod vowel_v;
+
+#[cfg(test)]
+mod long_vowel_ticks_tests;

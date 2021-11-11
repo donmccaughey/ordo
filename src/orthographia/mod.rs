@@ -113,6 +113,15 @@ impl Orthographia {
             .map(|s| Orthographia { s })
     }
 
+    /// Format an _Orthographia_ as a String using only ASCII characters.
+    ///
+    /// The ASCII format uses both "i" and "j" for __I__ as well as "v" and
+    /// "u" for __V__.  Long vowels are followed by a single quote (`'`) and
+    /// hyphens are preserved.
+    pub fn to_ascii_format(&self) -> String {
+        self.s.chars().long_vowel_ticks().collect()
+    }
+
     /// Format an _Orthographia_ as a String in the classical way.
     ///
     /// The classical format uses only "v" for __V__ and only "i" for __I__;

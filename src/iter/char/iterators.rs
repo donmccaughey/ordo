@@ -2,6 +2,7 @@ use std::str::Chars;
 
 use crate::iter::char::all_caps::AllCaps;
 use crate::iter::char::consonant_i::ConsonantI;
+use crate::iter::char::long_vowel_ticks::LongVowelTicks;
 use crate::iter::char::no_compound_words::NoCompoundWords;
 use crate::iter::char::no_macrons::NoMacrons;
 use crate::iter::char::vowel_v::VowelV;
@@ -16,8 +17,8 @@ pub trait Iterators: Iterator<Item = char> + Sized {
         ConsonantI::new(self)
     }
 
-    fn vowel_v(self) -> VowelV<Self> {
-        VowelV::new(self)
+    fn long_vowel_ticks(self) -> LongVowelTicks<Self> {
+        LongVowelTicks::new(self)
     }
 
     fn no_compound_words(self) -> NoCompoundWords<Self> {
@@ -26,6 +27,10 @@ pub trait Iterators: Iterator<Item = char> + Sized {
 
     fn no_macrons(self) -> NoMacrons<Self> {
         NoMacrons::new(self)
+    }
+
+    fn vowel_v(self) -> VowelV<Self> {
+        VowelV::new(self)
     }
 }
 
