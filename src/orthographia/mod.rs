@@ -5,9 +5,6 @@ use crate::iter::char::Iterators as _;
 mod debug;
 #[cfg(test)]
 mod debug_tests;
-mod default;
-#[cfg(test)]
-mod default_tests;
 mod display;
 #[cfg(test)]
 mod display_tests;

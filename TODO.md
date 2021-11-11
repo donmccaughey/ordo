@@ -1,6 +1,5 @@
 # TODO
 
-- remove `Default` for `Orthographia`
 - update `Debug` for `Orthographia` to use iterators
 - inline local variable in `Display` impl for `Orthographia`
 - add unit tests for `iter::char`
