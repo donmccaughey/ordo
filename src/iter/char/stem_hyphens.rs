@@ -1,7 +1,7 @@
 use crate::iter::char::Iterators;
 use std::iter::Peekable;
 
-/// Indicate stems with a `-` characters, like "equu-".
+/// Indicate word stems with a trailing `-` character.
 pub struct StemHyphens<I: Iterator<Item = char>> {
     iter: Peekable<I>,
 }

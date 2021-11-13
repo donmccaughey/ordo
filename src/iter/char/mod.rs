@@ -2,9 +2,13 @@
 
 pub use all_caps::AllCaps;
 pub use consonant_i::ConsonantI;
+pub use ending_hyphens::EndingHyphens;
 pub use iterators::Iterators;
+pub use long_vowel_ticks::LongVowelTicks;
 pub use no_compound_words::NoCompoundWords;
 pub use no_macrons::NoMacrons;
+pub use no_stem_ending_separators::NoStemEndingSeparators;
+pub use stem_hyphens::StemHyphens;
 pub use vowel_v::VowelV;
 
 mod all_caps;

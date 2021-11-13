@@ -1,7 +1,7 @@
 use crate::iter::char::Iterators;
 use std::iter::Peekable;
 
-/// Omits `-` characters that indicate compound words like "ex-īre".
+/// Omits `-` characters that indicate compound words.
 pub struct NoCompoundWords<I: Iterator<Item = char>> {
     iter: Peekable<I>,
     prior: Option<char>,

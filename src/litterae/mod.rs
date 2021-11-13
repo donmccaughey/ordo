@@ -1,5 +1,4 @@
-//! Useful Unicode character constants and `char` information and
-//! transformation functions.
+//! Unicode character constants and `char` functions.
 
 #[cfg(test)]
 mod mod_tests;

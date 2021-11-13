@@ -1,7 +1,7 @@
 use crate::iter::char::Iterators;
 
-/// Indicate word endings with a `-` characters, like "-us".
-pub struct EndingHyphens<I: Iterator<Item = char>> {
+/// Indicate word endings with a leading `-` character.
+pub struct EndingHyphens<I> {
     iter: I,
     prior: Option<char>,
 }

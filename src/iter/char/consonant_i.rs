@@ -1,7 +1,6 @@
 use crate::iter::char::Iterators;
 
-/// Transforms consonants / semivowels `J` and `j` into `I` and `i`
-/// respectively.
+/// Transforms semivowel __J__ into __I__.
 pub struct ConsonantI<I> {
     iter: I,
 }

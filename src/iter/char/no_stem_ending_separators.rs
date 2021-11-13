@@ -1,8 +1,7 @@
 use crate::iter::char::Iterators;
 use std::iter::Peekable;
 
-/// Omits `|` characters that separate word stems from endings like "nas|us"
-/// and complex endings like "-eri|mus".
+/// Omits `|` separators in words and complex endings.
 pub struct NoStemEndingSeparators<I: Iterator<Item = char>> {
     iter: Peekable<I>,
     prior: Option<char>,
