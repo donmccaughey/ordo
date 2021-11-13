@@ -1,7 +1,7 @@
 use crate::errors::Irritus;
 use crate::iter::char::fallible::{
     AsciiChars, CanonicalChars, InitialCaps, LongVowelMacrons, LongVowelTicks, NotEmpty,
-    SoloHyphens,
+    SoloHyphens, SoloPipes,
 };
 
 /// Methods for chaining fallible `char` iterators together.
@@ -32,5 +32,9 @@ pub trait Iterators: Iterator<Item = Result<char, Irritus>> + Sized {
 
     fn solo_hyphens(self) -> SoloHyphens<Self> {
         SoloHyphens::new(self)
+    }
+
+    fn solo_pipes(self) -> SoloPipes<Self> {
+        SoloPipes::new(self)
     }
 }

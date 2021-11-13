@@ -45,20 +45,36 @@ fn test_try_from_ascii() {
     assert_eq!("J\u{016b}ppiter", &og.s);
 
     // semivowel v and vowel u
-    let og = Orthographia::try_from_ascii("ve'rum").unwrap();
-    assert_eq!("v\u{0113}rum", &og.s);
+    let og = Orthographia::try_from_ascii("ve'r|um").unwrap();
+    assert_eq!("v\u{0113}r|um", &og.s);
 
     // compound word
     let og = Orthographia::try_from_ascii("duo-decim").unwrap();
     assert_eq!("duo-decim", &og.s);
 
-    // stem
-    let og = Orthographia::try_from_ascii("magn-").unwrap();
-    assert_eq!("magn-", &og.s);
-
     // suffix
     let og = Orthographia::try_from_ascii("-que").unwrap();
     assert_eq!("-que", &og.s);
+
+    // stem and ending separation
+    let og = Orthographia::try_from_ascii("leg|is").unwrap();
+    assert_eq!("leg|is", &og.s);
+
+    // stem and ending separation with additional vertical bar
+    let og = Orthographia::try_from_ascii("le'g|era'|mus").unwrap();
+    assert_eq!("l\u{0113}g|er\u{0101}|mus", &og.s);
+
+    // stem
+    let og = Orthographia::try_from_ascii("magn|").unwrap();
+    assert_eq!("magn|", &og.s);
+
+    // word ending
+    let og = Orthographia::try_from_ascii("|us").unwrap();
+    assert_eq!("|us", &og.s);
+
+    // word ending with additional separator
+    let og = Orthographia::try_from_ascii("|eri|mus").unwrap();
+    assert_eq!("|eri|mus", &og.s);
 
     // errors
 
@@ -76,6 +92,10 @@ fn test_try_from_ascii() {
 
     // double hyphen
     let og = Orthographia::try_from_ascii("ex--it");
+    assert!(matches!(og, Err(Irritus)));
+
+    // double vertical line
+    let og = Orthographia::try_from_ascii("can||it");
     assert!(matches!(og, Err(Irritus)));
 
     // non-initial capital letter
@@ -110,20 +130,36 @@ fn test_try_from_canonical() {
     assert_eq!("J\u{016b}ppiter", &og.s);
 
     // semivowel v and vowel u
-    let og = Orthographia::try_from_canonical("ve\u{0304}rum").unwrap();
-    assert_eq!("v\u{0113}rum", &og.s);
+    let og = Orthographia::try_from_canonical("ve\u{0304}r|um").unwrap();
+    assert_eq!("v\u{0113}r|um", &og.s);
 
     // compound word
     let og = Orthographia::try_from_canonical("duo-decim").unwrap();
     assert_eq!("duo-decim", &og.s);
 
-    // stem
-    let og = Orthographia::try_from_canonical("magn-").unwrap();
-    assert_eq!("magn-", &og.s);
-
     // suffix
     let og = Orthographia::try_from_canonical("-que").unwrap();
     assert_eq!("-que", &og.s);
+
+    // stem and ending separation
+    let og = Orthographia::try_from_canonical("leg|is").unwrap();
+    assert_eq!("leg|is", &og.s);
+
+    // stem and ending separation with additional vertical bar
+    let og = Orthographia::try_from_canonical("l\u{0113}g|er\u{0101}|mus").unwrap();
+    assert_eq!("l\u{0113}g|er\u{0101}|mus", &og.s);
+
+    // stem
+    let og = Orthographia::try_from_canonical("magn|").unwrap();
+    assert_eq!("magn|", &og.s);
+
+    // word ending
+    let og = Orthographia::try_from_canonical("|us").unwrap();
+    assert_eq!("|us", &og.s);
+
+    // word ending with additional separator
+    let og = Orthographia::try_from_canonical("|eri|mus").unwrap();
+    assert_eq!("|eri|mus", &og.s);
 
     // errors
 
@@ -141,6 +177,10 @@ fn test_try_from_canonical() {
 
     // double hyphen
     let og = Orthographia::try_from_canonical("ex--it");
+    assert!(matches!(og, Err(Irritus)));
+
+    // double vertical line
+    let og = Orthographia::try_from_canonical("can||it");
     assert!(matches!(og, Err(Irritus)));
 
     // non-initial capital letter
@@ -171,16 +211,24 @@ fn test_to_ascii_format() {
     assert_eq!("jam", og.to_ascii_format());
 
     // semivowel v and vowel u
-    let og = Orthographia::try_from_ascii("ve'rum").unwrap();
-    assert_eq!("ve'rum", og.to_ascii_format());
+    let og = Orthographia::try_from_ascii("ve'r|um").unwrap();
+    assert_eq!("ve'r|um", og.to_ascii_format());
 
     // compound word
     let og = Orthographia::try_from_ascii("duo-decim").unwrap();
     assert_eq!("duo-decim", og.to_ascii_format());
 
     // stem
-    let og = Orthographia::try_from_ascii("magn-").unwrap();
-    assert_eq!("magn-", og.to_ascii_format());
+    let og = Orthographia::try_from_ascii("magn|").unwrap();
+    assert_eq!("magn|", og.to_ascii_format());
+
+    // word ending
+    let og = Orthographia::try_from_ascii("|ibus").unwrap();
+    assert_eq!("|ibus", og.to_ascii_format());
+
+    // word ending with additional separator
+    let og = Orthographia::try_from_ascii("|eri|mus").unwrap();
+    assert_eq!("|eri|mus", og.to_ascii_format());
 
     // suffix
     let og = Orthographia::try_from_ascii("-que").unwrap();
@@ -202,7 +250,7 @@ fn test_to_classical_format() {
     assert_eq!("IAM", og.to_classical_format());
 
     // semivowel v and vowel u
-    let og = Orthographia::try_from_ascii("ve'rum").unwrap();
+    let og = Orthographia::try_from_ascii("ve'r|um").unwrap();
     assert_eq!("VERVM", og.to_classical_format());
 
     // compound word
@@ -210,8 +258,16 @@ fn test_to_classical_format() {
     assert_eq!("DVODECIM", og.to_classical_format());
 
     // stem
-    let og = Orthographia::try_from_ascii("magn-").unwrap();
+    let og = Orthographia::try_from_ascii("magn|").unwrap();
     assert_eq!("MAGN-", og.to_classical_format());
+
+    // word ending
+    let og = Orthographia::try_from_ascii("|ibus").unwrap();
+    assert_eq!("-IBVS", og.to_classical_format());
+
+    // word ending with additional separator
+    let og = Orthographia::try_from_ascii("|eri|mus").unwrap();
+    assert_eq!("-ERIMVS", og.to_classical_format());
 
     // suffix
     let og = Orthographia::try_from_ascii("-que").unwrap();
@@ -233,7 +289,7 @@ fn test_to_modern_format() {
     assert_eq!("iam", og.to_modern_format());
 
     // semivowel v and vowel u
-    let og = Orthographia::try_from_ascii("ve'rum").unwrap();
+    let og = Orthographia::try_from_ascii("ve'r|um").unwrap();
     assert_eq!("verum", og.to_modern_format());
 
     // compound word
@@ -241,8 +297,16 @@ fn test_to_modern_format() {
     assert_eq!("duodecim", og.to_modern_format());
 
     // stem
-    let og = Orthographia::try_from_ascii("magn-").unwrap();
+    let og = Orthographia::try_from_ascii("magn|").unwrap();
     assert_eq!("magn-", og.to_modern_format());
+
+    // word ending
+    let og = Orthographia::try_from_ascii("|ibus").unwrap();
+    assert_eq!("-ibus", og.to_modern_format());
+
+    // word ending with additional separator
+    let og = Orthographia::try_from_ascii("|eri|mus").unwrap();
+    assert_eq!("-erimus", og.to_modern_format());
 
     // suffix
     let og = Orthographia::try_from_ascii("-que").unwrap();
@@ -264,7 +328,7 @@ fn test_to_teaching_format() {
     assert_eq!("iam", og.to_teaching_format());
 
     // semivowel v and vowel u
-    let og = Orthographia::try_from_ascii("ve'rum").unwrap();
+    let og = Orthographia::try_from_ascii("ve'r|um").unwrap();
     assert_eq!("v\u{0113}rum", og.to_teaching_format());
 
     // compound word
@@ -272,8 +336,16 @@ fn test_to_teaching_format() {
     assert_eq!("duodecim", og.to_teaching_format());
 
     // stem
-    let og = Orthographia::try_from_ascii("magn-").unwrap();
+    let og = Orthographia::try_from_ascii("magn|").unwrap();
     assert_eq!("magn-", og.to_teaching_format());
+
+    // word ending
+    let og = Orthographia::try_from_ascii("|ibus").unwrap();
+    assert_eq!("-ibus", og.to_teaching_format());
+
+    // word ending with additional separator
+    let og = Orthographia::try_from_ascii("|eri|mus").unwrap();
+    assert_eq!("-erimus", og.to_teaching_format());
 
     // suffix
     let og = Orthographia::try_from_ascii("-que").unwrap();

@@ -9,11 +9,14 @@ pub use vowel_v::VowelV;
 
 mod all_caps;
 mod consonant_i;
+mod ending_hyphens;
 pub mod fallible;
 mod iterators;
 mod long_vowel_ticks;
 mod no_compound_words;
 mod no_macrons;
+mod no_stem_ending_separators;
+mod stem_hyphens;
 mod vowel_v;
 
 #[cfg(test)]

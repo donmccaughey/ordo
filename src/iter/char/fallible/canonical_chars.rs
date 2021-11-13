@@ -28,6 +28,7 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for CanonicalChars<I> {
                     '\'' | '-' => Some(Ok(ch)),
                     'A'..='V' | 'X'..='Z' => Some(Ok(ch)),
                     'a'..='v' | 'x'..='z' => Some(Ok(ch)),
+                    '|' => Some(Ok(ch)),
                     CAPITAL_LONG_A | SMALL_LONG_A => Some(Ok(ch)),
                     CAPITAL_LONG_E | SMALL_LONG_E => Some(Ok(ch)),
                     CAPITAL_LONG_I | SMALL_LONG_I => Some(Ok(ch)),

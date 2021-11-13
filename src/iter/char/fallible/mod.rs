@@ -10,6 +10,7 @@ pub use long_vowel_macrons::LongVowelMacrons;
 pub use long_vowel_ticks::LongVowelTicks;
 pub use not_empty::NotEmpty;
 pub use solo_hyphen::SoloHyphens;
+pub use solo_pipes::SoloPipes;
 
 mod ascii_chars;
 mod canonical_chars;
@@ -21,3 +22,4 @@ mod long_vowel_macrons;
 mod long_vowel_ticks;
 mod not_empty;
 mod solo_hyphen;
+mod solo_pipes;

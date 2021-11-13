@@ -24,13 +24,12 @@ impl<I: Iterator<Item = char>> Iterator for NoCompoundWords<I> {
     fn next(&mut self) -> Option<Self::Item> {
         let is_first = self.prior.is_none();
         let mut ch = self.iter.next();
+        self.prior = ch;
         let is_last = self.iter.peek().is_none();
 
         if !is_first && !is_last && matches!(ch, Some('-')) {
             ch = self.iter.next();
         }
-
-        self.prior = ch;
         ch
     }
 }

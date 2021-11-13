@@ -24,6 +24,7 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for AsciiChars<I> {
                     '\'' | '-' => Some(Ok(ch)),
                     'A'..='V' | 'X'..='Z' => Some(Ok(ch)),
                     'a'..='v' | 'x'..='z' => Some(Ok(ch)),
+                    '|' => Some(Ok(ch)),
                     _ => Some(Err(Irritus)),
                 },
             },
