@@ -24,4 +24,18 @@ mod stem_hyphens;
 mod vowel_v;
 
 #[cfg(test)]
+mod all_caps_tests;
+#[cfg(test)]
+mod consonant_i_tests;
+#[cfg(test)]
+mod ending_hyphens_tests;
+#[cfg(test)]
 mod long_vowel_ticks_tests;
+#[cfg(test)]
+mod no_compound_words_tests;
+#[cfg(test)]
+mod no_macrons_tests;
+#[cfg(test)]
+mod no_stem_ending_separators_tests;
+#[cfg(test)]
+mod stem_hyphens_tests;
