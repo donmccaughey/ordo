@@ -1,19 +1,19 @@
 use crate::iter::char::Iterators;
 
 /// Transforms semivowel __J__ into __I__.
-pub struct ConsonantI<I> {
+pub struct SemivowelI<I> {
     iter: I,
 }
 
-impl<I: Iterator<Item = char>> ConsonantI<I> {
-    pub fn new(iter: I) -> ConsonantI<I> {
-        ConsonantI { iter }
+impl<I: Iterator<Item = char>> SemivowelI<I> {
+    pub fn new(iter: I) -> SemivowelI<I> {
+        SemivowelI { iter }
     }
 }
 
-impl<I: Iterator<Item = char>> Iterators for ConsonantI<I> {}
+impl<I: Iterator<Item = char>> Iterators for SemivowelI<I> {}
 
-impl<I: Iterator<Item = char>> Iterator for ConsonantI<I> {
+impl<I: Iterator<Item = char>> Iterator for SemivowelI<I> {
     type Item = char;
 
     fn next(&mut self) -> Option<Self::Item> {

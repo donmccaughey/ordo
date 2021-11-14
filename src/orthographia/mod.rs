@@ -194,7 +194,7 @@ impl Orthographia {
         self.s
             .chars()
             .all_caps()
-            .consonant_i()
+            .semivowel_i()
             .vowel_v()
             .no_macrons()
             .no_compound_words()
@@ -213,7 +213,7 @@ impl Orthographia {
     pub fn to_modern_format(&self) -> String {
         self.s
             .chars()
-            .consonant_i()
+            .semivowel_i()
             .no_macrons()
             .no_compound_words()
             .ending_hyphens()
@@ -231,7 +231,7 @@ impl Orthographia {
     pub fn to_teaching_format(&self) -> String {
         self.s
             .chars()
-            .consonant_i()
+            .semivowel_i()
             .no_compound_words()
             .ending_hyphens()
             .no_stem_ending_separators()
