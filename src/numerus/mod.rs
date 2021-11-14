@@ -1,35 +1,36 @@
 mod add;
-#[cfg(test)]
-mod add_tests;
 mod default;
-#[cfg(test)]
-mod default_tests;
 mod display;
-#[cfg(test)]
-mod display_tests;
 mod div;
-#[cfg(test)]
-mod div_tests;
 mod from;
 mod from_str;
+mod mul;
+mod rem;
+mod sub;
+mod try_from;
+
+#[cfg(test)]
+mod add_tests;
+#[cfg(test)]
+mod default_tests;
+#[cfg(test)]
+mod display_tests;
+#[cfg(test)]
+mod div_tests;
 #[cfg(test)]
 mod from_str_tests;
 #[cfg(test)]
 mod from_tests;
 #[cfg(test)]
 mod mod_tests;
-mod mul;
 #[cfg(test)]
 mod mul_tests;
-mod rem;
 #[cfg(test)]
 mod rem_tests;
-mod sub;
 #[cfg(test)]
 mod sub_tests;
 #[cfg(test)]
 mod test;
-mod try_from;
 #[cfg(test)]
 mod try_from_tests;
 

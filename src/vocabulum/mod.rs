@@ -3,15 +3,16 @@ use crate::Orthographia;
 
 mod casus;
 mod coniunctio;
-#[cfg(test)]
-mod coniunctio_tests;
 mod declinatio;
 mod genus;
 mod nomen;
-#[cfg(test)]
-mod nomen_tests;
 mod numerus;
 mod pars_orationis;
+
+#[cfg(test)]
+mod coniunctio_tests;
+#[cfg(test)]
+mod nomen_tests;
 
 /// A Latin word with all its forms.
 pub trait Vocabulum {

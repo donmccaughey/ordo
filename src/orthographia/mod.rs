@@ -3,9 +3,10 @@ use crate::iter::char::fallible::{Filter, Iterators};
 use crate::iter::char::Iterators as _;
 
 mod debug;
+mod display;
+
 #[cfg(test)]
 mod debug_tests;
-mod display;
 #[cfg(test)]
 mod display_tests;
 #[cfg(test)]
