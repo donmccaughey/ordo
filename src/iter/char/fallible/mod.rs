@@ -2,8 +2,8 @@
 
 pub use ascii_chars::AsciiChars;
 pub use canonical_chars::CanonicalChars;
+pub use char_sequences::CharSequences;
 pub use fallible_chars::FallibleChars;
-pub use filter::Filter;
 pub use initial_caps::InitialCaps;
 pub use iterators::Iterators;
 pub use long_vowel_macrons::LongVowelMacrons;
@@ -14,8 +14,8 @@ pub use solo_pipes::SoloPipes;
 
 mod ascii_chars;
 mod canonical_chars;
+mod char_sequences;
 mod fallible_chars;
-mod filter;
 mod initial_caps;
 mod iterators;
 mod long_vowel_macrons;

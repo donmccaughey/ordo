@@ -1,5 +1,5 @@
 use crate::errors::Irritus;
-use crate::iter::char::fallible::{Filter, Iterators};
+use crate::iter::char::fallible::{CharSequences, Iterators};
 use crate::iter::char::Iterators as _;
 
 mod debug;
@@ -116,7 +116,7 @@ impl Orthographia {
     /// - `"|us"` (word ending -us)
     pub fn try_from_ascii(ascii: &str) -> Result<Orthographia, Irritus> {
         ascii
-            .filter()
+            .fallible_chars()
             .not_empty()
             .ascii_chars()
             .initial_caps()
@@ -165,7 +165,7 @@ impl Orthographia {
     /// - `"|us"` (word ending -us)
     pub fn try_from_canonical(canonical: &str) -> Result<Orthographia, Irritus> {
         canonical
-            .filter()
+            .fallible_chars()
             .not_empty()
             .canonical_chars()
             .initial_caps()

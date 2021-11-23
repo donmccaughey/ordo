@@ -1,9 +1,9 @@
 # TODO
 
 - add canonical `&str` accessor to `Orthographia`
-- make `CharFilter` accept any `char` iterator
+- look into making `FallibleChars` accept any `char` iterator
 - make `InitialCaps` also accept long vowels
-- look into making `Filter::filter()` return an `Iterator` instead of `CharFilter`
+- look into making `CharSequences::fallible_chars()` return an `Iterator` instead of `FallibleChars`
 - look into using `Cow` or string interning with `Orthographia`
 - look into using a small string library compact_str or smol_str 
 - document meaning of semivowel
