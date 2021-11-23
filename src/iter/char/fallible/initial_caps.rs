@@ -20,10 +20,8 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for InitialCaps<I> {
         self.iter.next().map(|result| match result {
             Err(e) => Err(e),
             Ok(ch) => {
-                if matches!(ch, 'A'..='V' | 'X'..='Z') {
-                    if self.prior.is_some() {
-                        return Err(Irritus);
-                    }
+                if matches!(ch, 'A'..='V' | 'X'..='Z') && self.prior.is_some() {
+                    return Err(Irritus);
                 }
                 self.prior = Some(ch);
                 Ok(ch)
