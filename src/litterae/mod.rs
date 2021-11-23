@@ -42,6 +42,16 @@ pub const SMALL_LONG_Y: char = '\u{0233}';
 /// Combining macron character `'¯'`
 pub const MACRON: char = '\u{0304}';
 
+pub fn is_capital(ch: char) -> bool {
+    ch.is_ascii_uppercase()
+        || ch == CAPITAL_LONG_A
+        || ch == CAPITAL_LONG_E
+        || ch == CAPITAL_LONG_I
+        || ch == CAPITAL_LONG_O
+        || ch == CAPITAL_LONG_U
+        || ch == CAPITAL_LONG_Y
+}
+
 pub fn is_long_vowel(ch: char) -> bool {
     ch == CAPITAL_LONG_A
         || ch == SMALL_LONG_A

@@ -1,5 +1,6 @@
 use crate::errors::Irritus;
 use crate::iter::char::fallible::Iterators;
+use crate::litterae::is_capital;
 
 /// Accept uppercase as the first letter only.
 pub struct InitialCaps<I> {
@@ -20,7 +21,7 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for InitialCaps<I> {
         self.iter.next().map(|result| match result {
             Err(e) => Err(e),
             Ok(ch) => {
-                if matches!(ch, 'A'..='V' | 'X'..='Z') && self.prior.is_some() {
+                if is_capital(ch) && self.prior.is_some() {
                     return Err(Irritus);
                 }
                 self.prior = Some(ch);

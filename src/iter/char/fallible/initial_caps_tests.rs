@@ -17,8 +17,22 @@ fn test_initial_caps() {
         .collect::<Result<String, Irritus>>();
     assert_eq!("Marcus", result.unwrap());
 
-    let marcus = "XVII";
-    let result = marcus
+    let esus = "\u{0112}sus"; // "Ēsus"
+    let result = esus
+        .fallible_chars()
+        .initial_caps()
+        .collect::<Result<String, Irritus>>();
+    assert_eq!("\u{0112}sus", result.unwrap());
+
+    let exire = "ex\u{012a}re"; // exĪre
+    let result = exire
+        .fallible_chars()
+        .initial_caps()
+        .collect::<Result<String, Irritus>>();
+    assert!(matches!(result, Err(Irritus)));
+
+    let xvii = "XVII";
+    let result = xvii
         .fallible_chars()
         .initial_caps()
         .collect::<Result<String, Irritus>>();

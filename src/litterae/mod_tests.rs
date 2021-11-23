@@ -1,6 +1,21 @@
 use crate::litterae::*;
 
 #[test]
+fn test_is_capital() {
+    assert!(is_capital('A'));
+    assert!(is_capital(CAPITAL_LONG_A));
+
+    assert!(!is_capital('a'));
+    assert!(!is_capital(SMALL_LONG_A));
+
+    assert!(is_capital(CAPITAL_LONG_Y));
+    assert!(!is_capital(SMALL_LONG_Y));
+
+    assert!(is_capital('Z'));
+    assert!(!is_capital('z'));
+}
+
+#[test]
 fn test_is_long_vowel() {
     assert!(!is_long_vowel('A'));
     assert!(is_long_vowel(CAPITAL_LONG_A));
