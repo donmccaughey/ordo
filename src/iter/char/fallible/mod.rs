@@ -2,7 +2,7 @@
 
 pub use ascii_chars::AsciiChars;
 pub use canonical_chars::CanonicalChars;
-pub use char_filter::CharFilter;
+pub use fallible_chars::FallibleChars;
 pub use filter::Filter;
 pub use initial_caps::InitialCaps;
 pub use iterators::Iterators;
@@ -14,7 +14,7 @@ pub use solo_pipes::SoloPipes;
 
 mod ascii_chars;
 mod canonical_chars;
-mod char_filter;
+mod fallible_chars;
 mod filter;
 mod initial_caps;
 mod iterators;

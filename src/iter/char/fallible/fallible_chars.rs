@@ -3,17 +3,17 @@ use crate::iter::char::fallible::Iterators;
 use std::str::Chars;
 
 /// Adapt a `Chars` iterator into a fallible `char` iterator.
-pub struct CharFilter<'a> {
+pub struct FallibleChars<'a> {
     chars: Chars<'a>,
 }
 
-impl<'a> CharFilter<'a> {
-    pub fn new(chars: Chars<'a>) -> CharFilter<'a> {
-        CharFilter { chars }
+impl<'a> FallibleChars<'a> {
+    pub fn new(chars: Chars<'a>) -> FallibleChars<'a> {
+        FallibleChars { chars }
     }
 }
 
-impl<'a> Iterator for CharFilter<'a> {
+impl<'a> Iterator for FallibleChars<'a> {
     type Item = Result<char, Irritus>;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -21,4 +21,4 @@ impl<'a> Iterator for CharFilter<'a> {
     }
 }
 
-impl<'a> Iterators for CharFilter<'a> {}
+impl<'a> Iterators for FallibleChars<'a> {}
