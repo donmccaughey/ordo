@@ -16,19 +16,16 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for AsciiChars<I> {
     type Item = I::Item;
 
     fn next(&mut self) -> Option<Self::Item> {
-        match self.iter.next() {
-            None => None,
-            Some(result) => match result {
-                Err(e) => Some(Err(e)),
-                Ok(ch) => match ch {
-                    '\'' | '-' => Some(Ok(ch)),
-                    'A'..='V' | 'X'..='Z' => Some(Ok(ch)),
-                    'a'..='v' | 'x'..='z' => Some(Ok(ch)),
-                    '|' => Some(Ok(ch)),
-                    _ => Some(Err(Irritus)),
-                },
+        self.iter.next().map(|result| match result {
+            Err(e) => Err(e),
+            Ok(ch) => match ch {
+                '\'' | '-' => Ok(ch),
+                'A'..='V' | 'X'..='Z' => Ok(ch),
+                'a'..='v' | 'x'..='z' => Ok(ch),
+                '|' => Ok(ch),
+                _ => Err(Irritus),
             },
-        }
+        })
     }
 }
 

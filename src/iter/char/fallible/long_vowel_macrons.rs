@@ -20,24 +20,23 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for LongVowelMacrons<I>
     type Item = I::Item;
 
     fn next(&mut self) -> Option<Self::Item> {
-        match self.iter.next() {
-            None => None,
-            Some(result) => match result {
-                Err(e) => Some(Err(e)),
-                Ok(ch) => Some(if is_short_vowel(ch) {
-                    Ok(if let Some(Ok(MACRON)) = self.iter.peek() {
+        self.iter.next().map(|result| match result {
+            Err(e) => Err(e),
+            Ok(ch) => {
+                if is_short_vowel(ch) {
+                    if let Some(Ok(MACRON)) = self.iter.peek() {
                         self.iter.next();
-                        to_long_vowel(ch)
+                        Ok(to_long_vowel(ch))
                     } else {
-                        ch
-                    })
+                        Ok(ch)
+                    }
                 } else if ch == MACRON {
                     Err(Irritus)
                 } else {
                     Ok(ch)
-                }),
-            },
-        }
+                }
+            }
+        })
     }
 }
 

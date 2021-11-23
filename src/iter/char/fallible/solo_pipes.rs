@@ -17,21 +17,18 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for SoloPipes<I> {
     type Item = Result<char, Irritus>;
 
     fn next(&mut self) -> Option<Self::Item> {
-        match self.iter.next() {
-            None => None,
-            Some(result) => match result {
-                Err(e) => Some(Err(e)),
-                Ok(ch) => {
-                    if ch == '|' {
-                        if let Some('|') = self.prior {
-                            return Some(Err(Irritus));
-                        }
+        self.iter.next().map(|result| match result {
+            Err(e) => Err(e),
+            Ok(ch) => {
+                if ch == '|' {
+                    if let Some('|') = self.prior {
+                        return Err(Irritus);
                     }
-                    self.prior = Some(ch);
-                    Some(Ok(ch))
                 }
-            },
-        }
+                self.prior = Some(ch);
+                Ok(ch)
+            }
+        })
     }
 }
 

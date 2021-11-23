@@ -23,3 +23,20 @@ mod long_vowel_ticks;
 mod not_empty;
 mod solo_hyphen;
 mod solo_pipes;
+
+#[cfg(test)]
+mod ascii_chars_tests;
+#[cfg(test)]
+mod canonical_chars_tests;
+#[cfg(test)]
+mod initial_caps_tests;
+#[cfg(test)]
+mod long_vowel_macrons_tests;
+#[cfg(test)]
+mod long_vowel_ticks_tests;
+#[cfg(test)]
+mod not_empty_tests;
+#[cfg(test)]
+mod solo_hyphens_tests;
+#[cfg(test)]
+mod solo_pipes_tests;

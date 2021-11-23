@@ -20,26 +20,23 @@ impl<I: Iterator<Item = Result<char, Irritus>>> Iterator for CanonicalChars<I> {
     type Item = I::Item;
 
     fn next(&mut self) -> Option<Self::Item> {
-        match self.iter.next() {
-            None => None,
-            Some(result) => match result {
-                Err(e) => Some(Err(e)),
-                Ok(ch) => match ch {
-                    '\'' | '-' => Some(Ok(ch)),
-                    'A'..='V' | 'X'..='Z' => Some(Ok(ch)),
-                    'a'..='v' | 'x'..='z' => Some(Ok(ch)),
-                    '|' => Some(Ok(ch)),
-                    CAPITAL_LONG_A | SMALL_LONG_A => Some(Ok(ch)),
-                    CAPITAL_LONG_E | SMALL_LONG_E => Some(Ok(ch)),
-                    CAPITAL_LONG_I | SMALL_LONG_I => Some(Ok(ch)),
-                    CAPITAL_LONG_O | SMALL_LONG_O => Some(Ok(ch)),
-                    CAPITAL_LONG_U | SMALL_LONG_U => Some(Ok(ch)),
-                    CAPITAL_LONG_Y | SMALL_LONG_Y => Some(Ok(ch)),
-                    MACRON => Some(Ok(ch)),
-                    _ => Some(Err(Irritus)),
-                },
+        self.iter.next().map(|result| match result {
+            Err(e) => Err(e),
+            Ok(ch) => match ch {
+                '\'' | '-' => Ok(ch),
+                'A'..='V' | 'X'..='Z' => Ok(ch),
+                'a'..='v' | 'x'..='z' => Ok(ch),
+                '|' => Ok(ch),
+                CAPITAL_LONG_A | SMALL_LONG_A => Ok(ch),
+                CAPITAL_LONG_E | SMALL_LONG_E => Ok(ch),
+                CAPITAL_LONG_I | SMALL_LONG_I => Ok(ch),
+                CAPITAL_LONG_O | SMALL_LONG_O => Ok(ch),
+                CAPITAL_LONG_U | SMALL_LONG_U => Ok(ch),
+                CAPITAL_LONG_Y | SMALL_LONG_Y => Ok(ch),
+                MACRON => Ok(ch),
+                _ => Err(Irritus),
             },
-        }
+        })
     }
 }
 
