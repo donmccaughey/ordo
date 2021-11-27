@@ -8,6 +8,7 @@
 pub mod errors;
 pub mod iter;
 pub mod litterae;
+mod locutio;
 mod numerus;
 mod orthographia;
 mod vocabulum;
