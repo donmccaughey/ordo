@@ -1,5 +1,9 @@
+mod debug;
 #[cfg(test)]
 mod mod_tests;
+
+#[cfg(test)]
+mod debug_tests;
 
 use crate::errors::Irritus;
 use crate::Orthographia;
@@ -22,7 +26,7 @@ impl Locutio {
     }
 
     pub fn try_new(orthographiae: Vec<Orthographia>) -> Result<Locutio, Irritus> {
-        if orthographiae.len() == 0 {
+        if orthographiae.is_empty() {
             Err(Irritus)
         } else {
             Ok(Locutio { orthographiae })
