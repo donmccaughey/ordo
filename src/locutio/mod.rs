@@ -1,9 +1,12 @@
 mod debug;
-#[cfg(test)]
-mod mod_tests;
+mod display;
 
 #[cfg(test)]
 mod debug_tests;
+#[cfg(test)]
+mod display_tests;
+#[cfg(test)]
+mod mod_tests;
 
 use crate::errors::Irritus;
 use crate::Orthographia;
