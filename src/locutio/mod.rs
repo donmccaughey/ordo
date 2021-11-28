@@ -11,6 +11,7 @@ mod mod_tests;
 use crate::errors::Irritus;
 use crate::Orthographia;
 
+#[derive(Clone, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct Locutio {
     orthographiae: Vec<Orthographia>,
 }

@@ -1,5 +1,47 @@
+use std::collections::HashMap;
 use crate::locutio::Locutio;
 use crate::Orthographia;
+
+#[test]
+fn test_clone() {
+    let nauta = Orthographia::try_from_ascii("nauta").unwrap();
+    let locutio1 = Locutio::one_word(nauta);
+    let locutio2 = locutio1.clone();
+    assert_eq!(locutio1.orthographiae, locutio2.orthographiae);
+}
+
+#[test]
+fn test_eq() {
+    let cauda = Orthographia::try_from_ascii("cauda").unwrap();
+    let locutio1 = Locutio::one_word(cauda);
+    let locutio2 = locutio1.clone();
+    assert_eq!(locutio1, locutio2);
+}
+
+#[test]
+fn test_ord() {
+    let amatus = Orthographia::try_from_ascii("amatus").unwrap();
+    let es = Orthographia::try_from_ascii("es").unwrap();
+    let est = Orthographia::try_from_ascii("est").unwrap();
+    let amatus_es = Locutio::two_words(amatus.clone(), es);
+    let amatus_est = Locutio::two_words(amatus, est);
+    assert!(amatus_es < amatus_est);
+    assert!(amatus_est > amatus_es);
+}
+
+#[test]
+fn test_hash() {
+    let viginti = Orthographia::try_from_ascii("vi'ginti'").unwrap();
+    let duo = Orthographia::try_from_ascii("duo").unwrap();
+    let quattuor = Orthographia::try_from_ascii("quattuor").unwrap();
+    let xxii = Locutio::two_words(viginti.clone(), duo);
+    let xxiv = Locutio::two_words(viginti, quattuor);
+
+    let mut dict = HashMap::new();
+    dict.insert(xxii, 22);
+    dict.insert(xxiv, 24);
+    assert_eq!(dict.len(), 2);
+}
 
 #[test]
 fn test_one_word() {
