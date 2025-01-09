@@ -41,15 +41,18 @@ Here are the Latin terms I use in the `ordo` library and their Engish software
 jargon equivalents.  For the full meaning and connotations of these words, I
 recommend looking them up in [λογεῖον](https://logeion.uchicago.edu).
 
-- _cella, -ae_ (n): a buffer; "a cell or storeroom"
+- _cella, -ae_ (n): a buffer; "a cell, a storeroom"
+- _centuplus, -a, -um_ (adj): a hundred times; "a hundredfold"
 - _datus, -i_ (n): a data item, a value; "a given"
+- _decuplus, -a, -um_ (adj): ten times; "tenfold"
 - _error, -oris_ (n): an error; "a wandering"
 - _facio_ (v): make
 - _filum, -i_ (n): a string (of characters)
 - _immodicus, -a, -um_ (adj): out of range; "excessive"
 - _insero_ (v): include; "insert"
-- _loco_ (v): allocate (memory); "place"
+- _loco_ (v): allocate (memory); "place, arrange"
 - _maximus, -a, -um_ (adj): largest
+- _millecuplus, -a, -um_ (adj): a thousand times; "a thousandfold"
 - _minimus, -a, -um_ (adj): smallest
 - _nihil_ (n): nothing
 - _nimius, -a, -um_ (adj): too large; "excessive"
@@ -59,6 +62,8 @@ recommend looking them up in [λογεῖον](https://logeion.uchicago.edu).
 - _probo_ (v): test
 - _probatio, -onis_ (n): a test
 - _reliquum, -i_ (n): a remainder
+- _segmentum, -i_ (n): a segment; "a piece"
+- _simplus, -a, -um_ (adj): one times; "a number taken once"
 - _summa, -ae_ (n): an amount or total
 - _tabula, -ae_ (n): a table
 - _vis, vis_ (n): a magnitude; "a strength or force"
@@ -86,6 +91,12 @@ printf("%s = %i\n", filum, n.vis);
 // prints "XVII = 17"
 
 free(filum);
+
+// make a number from a string
+struct numerus m = numerum_fac_e_filio("MMXVIII");
+
+printf("m = %i\n", m.vis);
+// prints "m = 2018"
 ```
 
 ### enum `errores`

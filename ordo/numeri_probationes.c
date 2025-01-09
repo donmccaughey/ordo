@@ -10,9 +10,27 @@
 
 
 static void
-proba_max(void)
+proba_fac_e_filio(void)
 {
-    NUM_EQ(3999, NUMERUS_MAX.vis);
+    struct numerus numerus;
+
+    numerus = numerum_fac_e_filio("nihil");
+    NUM_EQ(0, numerus.vis);
+
+    numerus = numerum_fac_e_filio("I");
+    NUM_EQ(1, numerus.vis);
+
+    numerus = numerum_fac_e_filio("III");
+    NUM_EQ(3, numerus.vis);
+
+    numerus = numerum_fac_e_filio("DCCCXXXVII");
+    NUM_EQ(837, numerus.vis);
+
+    numerus = numerum_fac_e_filio("MMMDCCCXCIX");
+    NUM_EQ(3899, numerus.vis);
+
+    numerus = numerum_fac_e_filio("MMMCMXCIX");
+    NUM_EQ(3999, numerus.vis);
 }
 
 
@@ -47,10 +65,18 @@ proba_loca_filum(void)
 }
 
 
+static void
+proba_max(void)
+{
+    NUM_EQ(3999, NUMERUS_MAX.vis);
+}
+
+
 int
 main(int argc, char *argv[])
 {
-    proba_max();
+    proba_fac_e_filio();
     proba_loca_filum();
+    proba_max();
     return EXIT_SUCCESS;
 }

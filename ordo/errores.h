@@ -7,15 +7,15 @@ enum errores {
     /// "No error."
     nullus_error = 0,
 
-    /// Invalid input.  "Corrupt data."
+    /// Invalid input.  "Data corrupt."
     data_vitiosa,
 
-    /// Number out of range.  "Excessive number."
+    /// Number out of range.  "Number excessive."
     numerus_immodicus,
 };
 
 
-/// Get the error message for an error.  "The string of an error."
+/// Get the error message for an error.  "An error's string."
 char const *
 erroris_filum(enum errores error);
 

@@ -9,7 +9,7 @@ static char const *const fila_errorum[] = {
     "data vitiosa (invalid input)",
     "numerus immodicus (number out of range)",
 };
-size_t const numerus_filorum_errorum = sizeof(fila_errorum) / sizeof(fila_errorum[0]);
+static size_t const numerus_filorum_errorum = sizeof fila_errorum / sizeof fila_errorum[0];
 
 
 char const *

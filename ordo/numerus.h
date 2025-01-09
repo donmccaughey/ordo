@@ -17,9 +17,13 @@ extern struct numerus const NUMERUS_MAX;
 char *
 numero_loca_filum(struct numerus numerus);
 
-/// Make a numerus struct.  "Make a number."
+/// Make a numerus struct.  "A number make."
 struct numerus
 numerum_fac(unsigned short vis);
+
+/// Make a numerus struct from a string.  "A number make from a string."
+struct numerus
+numerum_fac_e_filio(char const *filum);
 
 
 #endif

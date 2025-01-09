@@ -104,3 +104,112 @@ numerum_fac(unsigned short vis)
 
     return (struct numerus){ .vis=vis };
 }
+
+
+struct segmentum_numeri {
+    const char* filum;
+    size_t longitudo_fili;
+    unsigned short vis;
+};
+
+
+static struct segmentum_numeri const millecupla[] = {
+    {"MMM", 3, 3000},
+    {"MM", 2, 2000},
+    {"M", 1, 1000}
+};
+static size_t const numerus_millecuplorum = sizeof millecupla / sizeof millecupla[0];
+
+
+static struct segmentum_numeri const centupla[] = {
+    {"CM", 2, 900},
+    {"DCCC", 4, 800},
+    {"DCC", 3, 700},
+    {"DC", 2, 600},
+    {"D", 1, 500},
+    {"CD", 2, 400},
+    {"CCC", 3, 300},
+    {"CC", 2, 200},
+    {"C", 1, 100}
+};
+static size_t const numerus_centuplorum = sizeof centupla / sizeof centupla[0];
+
+
+static struct segmentum_numeri const decupla[] = {
+    {"XC", 2, 90},
+    {"LXXX", 4, 80},
+    {"LXX", 3, 70},
+    {"LX", 2, 60},
+    {"L", 1, 50},
+    {"XL", 2, 40},
+    {"XXX", 3, 30},
+    {"XX", 2, 20},
+    {"X", 1, 10}
+};
+static size_t const numerus_decuplorum = sizeof decupla / sizeof decupla[0];
+
+
+static struct segmentum_numeri const simpla[] = {
+    {"IX", 2, 9},
+    {"VIII", 4, 8},
+    {"VII", 3, 7},
+    {"VI", 2, 6},
+    {"V", 1, 5},
+    {"IV", 2, 4},
+    {"III", 3, 3},
+    {"II", 2, 2},
+    {"I", 1, 1}
+};
+static size_t const numerus_simplorum = sizeof simpla / sizeof simpla[0];
+
+
+struct numerus
+numerum_fac_e_filio(char const *filum)
+{
+    assert(filum);
+    assert(filum[0]);
+
+    if ( ! filum || ! filum[0]) return numerum_fac(0);
+    if (0 == strcmp("nihil", filum)) return numerum_fac(0);
+
+    unsigned short summa = 0;
+    char const *f = filum;
+
+    // TODO: check if we exceed NUMERUS_MAX or overrun the string
+
+    for (size_t i = 0; i < numerus_millecuplorum; i++) {
+        if (0 == strncmp(f, millecupla[i].filum, millecupla[i].longitudo_fili)) {
+            summa += millecupla[i].vis;
+            f += millecupla[i].longitudo_fili;
+            break;
+        }
+    }
+
+    for (size_t i = 0; i < numerus_centuplorum; i++) {
+        if (0 == strncmp(f, centupla[i].filum, centupla[i].longitudo_fili)) {
+            summa += centupla[i].vis;
+            f += centupla[i].longitudo_fili;
+            break;
+        }
+    }
+
+    for (size_t i = 0; i < numerus_decuplorum; i++) {
+        if (0 == strncmp(f, decupla[i].filum, decupla[i].longitudo_fili)) {
+            summa += decupla[i].vis;
+            f += decupla[i].longitudo_fili;
+            break;
+        }
+    }
+
+    for (size_t i = 0; i < numerus_simplorum; i++) {
+        if (0 == strncmp(f, simpla[i].filum, simpla[i].longitudo_fili)) {
+            summa += simpla[i].vis;
+            f += simpla[i].longitudo_fili;
+            break;
+        }
+    }
+
+    if ('\0' != *f) return numerum_fac(0);
+
+    return numerum_fac(summa);
+}
