@@ -2,11 +2,6 @@
 
 Latin language utility library.
 
-[![Tests](https://github.com/donmccaughey/ordo/actions/workflows/tests.yml/badge.svg)](https://github.com/donmccaughey/ordo/actions/workflows/tests.yml)
-[![Crates.io](https://img.shields.io/crates/v/ordo)](https://crates.io/crates/ordo)
-[![docs.rs](https://img.shields.io/docsrs/ordo)](https://docs.rs/ordo/*/ordo/)
-[![Crates.io](https://img.shields.io/crates/l/ordo)](https://github.com/donmccaughey/ordo/blob/main/LICENSE)
-
 
 ## Build
 
@@ -40,28 +35,56 @@ To disable test targets, set the `BUILD_TESTING` option to `OFF`.
 [63]: https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#Warning-Options
 
 
+## Glossarium
+
+Here are the Latin terms I use in the `ordo` library and their Engish software
+jargon equivalents.  For the full meaning and connotations of these words, I
+recommend looking them up in [λογεῖον](https://logeion.uchicago.edu).
+
+- _cella_, _-ae_ (n): a buffer
+- _datum_, _-i_ (n): a value
+- _error_, _-oris_ (n): an error
+- _filum_, _-i_ (n): a string (of characters)
+- _immodicus_, _-a_, _-um_ (adj): excessive
+- _insero_ (v): to include (i.e. to insert)
+- _loco_ (v): to allocate (memory)
+- _maximus_, _-a_, _-um_ (adj): largest
+- _minimus_, _-a_, _-um_ (adj): smallest
+- _nota_, _-ae_ (n): a symbol or character
+- _nullus_, _-a_, _-um_ (adj): none
+- _numerus_, _-i_ (n): a number
+- _probo_ (v): to test
+- _probatio_, _-onis_ (n): a test
+- _reliquum_, _-i_ (n): a remainder
+- _summa_, _-ae_ (n): an amount or total
+- _tabula_, _-ae_ (n): a table
+- _vis_, _vis_ (n): an amount
+- _vitiosus_, _-a_, _-um_ (adj): invalid, corrupt
+
+
 ## Contents
 
-### `Numerus` struct
+### struct `numerus`
 
-A [standard form](https://en.wikipedia.org/wiki/Roman_numerals#Standard_form) Roman numeral in
-the range `1..=3999` (__I__ to __MMMCMXCIX__).
+A [standard form](https://en.wikipedia.org/wiki/Roman_numerals#Standard_form) 
+Roman numeral in the range `1..=3999` (__I__ to __MMMCMXCIX__).
 
-A [`Numerus`](https://docs.rs/ordo/*/ordo/struct.Numerus.html) is an integer value type that
+A `numerus` struct holds an unsigned short value `vis`
 represents a Roman numeral like __XVII__ or __IX__.  _Numeri_ are unsigned integers with a
 limited range that display as Roman numerals.
 
-```rust
-use ordo::Numerus;
-use std::convert::TryFrom;
-use std::convert::TryInto;
+```c
+#include <ordo/ordo.h>
 
-let xxvi = Numerus::try_from(26).unwrap();
-let cxi: Numerus = 111.try_into().unwrap();
+struct numerus n = numerum_fac(17);
 
-let lxxxv = cxi - xxvi;
-println!("The answer is {}", lxxxv);
-// prints "The answer is LXXXV"
+// for a number (numero) allocate (loca) a string (filum)
+char *filum = numero_loca_filum(n);
+
+printf("%s\n", filum);  
+// prints "XVII"
+
+free(filum);
 ```
 
 
