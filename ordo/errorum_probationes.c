@@ -11,9 +11,9 @@
 static void
 proba_erroris_filum(void)
 {
-    FIL_EQ("Nullus error (no error)", erroris_filum(nullus_error));
-    FIL_EQ("Data vitiosa (invalid input)", erroris_filum(data_vitiosa));
-    FIL_EQ("Numerus immodicus (number out of range)", erroris_filum(numerus_immodicus));
+    FIL_EQ("nullus error (no error)", erroris_filum(nullus_error));
+    FIL_EQ("data vitiosa (invalid input)", erroris_filum(data_vitiosa));
+    FIL_EQ("numerus immodicus (number out of range)", erroris_filum(numerus_immodicus));
 }
 
 

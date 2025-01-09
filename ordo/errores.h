@@ -2,18 +2,20 @@
 #define ORDO_ERRORES_H_INSERTUS_EST
 
 
+/// Error codes for the `ordo` library.
 enum errores {
-    /// No error.
+    /// "No error."
     nullus_error = 0,
 
-    /// Invalid ([vitiosus](https://logeion.uchicago.edu/vitiosus)) input.
+    /// Invalid input.  "Corrupt data."
     data_vitiosa,
 
-    /// Number out of range ([immodicus](https://logeion.uchicago.edu/immodicus)).
+    /// Number out of range.  "Excessive number."
     numerus_immodicus,
 };
 
 
+/// Get the error message for an error.  "The string of an error."
 char const *
 erroris_filum(enum errores error);
 

@@ -5,14 +5,15 @@
 
 
 struct numerus const NUMERUS_MAX = { .vis=3999 };
-struct numerus const NUMERUS_MIN = { .vis=1 };
 
 
 char *
 numero_loca_filum(struct numerus numerus)
 {
-    assert(numerus.vis >= NUMERUS_MIN.vis);
     assert(numerus.vis <= NUMERUS_MAX.vis);
+
+    if ( ! numerus.vis) return strdup("nihil");
+    if (numerus.vis > NUMERUS_MAX.vis) return strdup("nimium");
 
     char cella[12];
     char *filum = cella;
@@ -99,5 +100,7 @@ numero_loca_filum(struct numerus numerus)
 struct numerus
 numerum_fac(unsigned short vis)
 {
+    assert(vis <= NUMERUS_MAX.vis);
+
     return (struct numerus){ .vis=vis };
 }

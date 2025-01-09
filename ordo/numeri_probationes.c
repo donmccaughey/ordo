@@ -10,9 +10,8 @@
 
 
 static void
-proba_min_maxque(void)
+proba_max(void)
 {
-    NUM_EQ(1, NUMERUS_MIN.vis);
     NUM_EQ(3999, NUMERUS_MAX.vis);
 }
 
@@ -21,6 +20,10 @@ static void
 proba_loca_filum(void)
 {
     char *filum;
+
+    filum = numero_loca_filum(numerum_fac(0));
+    FIL_EQ("nihil", filum);
+    free(filum);
 
     filum = numero_loca_filum(numerum_fac(1));
     FIL_EQ("I", filum);
@@ -47,7 +50,7 @@ proba_loca_filum(void)
 int
 main(int argc, char *argv[])
 {
-    proba_min_maxque();
+    proba_max();
     proba_loca_filum();
     return EXIT_SUCCESS;
 }

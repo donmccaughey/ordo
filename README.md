@@ -41,25 +41,28 @@ Here are the Latin terms I use in the `ordo` library and their Engish software
 jargon equivalents.  For the full meaning and connotations of these words, I
 recommend looking them up in [λογεῖον](https://logeion.uchicago.edu).
 
-- _cella_, _-ae_ (n): a buffer
-- _datum_, _-i_ (n): a value
-- _error_, _-oris_ (n): an error
-- _filum_, _-i_ (n): a string (of characters)
-- _immodicus_, _-a_, _-um_ (adj): excessive
-- _insero_ (v): to include (i.e. to insert)
-- _loco_ (v): to allocate (memory)
-- _maximus_, _-a_, _-um_ (adj): largest
-- _minimus_, _-a_, _-um_ (adj): smallest
-- _nota_, _-ae_ (n): a symbol or character
-- _nullus_, _-a_, _-um_ (adj): none
-- _numerus_, _-i_ (n): a number
-- _probo_ (v): to test
-- _probatio_, _-onis_ (n): a test
-- _reliquum_, _-i_ (n): a remainder
-- _summa_, _-ae_ (n): an amount or total
-- _tabula_, _-ae_ (n): a table
-- _vis_, _vis_ (n): an amount
-- _vitiosus_, _-a_, _-um_ (adj): invalid, corrupt
+- _cella, -ae_ (n): a buffer; "a cell or storeroom"
+- _datus, -i_ (n): a data item, a value; "a given"
+- _error, -oris_ (n): an error; "a wandering"
+- _facio_ (v): make
+- _filum, -i_ (n): a string (of characters)
+- _immodicus, -a, -um_ (adj): out of range; "excessive"
+- _insero_ (v): include; "insert"
+- _loco_ (v): allocate (memory); "place"
+- _maximus, -a, -um_ (adj): largest
+- _minimus, -a, -um_ (adj): smallest
+- _nihil_ (n): nothing
+- _nimius, -a, -um_ (adj): too large; "excessive"
+- _nota, -ae_ (n): a symbol or character
+- _nullus, -a, -um_ (adj): none
+- _numerus, -i_ (n): a number
+- _probo_ (v): test
+- _probatio, -onis_ (n): a test
+- _reliquum, -i_ (n): a remainder
+- _summa, -ae_ (n): an amount or total
+- _tabula, -ae_ (n): a table
+- _vis, vis_ (n): a magnitude; "a strength or force"
+- _vitiosus, -a, -um_ (adj): invalid; "corrupt, faulty"
 
 
 ## Contents
@@ -67,24 +70,35 @@ recommend looking them up in [λογεῖον](https://logeion.uchicago.edu).
 ### struct `numerus`
 
 A [standard form](https://en.wikipedia.org/wiki/Roman_numerals#Standard_form) 
-Roman numeral in the range `1..=3999` (__I__ to __MMMCMXCIX__).
-
-A `numerus` struct holds an unsigned short value `vis`
-represents a Roman numeral like __XVII__ or __IX__.  _Numeri_ are unsigned integers with a
-limited range that display as Roman numerals.
+Roman numeral in the range of 1 to 3999 inclusive (__I__ to __MMMCMXCIX__).
+It's single field `vis` holds the numeric value as an unsigned short.
 
 ```c
 #include <ordo/ordo.h>
 
+// make a number
 struct numerus n = numerum_fac(17);
 
-// for a number (numero) allocate (loca) a string (filum)
+// allocate a string for a number
 char *filum = numero_loca_filum(n);
 
-printf("%s\n", filum);  
-// prints "XVII"
+printf("%s = %i\n", filum, n.vis);  
+// prints "XVII = 17"
 
 free(filum);
+```
+
+### enum `errores`
+
+Error codes for the `ordo` library.
+
+```c
+#include <ordo/ordo.h>
+
+// get the message for an error code
+enum errores e = data_vitiosa;
+printf("Error %i: %s\n", e, erroris_filum(e));
+// prints "Error 1: data vitiosa (invalid input)"
 ```
 
 
