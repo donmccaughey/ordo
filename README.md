@@ -104,13 +104,15 @@ printf("%s = %i\n", filum, n.vis);
 free(filum);
 
 // make a number from a string
-struct numerus m = numerum_fac_e_filo("MMXVIII");
+enum error error;
+struct numerus m = numerum_fac_e_filo("MMXVIII", &error);
+assert(nullus_error == error);
 
 printf("m = %i\n", m.vis);
 // prints "m = 2018"
 ```
 
-### enum `errores`
+### enum `error`
 
 Error codes for the `ordo` library.
 
@@ -118,9 +120,9 @@ Error codes for the `ordo` library.
 #include <ordo/ordo.h>
 
 // get the message for an error code
-enum errores e = data_vitiosa;
-printf("Error %i: %s\n", e, erroris_filum(e));
-// prints "Error 1: data vitiosa (invalid input)"
+enum error e = error_datis_vitiosis;
+printf("Error code %i: %s\n", e, erroris_filum(e));
+// prints "Error code 1: data vitiosa (invalid input)"
 ```
 
 
