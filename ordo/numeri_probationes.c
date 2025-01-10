@@ -23,14 +23,73 @@ proba_fac_e_filio(void)
     numerus = numerum_fac_e_filio("III");
     NUM_EQ(3, numerus.vis);
 
+    numerus = numerum_fac_e_filio("IV");
+    NUM_EQ(4, numerus.vis);
+
+    numerus = numerum_fac_e_filio("IIII");
+    NUM_EQ(4, numerus.vis);
+
+    numerus = numerum_fac_e_filio("XXXIV");
+    NUM_EQ(34, numerus.vis);
+
+    numerus = numerum_fac_e_filio("XXXX");
+    NUM_EQ(40, numerus.vis);
+
+    numerus = numerum_fac_e_filio("XL");
+    NUM_EQ(40, numerus.vis);
+
+    numerus = numerum_fac_e_filio("XLII");
+    NUM_EQ(42, numerus.vis);
+
+    numerus = numerum_fac_e_filio("XXXXII");
+    NUM_EQ(42, numerus.vis);
+
+    numerus = numerum_fac_e_filio("CCCC");
+    NUM_EQ(400, numerus.vis);
+
+    numerus = numerum_fac_e_filio("CD");
+    NUM_EQ(400, numerus.vis);
+
     numerus = numerum_fac_e_filio("DCCCXXXVII");
     NUM_EQ(837, numerus.vis);
+
+    numerus = numerum_fac_e_filio("MMMCDXLIV");
+    NUM_EQ(3444, numerus.vis);
+
+    numerus = numerum_fac_e_filio("MMMCCCCXXXXIIII");
+    NUM_EQ(3444, numerus.vis);
 
     numerus = numerum_fac_e_filio("MMMDCCCXCIX");
     NUM_EQ(3899, numerus.vis);
 
     numerus = numerum_fac_e_filio("MMMCMXCIX");
     NUM_EQ(3999, numerus.vis);
+
+    // errores
+
+    numerus = numerum_fac_e_filio("MMMM");
+    NUM_EQ(0, numerus.vis);
+
+    numerus = numerum_fac_e_filio("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
+    NUM_EQ(0, numerus.vis);
+
+    numerus = numerum_fac_e_filio("CCCCC");
+    NUM_EQ(0, numerus.vis);
+
+    numerus = numerum_fac_e_filio("XXXXX");
+    NUM_EQ(0, numerus.vis);
+
+    numerus = numerum_fac_e_filio("IIIII");
+    NUM_EQ(0, numerus.vis);
+
+    numerus = numerum_fac_e_filio("IIIIII");
+    NUM_EQ(0, numerus.vis);
+
+    numerus = numerum_fac_e_filio("IIIIIII");
+    NUM_EQ(0, numerus.vis);
+
+    numerus = numerum_fac_e_filio("IIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+    NUM_EQ(0, numerus.vis);
 }
 
 

@@ -41,6 +41,7 @@ Here are the Latin terms I use in the `ordo` library and their Engish software
 jargon equivalents.  For the full meaning and connotations of these words, I
 recommend looking them up in [λογεῖον](https://logeion.uchicago.edu).
 
+- _addo_ (v): add
 - _cella, -ae_ (n): a buffer; "a cell, a storeroom"
 - _centuplus, -a, -um_ (adj): a hundred times; "a hundredfold"
 - _datus, -i_ (n): a data item, a value; "a given"
@@ -48,9 +49,11 @@ recommend looking them up in [λογεῖον](https://logeion.uchicago.edu).
 - _error, -oris_ (n): an error; "a wandering"
 - _facio_ (v): make
 - _filum, -i_ (n): a string (of characters)
+- _finis, -is_ (n): an end
 - _immodicus, -a, -um_ (adj): out of range; "excessive"
 - _insero_ (v): include; "insert"
 - _loco_ (v): allocate (memory); "place, arrange"
+- _longitudo, -inis_ (n): a length
 - _maximus, -a, -um_ (adj): largest
 - _millecuplus, -a, -um_ (adj): a thousand times; "a thousandfold"
 - _minimus, -a, -um_ (adj): smallest
@@ -59,9 +62,11 @@ recommend looking them up in [λογεῖον](https://logeion.uchicago.edu).
 - _nota, -ae_ (n): a symbol or character
 - _nullus, -a, -um_ (adj): none
 - _numerus, -i_ (n): a number
+- _passus, -us_ (n): a step; "a pace"
 - _probo_ (v): test
 - _probatio, -onis_ (n): a test
 - _reliquum, -i_ (n): a remainder
+- _saltus, -us_ (n): a jump; "a leap"
 - _segmentum, -i_ (n): a segment; "a piece"
 - _simplus, -a, -um_ (adj): one times; "a number taken once"
 - _summa, -ae_ (n): an amount or total
