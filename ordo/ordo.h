@@ -2,7 +2,7 @@
 #define ORDO_ORDO_H_INSERTUS_EST
 
 
-#include <ordo/errores.h>
+#include <ordo/error.h>
 #include <ordo/numerus.h>
 
 

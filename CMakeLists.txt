@@ -38,8 +38,8 @@ endif()
 
 
 add_library(ordo STATIC
-        ordo/errores.h
-        ordo/errores.c
+        ordo/error.h
+        ordo/error.c
         ordo/numerus.h
         ordo/numerus.c
         ordo/ordo.h

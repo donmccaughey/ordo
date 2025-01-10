@@ -5,91 +5,64 @@
 #include "numerus.h"
 
 
-#define FIL_EQ(f1, f2) assert(0 == strcmp((f1), (f2)))
-#define NUM_EQ(n1, n2) assert((n1) == (n2))
+#define FIL_AEQ(f1, f2) assert(0 == strcmp((f1), (f2)))
+#define NUM_AEQ(n1, n2) assert((n1) == (n2))
 
 
 static void
-proba_fac_e_filio(void)
+proba_fac_e_filo(void)
 {
     struct numerus numerus;
+    enum error error;
 
-    numerus = numerum_fac_e_filio("nihil");
-    NUM_EQ(0, numerus.vis);
+    struct {
+        char const *filum;
+        unsigned short vis;
+    } const casus_recti[] = {
+        {"nihil", 0},
+        {"I", 1},
+        {"III", 3},
+        {"IV", 4},
+        {"IIII", 4},
+        {"XXXIV", 34},
+        {"XXXX", 40},
+        {"XL", 40},
+        {"XLII", 42},
+        {"XXXXII", 42},
+        {"CCCC", 400},
+        {"CD", 400},
+        {"DCCCXXXVII", 837},
+        {"MMMCDXLIV", 3444},
+        {"MMMCCCCXXXXIIII", 3444},
+        {"MMMDCCCXCIX", 3899},
+        {"MMMCMXCIX", 3999},
+    };
+    int casuum_rectorum_numerus = sizeof casus_recti / sizeof casus_recti[0];
 
-    numerus = numerum_fac_e_filio("I");
-    NUM_EQ(1, numerus.vis);
+    for (int i = 0; i < casuum_rectorum_numerus; ++i) {
+        numerus = numerum_fac_e_filo(casus_recti[i].filum, &error);
+        NUM_AEQ(casus_recti[i].vis, numerus.vis);
+        NUM_AEQ(error_nullus, error);
+    }
 
-    numerus = numerum_fac_e_filio("III");
-    NUM_EQ(3, numerus.vis);
+    struct {
+        char const *filum;
+        enum error error;
+    } const casus_errorum[] = {
+        {"MMMM", error_datis_vitiosis},
+        {"CCCCC", error_datis_vitiosis},
+        {"XXXXX", error_datis_vitiosis},
+        {"IIIII", error_datis_vitiosis},
+        {"foobar", error_datis_vitiosis},
+    };
+    int casuum_errorum_numerus = sizeof casus_errorum / sizeof casus_errorum[0];
 
-    numerus = numerum_fac_e_filio("IV");
-    NUM_EQ(4, numerus.vis);
-
-    numerus = numerum_fac_e_filio("IIII");
-    NUM_EQ(4, numerus.vis);
-
-    numerus = numerum_fac_e_filio("XXXIV");
-    NUM_EQ(34, numerus.vis);
-
-    numerus = numerum_fac_e_filio("XXXX");
-    NUM_EQ(40, numerus.vis);
-
-    numerus = numerum_fac_e_filio("XL");
-    NUM_EQ(40, numerus.vis);
-
-    numerus = numerum_fac_e_filio("XLII");
-    NUM_EQ(42, numerus.vis);
-
-    numerus = numerum_fac_e_filio("XXXXII");
-    NUM_EQ(42, numerus.vis);
-
-    numerus = numerum_fac_e_filio("CCCC");
-    NUM_EQ(400, numerus.vis);
-
-    numerus = numerum_fac_e_filio("CD");
-    NUM_EQ(400, numerus.vis);
-
-    numerus = numerum_fac_e_filio("DCCCXXXVII");
-    NUM_EQ(837, numerus.vis);
-
-    numerus = numerum_fac_e_filio("MMMCDXLIV");
-    NUM_EQ(3444, numerus.vis);
-
-    numerus = numerum_fac_e_filio("MMMCCCCXXXXIIII");
-    NUM_EQ(3444, numerus.vis);
-
-    numerus = numerum_fac_e_filio("MMMDCCCXCIX");
-    NUM_EQ(3899, numerus.vis);
-
-    numerus = numerum_fac_e_filio("MMMCMXCIX");
-    NUM_EQ(3999, numerus.vis);
-
-    // errores
-
-    numerus = numerum_fac_e_filio("MMMM");
-    NUM_EQ(0, numerus.vis);
-
-    numerus = numerum_fac_e_filio("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
-    NUM_EQ(0, numerus.vis);
-
-    numerus = numerum_fac_e_filio("CCCCC");
-    NUM_EQ(0, numerus.vis);
-
-    numerus = numerum_fac_e_filio("XXXXX");
-    NUM_EQ(0, numerus.vis);
-
-    numerus = numerum_fac_e_filio("IIIII");
-    NUM_EQ(0, numerus.vis);
-
-    numerus = numerum_fac_e_filio("IIIIII");
-    NUM_EQ(0, numerus.vis);
-
-    numerus = numerum_fac_e_filio("IIIIIII");
-    NUM_EQ(0, numerus.vis);
-
-    numerus = numerum_fac_e_filio("IIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-    NUM_EQ(0, numerus.vis);
+    for (int i = 0; i < casuum_errorum_numerus; ++i) {
+        error = error_nullus;
+        numerus = numerum_fac_e_filo(casus_errorum[i].filum, &error);
+        NUM_AEQ(0, numerus.vis);
+        NUM_AEQ(casus_errorum[i].error, error);
+    }
 }
 
 
@@ -99,27 +72,27 @@ proba_loca_filum(void)
     char *filum;
 
     filum = numero_loca_filum(numerum_fac(0));
-    FIL_EQ("nihil", filum);
+    FIL_AEQ("nihil", filum);
     free(filum);
 
     filum = numero_loca_filum(numerum_fac(1));
-    FIL_EQ("I", filum);
+    FIL_AEQ("I", filum);
     free(filum);
 
     filum = numero_loca_filum(numerum_fac(3));
-    FIL_EQ("III", filum);
+    FIL_AEQ("III", filum);
     free(filum);
 
     filum = numero_loca_filum(numerum_fac(837));
-    FIL_EQ("DCCCXXXVII", filum);
+    FIL_AEQ("DCCCXXXVII", filum);
     free(filum);
 
     filum = numero_loca_filum(numerum_fac(3899));
-    FIL_EQ("MMMDCCCXCIX", filum);
+    FIL_AEQ("MMMDCCCXCIX", filum);
     free(filum);
 
     filum = numero_loca_filum(numerum_fac(3999));
-    FIL_EQ("MMMCMXCIX", filum);
+    FIL_AEQ("MMMCMXCIX", filum);
     free(filum);
 }
 
@@ -127,14 +100,14 @@ proba_loca_filum(void)
 static void
 proba_max(void)
 {
-    NUM_EQ(3999, NUMERUS_MAX.vis);
+    NUM_AEQ(3999, NUMERUS_MAX.vis);
 }
 
 
 int
 main(int argc, char *argv[])
 {
-    proba_fac_e_filio();
+    proba_fac_e_filo();
     proba_loca_filum();
     proba_max();
     return EXIT_SUCCESS;

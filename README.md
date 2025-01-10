@@ -42,6 +42,8 @@ jargon equivalents.  For the full meaning and connotations of these words, I
 recommend looking them up in [λογεῖον](https://logeion.uchicago.edu).
 
 - _addo_ (v): add
+- _aequus, -a, -um_ (adj): equal
+- _casus, -us_ (n): a case
 - _cella, -ae_ (n): a buffer; "a cell, a storeroom"
 - _centuplus, -a, -um_ (adj): a hundred times; "a hundredfold"
 - _datus, -i_ (n): a data item, a value; "a given"
@@ -52,6 +54,7 @@ recommend looking them up in [λογεῖον](https://logeion.uchicago.edu).
 - _finis, -is_ (n): an end
 - _immodicus, -a, -um_ (adj): out of range; "excessive"
 - _insero_ (v): include; "insert"
+- _localis, -e_ (adj): local
 - _loco_ (v): allocate (memory); "place, arrange"
 - _longitudo, -inis_ (n): a length
 - _maximus, -a, -um_ (adj): largest
@@ -63,14 +66,17 @@ recommend looking them up in [λογεῖον](https://logeion.uchicago.edu).
 - _nullus, -a, -um_ (adj): none
 - _numerus, -i_ (n): a number
 - _passus, -us_ (n): a step; "a pace"
+- _pravus, -a, -um_ (adj): incorrect
 - _probo_ (v): test
 - _probatio, -onis_ (n): a test
+- _rectus, -a, -um_ (adj): correct
 - _reliquum, -i_ (n): a remainder
 - _saltus, -us_ (n): a jump; "a leap"
 - _segmentum, -i_ (n): a segment; "a piece"
 - _simplus, -a, -um_ (adj): one times; "a number taken once"
 - _summa, -ae_ (n): an amount or total
 - _tabula, -ae_ (n): a table
+- _video_ (v): see
 - _vis, vis_ (n): a magnitude; "a strength or force"
 - _vitiosus, -a, -um_ (adj): invalid; "corrupt, faulty"
 
@@ -98,7 +104,7 @@ printf("%s = %i\n", filum, n.vis);
 free(filum);
 
 // make a number from a string
-struct numerus m = numerum_fac_e_filio("MMXVIII");
+struct numerus m = numerum_fac_e_filo("MMXVIII");
 
 printf("m = %i\n", m.vis);
 // prints "m = 2018"

@@ -3,21 +3,21 @@
 
 
 /// Error codes for the `ordo` library.
-enum errores {
+enum error {
     /// "No error."
-    nullus_error = 0,
+    error_nullus = 0,
 
     /// Invalid input.  "Data corrupt."
-    data_vitiosa,
+    error_datis_vitiosis,
 
     /// Number out of range.  "Number excessive."
-    numerus_immodicus,
+    error_numero_immodico,
 };
 
 
 /// Get the error message for an error.  "An error's string."
 char const *
-erroris_filum(enum errores error);
+erroris_filum(enum error error);
 
 
 #endif

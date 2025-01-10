@@ -1,4 +1,4 @@
-#include "errores.h"
+#include "error.h"
 
 #include <assert.h>
 #include <stddef.h>
@@ -13,7 +13,7 @@ static size_t const numerus_filorum_errorum = sizeof fila_errorum / sizeof fila_
 
 
 char const *
-erroris_filum(enum errores error)
+erroris_filum(enum error error)
 {
     assert(error >= 0);
     assert(error < numerus_filorum_errorum);
