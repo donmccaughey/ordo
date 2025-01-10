@@ -215,11 +215,13 @@ numerum_fac_e_filo(char const *filum, enum error *error)
         adde_segmenta(&summa, &f, simpla, simplorum_numerus);
     }
 
+    assert(f - filum <= 15);  // longest accepted numeral is "MMMCCCCXXXXIIII"
+    assert(summa <= NUMERUS_MAX.vis);
+
     if ('\0' != *f) {
         if (error) *error = error_datis_vitiosis;
         return numerum_fac(0);
     }
 
-    assert(summa <= NUMERUS_MAX.vis);
     return numerum_fac(summa);
 }

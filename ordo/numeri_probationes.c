@@ -50,7 +50,7 @@ char const *casus_errorum[] = {
     "CCCCC",
     "XXXXX",
     "IIIII",
-    "IIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIII",  // length = 20
     "foobar",
 };
 int casuum_errorum_numerus = sizeof casus_errorum / sizeof casus_errorum[0];
