@@ -164,13 +164,12 @@ static struct segmentum_numeri const simpla[] = {
 static size_t const simplorum_numerus = sizeof simpla / sizeof simpla[0];
 
 
-static enum error
+static void
 adde_segmenta(
-        unsigned short *summa, char const **f, char const *f_max,
+        unsigned short *summa, char const **f,
         struct segmentum_numeri const *segmenta, size_t numerus_segmentorum
 ) {
     for (int i = 0; i < numerus_segmentorum; /* vide saltum */) {
-        if (*f > f_max) return error_datis_vitiosis;
         if (0 == strncmp(*f, segmenta[i].filum, segmenta[i].longitudo_fili)) {
             *summa += segmenta[i].vis;
             (*f) += segmenta[i].longitudo_fili;
@@ -179,7 +178,6 @@ adde_segmenta(
             ++i;
         }
     }
-    return error_nullus;
 }
 
 
@@ -200,28 +198,21 @@ numerum_fac_e_filo(char const *filum, enum error *error)
 
     unsigned short summa = 0;
     char const *f = filum;
-    char const *f_max = f + 15;
-    enum error error_localis;
 
     if ('M' == *f) {
-        error_localis = adde_segmenta(&summa, &f, f_max, millecupla, millecuplorum_numerus);
+        adde_segmenta(&summa, &f, millecupla, millecuplorum_numerus);
     }
 
     if ('D' == *f || 'C' == *f) {
-        error_localis = adde_segmenta(&summa, &f, f_max, centupla, centuplorum_numerus);
+        adde_segmenta(&summa, &f, centupla, centuplorum_numerus);
     }
 
     if ('L' == *f || 'X' == *f) {
-        error_localis = adde_segmenta(&summa, &f, f_max, decupla, decuplorum_numerus);
+        adde_segmenta(&summa, &f, decupla, decuplorum_numerus);
     }
 
     if ('V' == *f || 'I' == *f) {
-        error_localis = adde_segmenta(&summa, &f, f_max, simpla, simplorum_numerus);
-    }
-
-    if (error_localis) {
-        if (error) *error = error_localis;
-        return numerum_fac(0);
+        adde_segmenta(&summa, &f, simpla, simplorum_numerus);
     }
 
     if ('\0' != *f) {

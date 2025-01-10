@@ -45,23 +45,21 @@ proba_fac_e_filo(void)
         NUM_AEQ(error_nullus, error);
     }
 
-    struct {
-        char const *filum;
-        enum error error;
-    } const casus_errorum[] = {
-        {"MMMM", error_datis_vitiosis},
-        {"CCCCC", error_datis_vitiosis},
-        {"XXXXX", error_datis_vitiosis},
-        {"IIIII", error_datis_vitiosis},
-        {"foobar", error_datis_vitiosis},
-    };
-    int casuum_errorum_numerus = sizeof casus_errorum / sizeof casus_errorum[0];
+char const *casus_errorum[] = {
+    "MMMM",
+    "CCCCC",
+    "XXXXX",
+    "IIIII",
+    "IIIIIIIIIIIIIIIIIIII",
+    "foobar",
+};
+int casuum_errorum_numerus = sizeof casus_errorum / sizeof casus_errorum[0];
 
     for (int i = 0; i < casuum_errorum_numerus; ++i) {
         error = error_nullus;
-        numerus = numerum_fac_e_filo(casus_errorum[i].filum, &error);
+        numerus = numerum_fac_e_filo(casus_errorum[i], &error);
         NUM_AEQ(0, numerus.vis);
-        NUM_AEQ(casus_errorum[i].error, error);
+        NUM_AEQ(error_datis_vitiosis, error);
     }
 }
 
