@@ -15,9 +15,9 @@ enum error {
 };
 
 
-/// Get the error message for an error.  "An error's string."
+/// Get the error message for an error.  "An error's message."
 char const *
-erroris_filum(enum error error);
+erroris_nuntium(enum error error);
 
 
 #endif

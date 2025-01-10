@@ -5,21 +5,21 @@
 #include "error.h"
 
 
-#define FIL_AEQ(f1, f2) assert(0 == strcmp((f1), (f2)))
+#define LIN_AEQ(f1, f2) assert(0 == strcmp((f1), (f2)))
 
 
 static void
-proba_erroris_filum(void)
+proba_erroris_nuntium(void)
 {
-    FIL_AEQ("nullus error (no error)", erroris_filum(error_nullus));
-    FIL_AEQ("data vitiosa (invalid input)", erroris_filum(error_datis_vitiosis));
-    FIL_AEQ("numerus immodicus (number out of range)", erroris_filum(error_numero_immodico));
+    LIN_AEQ("error nullus (no error)", erroris_nuntium(error_nullus));
+    LIN_AEQ("data vitiosa (invalid input)", erroris_nuntium(error_datis_vitiosis));
+    LIN_AEQ("numerus immodicus (number out of range)", erroris_nuntium(error_numero_immodico));
 }
 
 
 int
 main(int argc, char *argv[])
 {
-    proba_erroris_filum();
+    proba_erroris_nuntium();
     return EXIT_SUCCESS;
 }

@@ -8,7 +8,7 @@ struct numerus const NUMERUS_MAX = { .vis=3999 };
 
 
 char *
-numero_loca_filum(struct numerus numerus)
+numero_loca_linea(struct numerus numerus)
 {
     assert(numerus.vis <= NUMERUS_MAX.vis);
 
@@ -16,81 +16,81 @@ numero_loca_filum(struct numerus numerus)
     if (numerus.vis > NUMERUS_MAX.vis) return strdup("nimium");
 
     char cella[12];
-    char *filum = cella;
+    char *linea = cella;
     unsigned short reliquum = numerus.vis;
 
     while (reliquum >= 1000) {
-        *filum++ = 'M';
+        *linea++ = 'M';
         reliquum -= 1000;
     }
 
     if (reliquum >= 900) {
-        *filum++ = 'C';
-        *filum++ = 'M';
+        *linea++ = 'C';
+        *linea++ = 'M';
         reliquum -= 900;
     }
 
     if (reliquum >= 500) {
-        *filum++ = 'D';
+        *linea++ = 'D';
         reliquum -= 500;
     }
 
     if (reliquum >= 400) {
-        *filum++ = 'C';
-        *filum++ = 'D';
+        *linea++ = 'C';
+        *linea++ = 'D';
         reliquum -= 400;
     }
 
     while (reliquum >= 100) {
-        *filum++ = 'C';
+        *linea++ = 'C';
         reliquum -= 100;
     }
 
     if (reliquum >= 90) {
-        *filum++ = 'X';
-        *filum++ = 'C';
+        *linea++ = 'X';
+        *linea++ = 'C';
         reliquum -= 90;
     }
 
     if (reliquum >= 50) {
-        *filum++ = 'L';
+        *linea++ = 'L';
         reliquum -= 50;
     }
 
     if (reliquum >= 40) {
-        *filum++ = 'X';
-        *filum++ = 'L';
+        *linea++ = 'X';
+        *linea++ = 'L';
         reliquum -= 40;
     }
 
     while (reliquum >= 10) {
-        *filum++ = 'X';
+        *linea++ = 'X';
         reliquum -= 10;
     }
 
     if (reliquum >= 9) {
-        *filum++ = 'I';
-        *filum++ = 'X';
+        *linea++ = 'I';
+        *linea++ = 'X';
         reliquum -= 9;
     }
 
     if (reliquum >= 5) {
-        *filum++ = 'V';
+        *linea++ = 'V';
         reliquum -= 5;
     }
 
     if (reliquum >= 4) {
-        *filum++ = 'I';
-        *filum++ = 'V';
+        *linea++ = 'I';
+        *linea++ = 'V';
         reliquum -= 4;
     }
 
     while (reliquum >= 1) {
-        *filum++ = 'I';
+        *linea++ = 'I';
         reliquum -= 1;
     }
 
-    *filum = '\0';
+    *linea = '\0';
     assert(strlen(cella) < sizeof cella);
 
     return strdup(cella);
@@ -107,8 +107,8 @@ numerum_fac(unsigned short vis)
 
 
 struct segmentum_numeri {
-    const char filum[5];
-    int longitudo_fili;
+    const char linea[5];
+    int longitudo_lineae;
     int saltus;
     unsigned short vis;
 };
@@ -166,13 +166,13 @@ static size_t const simplorum_numerus = sizeof simpla / sizeof simpla[0];
 
 static void
 adde_segmenta(
-        unsigned short *summa, char const **f,
+        unsigned short *summa, char const **linea,
         struct segmentum_numeri const *segmenta, size_t numerus_segmentorum
 ) {
     for (int i = 0; i < numerus_segmentorum; /* vide saltum */) {
-        if (0 == strncmp(*f, segmenta[i].filum, segmenta[i].longitudo_fili)) {
+        if (0 == strncmp(*linea, segmenta[i].linea, segmenta[i].longitudo_lineae)) {
             *summa += segmenta[i].vis;
-            (*f) += segmenta[i].longitudo_fili;
+            (*linea) += segmenta[i].longitudo_lineae;
             i += segmenta[i].saltus;
         } else {
             ++i;
@@ -182,43 +182,43 @@ adde_segmenta(
 
 
 struct numerus
-numerum_fac_e_filo(char const *filum, enum error *error)
+numerum_fac_e_linea(char const *linea, enum error *error)
 {
-    assert(filum);
-    assert(filum[0]);
+    assert(linea);
+    assert(linea[0]);
 
-    if ( ! filum || ! filum[0]) {
+    if ( ! linea || ! linea[0]) {
         if (error) *error = error_datis_vitiosis;
         return numerum_fac(0);
     }
 
     if (error) *error = error_nullus;
 
-    if (0 == strcmp("nihil", filum)) return numerum_fac(0);
+    if (0 == strcmp("nihil", linea)) return numerum_fac(0);
 
     unsigned short summa = 0;
-    char const *f = filum;
+    char const *ch = linea;
 
-    if ('M' == *f) {
-        adde_segmenta(&summa, &f, millecupla, millecuplorum_numerus);
+    if ('M' == *ch) {
+        adde_segmenta(&summa, &ch, millecupla, millecuplorum_numerus);
     }
 
-    if ('D' == *f || 'C' == *f) {
-        adde_segmenta(&summa, &f, centupla, centuplorum_numerus);
+    if ('D' == *ch || 'C' == *ch) {
+        adde_segmenta(&summa, &ch, centupla, centuplorum_numerus);
     }
 
-    if ('L' == *f || 'X' == *f) {
-        adde_segmenta(&summa, &f, decupla, decuplorum_numerus);
+    if ('L' == *ch || 'X' == *ch) {
+        adde_segmenta(&summa, &ch, decupla, decuplorum_numerus);
     }
 
-    if ('V' == *f || 'I' == *f) {
-        adde_segmenta(&summa, &f, simpla, simplorum_numerus);
+    if ('V' == *ch || 'I' == *ch) {
+        adde_segmenta(&summa, &ch, simpla, simplorum_numerus);
     }
 
-    assert(f - filum <= 15);  // longest accepted numeral is "MMMCCCCXXXXIIII"
+    assert(ch - linea <= 15);  // longest accepted numeral is "MMMCCCCXXXXIIII"
     assert(summa <= NUMERUS_MAX.vis);
 
-    if ('\0' != *f) {
+    if ('\0' != *ch) {
         if (error) *error = error_datis_vitiosis;
         return numerum_fac(0);
     }
