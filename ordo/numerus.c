@@ -322,8 +322,11 @@ numero_loca_cardinalem(struct numerus numerus, enum genus genus)
             }
             reliquum -= 1;
             break;
+        case 0:
+            break;
         default:
-            assert("Non deberet attingere");
+            // non deberet attingere hunc casum
+            assert(0);
             break;
     }
 
