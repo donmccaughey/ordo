@@ -12,5 +12,7 @@ jobs:
       - name: Build
         run: |
           cmake --build ${{github.workspace}}/tmp --target all
+      - name: Test
+        run: |
           cd ${{github.workspace}}/tmp
           ctest --output-on-failure
