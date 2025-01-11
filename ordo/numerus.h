@@ -15,11 +15,6 @@ struct numerus {
 extern struct numerus const NUMERUS_MAX;
 
 
-/// Allocate a Roman numeral string for a number.  "For a number allocate a
-/// string."  Call `free()` to deallocate the string.
-char *
-numero_loca_linea(struct numerus numerus);
-
 /// Make a numerus struct.  "A number make."
 struct numerus
 numerum_fac(unsigned short vis);
@@ -27,6 +22,11 @@ numerum_fac(unsigned short vis);
 /// Make a numerus struct from a string.  "A number make from a string."
 struct numerus
 numerum_fac_e_linea(char const *linea, enum error *error);
+
+/// Allocate a Roman numeral string for a number.  "For a number allocate a
+/// string."  Call `free()` to deallocate the string.
+char *
+numero_loca_linea(struct numerus numerus);
 
 
 #endif

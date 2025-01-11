@@ -7,96 +7,6 @@
 struct numerus const NUMERUS_MAX = { .vis=3999 };
 
 
-char *
-numero_loca_linea(struct numerus numerus)
-{
-    assert(numerus.vis <= NUMERUS_MAX.vis);
-
-    if ( ! numerus.vis) return strdup("nihil");
-    if (numerus.vis > NUMERUS_MAX.vis) return strdup("nimium");
-
-    char cella[12];
-    char *linea = cella;
-    unsigned short reliquum = numerus.vis;
-
-    while (reliquum >= 1000) {
-        *linea++ = 'M';
-        reliquum -= 1000;
-    }
-
-    if (reliquum >= 900) {
-        *linea++ = 'C';
-        *linea++ = 'M';
-        reliquum -= 900;
-    }
-
-    if (reliquum >= 500) {
-        *linea++ = 'D';
-        reliquum -= 500;
-    }
-
-    if (reliquum >= 400) {
-        *linea++ = 'C';
-        *linea++ = 'D';
-        reliquum -= 400;
-    }
-
-    while (reliquum >= 100) {
-        *linea++ = 'C';
-        reliquum -= 100;
-    }
-
-    if (reliquum >= 90) {
-        *linea++ = 'X';
-        *linea++ = 'C';
-        reliquum -= 90;
-    }
-
-    if (reliquum >= 50) {
-        *linea++ = 'L';
-        reliquum -= 50;
-    }
-
-    if (reliquum >= 40) {
-        *linea++ = 'X';
-        *linea++ = 'L';
-        reliquum -= 40;
-    }
-
-    while (reliquum >= 10) {
-        *linea++ = 'X';
-        reliquum -= 10;
-    }
-
-    if (reliquum >= 9) {
-        *linea++ = 'I';
-        *linea++ = 'X';
-        reliquum -= 9;
-    }
-
-    if (reliquum >= 5) {
-        *linea++ = 'V';
-        reliquum -= 5;
-    }
-
-    if (reliquum >= 4) {
-        *linea++ = 'I';
-        *linea++ = 'V';
-        reliquum -= 4;
-    }
-
-    while (reliquum >= 1) {
-        *linea++ = 'I';
-        reliquum -= 1;
-    }
-
-    *linea = '\0';
-    assert(strlen(cella) < sizeof cella);
-
-    return strdup(cella);
-}
-
-
 struct numerus
 numerum_fac(unsigned short vis)
 {
@@ -224,4 +134,94 @@ numerum_fac_e_linea(char const *linea, enum error *error)
     }
 
     return numerum_fac(summa);
+}
+
+
+char *
+numero_loca_linea(struct numerus numerus)
+{
+    assert(numerus.vis <= NUMERUS_MAX.vis);
+
+    if ( ! numerus.vis) return strdup("nihil");
+    if (numerus.vis > NUMERUS_MAX.vis) return strdup("nimium");
+
+    char cella[12];
+    char *linea = cella;
+    unsigned short reliquum = numerus.vis;
+
+    while (reliquum >= 1000) {
+        *linea++ = 'M';
+        reliquum -= 1000;
+    }
+
+    if (reliquum >= 900) {
+        *linea++ = 'C';
+        *linea++ = 'M';
+        reliquum -= 900;
+    }
+
+    if (reliquum >= 500) {
+        *linea++ = 'D';
+        reliquum -= 500;
+    }
+
+    if (reliquum >= 400) {
+        *linea++ = 'C';
+        *linea++ = 'D';
+        reliquum -= 400;
+    }
+
+    while (reliquum >= 100) {
+        *linea++ = 'C';
+        reliquum -= 100;
+    }
+
+    if (reliquum >= 90) {
+        *linea++ = 'X';
+        *linea++ = 'C';
+        reliquum -= 90;
+    }
+
+    if (reliquum >= 50) {
+        *linea++ = 'L';
+        reliquum -= 50;
+    }
+
+    if (reliquum >= 40) {
+        *linea++ = 'X';
+        *linea++ = 'L';
+        reliquum -= 40;
+    }
+
+    while (reliquum >= 10) {
+        *linea++ = 'X';
+        reliquum -= 10;
+    }
+
+    if (reliquum >= 9) {
+        *linea++ = 'I';
+        *linea++ = 'X';
+        reliquum -= 9;
+    }
+
+    if (reliquum >= 5) {
+        *linea++ = 'V';
+        reliquum -= 5;
+    }
+
+    if (reliquum >= 4) {
+        *linea++ = 'I';
+        *linea++ = 'V';
+        reliquum -= 4;
+    }
+
+    while (reliquum >= 1) {
+        *linea++ = 'I';
+        reliquum -= 1;
+    }
+
+    *linea = '\0';
+    assert(strlen(cella) < sizeof cella);
+
+    return strdup(cella);
 }
