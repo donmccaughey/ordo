@@ -42,7 +42,7 @@ To disable test targets, set the `BUILD_TESTING` option to `OFF`.
 
 ## English, Latin, C and Software Jargon
 
-Since I am a _discipulus linguae Latinae_, I endeavor to use Latin for names in
+Since I am a _discipulum linguae Latinae_, I endeavor to use Latin for names in
 the code for `ordo`.  I'm far from a fluent Latin speaker, so commentary on my
 choices is welcome.  You can find terms used in `ordo` in [the glossary][40].
 
@@ -64,7 +64,7 @@ It's single field `vis` holds the numeric value as an unsigned short.
 struct numerus n = numerum_fac(17);
 
 // allocate a Roman numeral string for a number
-char *notae_romanae = numero_loca_notae_romanae(n);
+char *notae_romanae = numero_loca_notam_romanam(n);
 
 printf("%s = %i\n", notae_romanae, n.vis);  
 // prints "XVII = 17"
@@ -81,7 +81,7 @@ free(cardinalis);
 
 // make a number from a Roman numeral string
 enum error error;
-struct numerus m = numerum_fac_e_notae_romanae("MMXVIII", &error);
+struct numerus m = numerum_fac_e_notis_romanis("MMXVIII", &error);
 assert(error_nullus == error);
 
 printf("m = %i\n", m.vis);

@@ -105,7 +105,7 @@ adde_segmenta(
 
 
 struct numerus
-numerum_fac_e_notae_romanae(char const *notae_romanae, enum error *error)
+numerum_fac_e_notis_romanis(char const *notae_romanae, enum error *error)
 {
     assert(notae_romanae);
     assert(notae_romanae[0]);
@@ -151,7 +151,7 @@ numerum_fac_e_notae_romanae(char const *notae_romanae, enum error *error)
 
 
 char *
-numero_loca_notae_romanae(struct numerus numerus)
+numero_loca_notam_romanam(struct numerus numerus)
 {
     assert(numerus.vis <= NUMERUS_MAX.vis);
 

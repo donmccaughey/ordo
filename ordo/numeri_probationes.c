@@ -10,7 +10,7 @@
 
 
 static void
-proba_fac_e_notae_romanae(void)
+proba_fac_e_notis_romanis(void)
 {
     struct numerus numerus;
     enum error error;
@@ -39,7 +39,7 @@ proba_fac_e_notae_romanae(void)
     };
     int casuum_rectorum_numerus = sizeof casus_recti / sizeof casus_recti[0];
     for (int i = 0; i < casuum_rectorum_numerus; ++i) {
-        numerus = numerum_fac_e_notae_romanae(casus_recti[i].linea, &error);
+        numerus = numerum_fac_e_notis_romanis(casus_recti[i].linea, &error);
         NUM_AEQ(casus_recti[i].vis, numerus.vis);
         NUM_AEQ(error_nullus, error);
     }
@@ -56,7 +56,7 @@ proba_fac_e_notae_romanae(void)
 
     for (int i = 0; i < casuum_errorum_numerus; ++i) {
         error = error_nullus;
-        numerus = numerum_fac_e_notae_romanae(casus_errorum[i], &error);
+        numerus = numerum_fac_e_notis_romanis(casus_errorum[i], &error);
         NUM_AEQ(0, numerus.vis);
         NUM_AEQ(error_datis_vitiosis, error);
     }
@@ -191,31 +191,31 @@ proba_loca_cardinalem(void)
 
 
 static void
-proba_loca_notae_romanae(void)
+proba_loca_notam_romanam(void)
 {
     char *notae;
 
-    notae = numero_loca_notae_romanae(numerum_fac(0));
+    notae = numero_loca_notam_romanam(numerum_fac(0));
     LIN_AEQ("nihil", notae);
     free(notae);
 
-    notae = numero_loca_notae_romanae(numerum_fac(1));
+    notae = numero_loca_notam_romanam(numerum_fac(1));
     LIN_AEQ("I", notae);
     free(notae);
 
-    notae = numero_loca_notae_romanae(numerum_fac(3));
+    notae = numero_loca_notam_romanam(numerum_fac(3));
     LIN_AEQ("III", notae);
     free(notae);
 
-    notae = numero_loca_notae_romanae(numerum_fac(837));
+    notae = numero_loca_notam_romanam(numerum_fac(837));
     LIN_AEQ("DCCCXXXVII", notae);
     free(notae);
 
-    notae = numero_loca_notae_romanae(numerum_fac(3899));
+    notae = numero_loca_notam_romanam(numerum_fac(3899));
     LIN_AEQ("MMMDCCCXCIX", notae);
     free(notae);
 
-    notae = numero_loca_notae_romanae(numerum_fac(3999));
+    notae = numero_loca_notam_romanam(numerum_fac(3999));
     LIN_AEQ("MMMCMXCIX", notae);
     free(notae);
 }
@@ -231,9 +231,9 @@ proba_max(void)
 int
 main(int argc, char *argv[])
 {
-    proba_fac_e_notae_romanae();
+    proba_fac_e_notis_romanis();
     proba_loca_cardinalem();
-    proba_loca_notae_romanae();
+    proba_loca_notam_romanam();
     proba_max();
     return EXIT_SUCCESS;
 }
