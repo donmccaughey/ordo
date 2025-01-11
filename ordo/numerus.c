@@ -241,11 +241,36 @@ numero_loca_linea(struct numerus numerus)
 
 
 #define ADJUNGE(lmut, linea_fixa) \
-        linea_mutabilis_adjunge(&(lmut), (linea_fixa), LIN_LON((linea_fixa)));
+        linea_mutabilis_adjunge((lmut), (linea_fixa), LIN_LON((linea_fixa)))
+
+
+static void
+adjunge_denos(
+        struct linea_mutabilis *lmut, int *reliquum,
+        int deni, char const *verbum, int verbi_longitudo
+) {
+    assert(*reliquum < deni + 10 - 2);
+    if (*reliquum >= deni - 2) {
+        if (deni - 2 == *reliquum) {
+            ADJUNGE(lmut, "duode");
+            *reliquum += 2;
+        } else if (deni - 1 == *reliquum) {
+            ADJUNGE(lmut, "unde");
+            *reliquum += 1;
+        }
+        linea_mutabilis_adjunge(lmut, verbum, verbi_longitudo);
+        *reliquum -= deni;
+        if (*reliquum) ADJUNGE(lmut, " ");
+    }
+}
+
+
+#define ADJUNGE_DENOS(lmut, reliquum, deni, linea_fixa) \
+        adjunge_denos((lmut), (reliquum), (deni), (linea_fixa), LIN_LON((linea_fixa)))
 
 
 char *
-numero_loca_numerum_cardinalem(struct numerus numerus, enum genus genus)
+numero_loca_cardinalem(struct numerus numerus, enum genus genus)
 {
     assert(numerus.vis <= NUMERUS_MAX.vis);
     assert(genus > genus_nullus);
@@ -257,61 +282,42 @@ numero_loca_numerum_cardinalem(struct numerus numerus, enum genus genus)
     linea_mutabilis_fac(&lmut);
     int reliquum = numerus.vis;
 
-    assert(reliquum + 2 < 40);
-    if (reliquum + 3 > 30) {
-        if (-2 == reliquum - 30) {
-            ADJUNGE(lmut, "duode");
-            reliquum += 2;
-        } else if (-1 == reliquum - 30) {
-            ADJUNGE(lmut, "unde");
-            reliquum += 1;
-        }
-        ADJUNGE(lmut, "triginta");
-        reliquum -= 30;
-        if (reliquum) ADJUNGE(lmut, " ");
-    }
-
-    assert(reliquum + 2 < 30);
-    if (reliquum + 3 > 20) {
-        if (-2 == reliquum - 20) {
-            ADJUNGE(lmut, "duode");
-            reliquum += 2;
-        } else if (-1 == reliquum - 20) {
-            ADJUNGE(lmut, "unde");
-            reliquum += 1;
-        }
-        ADJUNGE(lmut, "viginti");
-        reliquum -= 20;
-        if (reliquum) ADJUNGE(lmut, " ");
-    }
+    ADJUNGE_DENOS(&lmut, &reliquum, 90, "nonaginta");
+    ADJUNGE_DENOS(&lmut, &reliquum, 80, "octoginta");
+    ADJUNGE_DENOS(&lmut, &reliquum, 70, "septuaginta");
+    ADJUNGE_DENOS(&lmut, &reliquum, 60, "sexaginta");
+    ADJUNGE_DENOS(&lmut, &reliquum, 50, "quinquaginta");
+    ADJUNGE_DENOS(&lmut, &reliquum, 40, "quadraginta");
+    ADJUNGE_DENOS(&lmut, &reliquum, 30, "triginta");
+    ADJUNGE_DENOS(&lmut, &reliquum, 20, "viginti");
 
     assert(reliquum < 18);
     switch (reliquum) {
-        case 17: ADJUNGE(lmut, "septendecim"); reliquum -= 17; break;
-        case 16: ADJUNGE(lmut, "sedecim"); reliquum -= 16; break;
-        case 15: ADJUNGE(lmut, "quindecim"); reliquum -= 15; break;
-        case 14: ADJUNGE(lmut, "quattuordecim"); reliquum -= 14; break;
-        case 13: ADJUNGE(lmut, "tredecim"); reliquum -= 13; break;
-        case 12: ADJUNGE(lmut, "duodecim"); reliquum -= 12; break;
-        case 11: ADJUNGE(lmut, "undecim"); reliquum -= 11; break;
+        case 17: ADJUNGE(&lmut, "septendecim"); reliquum -= 17; break;
+        case 16: ADJUNGE(&lmut, "sedecim"); reliquum -= 16; break;
+        case 15: ADJUNGE(&lmut, "quindecim"); reliquum -= 15; break;
+        case 14: ADJUNGE(&lmut, "quattuordecim"); reliquum -= 14; break;
+        case 13: ADJUNGE(&lmut, "tredecim"); reliquum -= 13; break;
+        case 12: ADJUNGE(&lmut, "duodecim"); reliquum -= 12; break;
+        case 11: ADJUNGE(&lmut, "undecim"); reliquum -= 11; break;
 
-        case 10: ADJUNGE(lmut, "decem"); reliquum -= 10; break;
-        case 9: ADJUNGE(lmut, "novem"); reliquum -= 9; break;
-        case 8: ADJUNGE(lmut, "octo"); reliquum -= 8; break;
-        case 7: ADJUNGE(lmut, "septem"); reliquum -= 7; break;
-        case 6: ADJUNGE(lmut, "sex"); reliquum -= 6; break;
-        case 5: ADJUNGE(lmut, "quinque"); reliquum -= 5; break;
-        case 4: ADJUNGE(lmut, "quattuor"); reliquum -= 4; break;
+        case 10: ADJUNGE(&lmut, "decem"); reliquum -= 10; break;
+        case 9: ADJUNGE(&lmut, "novem"); reliquum -= 9; break;
+        case 8: ADJUNGE(&lmut, "octo"); reliquum -= 8; break;
+        case 7: ADJUNGE(&lmut, "septem"); reliquum -= 7; break;
+        case 6: ADJUNGE(&lmut, "sex"); reliquum -= 6; break;
+        case 5: ADJUNGE(&lmut, "quinque"); reliquum -= 5; break;
+        case 4: ADJUNGE(&lmut, "quattuor"); reliquum -= 4; break;
         case 3:
-            ADJUNGE(lmut, (genus_m == genus || genus_f == genus) ? "tres" : "tria");
+            ADJUNGE(&lmut, (genus_m == genus || genus_f == genus) ? "tres" : "tria");
             reliquum -= 3;
             break;
         case 2:
-            ADJUNGE(lmut, (genus_m == genus || genus_n == genus) ? "duo" : "duae");
+            ADJUNGE(&lmut, (genus_m == genus || genus_n == genus) ? "duo" : "duae");
             reliquum -= 2;
             break;
         case 1:
-            ADJUNGE(lmut, (genus_m == genus) ? "unus" : ((genus_f == genus) ? "una" : "unum"));
+            ADJUNGE(&lmut, (genus_m == genus) ? "unus" : ((genus_f == genus) ? "una" : "unum"));
             reliquum -= 1;
             break;
         default:

@@ -30,9 +30,9 @@ char *
 numero_loca_linea(struct numerus numerus);
 
 /// Allocate a cardinal number string for a number.  "For a number allocate a
-/// cardinal number."  Call `free()` to deallocate the string.
+/// cardinal [number]."  Call `free()` to deallocate the string.
 char *
-numero_loca_numerum_cardinalem(struct numerus numerus, enum genus genus);
+numero_loca_cardinalem(struct numerus numerus, enum genus genus);
 
 
 #endif

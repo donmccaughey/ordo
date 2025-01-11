@@ -9,13 +9,13 @@ static char const *const lineae_errorum[] = {
     "data vitiosa (invalid input)",
     "numerus immodicus (number out of range)",
 };
-static size_t const numerus_filorum_errorum = sizeof lineae_errorum / sizeof lineae_errorum[0];
+static size_t const numerus_linarum_errorum = sizeof lineae_errorum / sizeof lineae_errorum[0];
 
 
 char const *
 erroris_nuntium(enum error error)
 {
     assert(error >= 0);
-    assert(error < numerus_filorum_errorum);
+    assert(error < numerus_linarum_errorum);
     return lineae_errorum[error];
 }

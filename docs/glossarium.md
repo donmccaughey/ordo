@@ -26,7 +26,7 @@ Format: _[lemma][1]_ (part of speech): jargon; "Latin meaning"
 - _duplicatus, -a, -um_ (adj): duplicate; "twofold"
 
 
-- _error, -oris_ (n): an error; "a wandering"
+- _error, -oris_ (n): an error; "a wandering, a mistake"
 
 
 - _facio_ (v): make

@@ -66,6 +66,12 @@ printf("%s = %i\n", linea, n.vis);
 
 free(linea);
 
+// allocate a cardinal number string for a number
+char *cardinalis = numero_loca_cardinalem(n);
+
+printf("%s = %i\n", cardinalis, n.vis);
+// prints "septendecim = 17"
+
 // make a number from a string
 enum error error;
 struct numerus m = numerum_fac_e_linea("MMXVIII", &error);

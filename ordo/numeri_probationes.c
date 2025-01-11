@@ -95,7 +95,7 @@ proba_loca_linea(void)
 
 
 static void
-proba_loca_numerum_cardinalem(void)
+proba_loca_cardinalem(void)
 {
     struct {
         unsigned short vis;
@@ -183,6 +183,24 @@ proba_loca_numerum_cardinalem(void)
         {35,   genus_m, "triginta quinque"},
         {36,   genus_m, "triginta sex"},
         {37,   genus_m, "triginta septem"},
+        {38,   genus_m, "duodequadraginta"},
+        {39,   genus_m, "undequadraginta"},
+
+        {40,   genus_m, "quadraginta"},
+        {41,   genus_m, "quadraginta unus"},
+        {42,   genus_f, "quadraginta duae"},
+        {43,   genus_n, "quadraginta tria"},
+        {47,   genus_m, "quadraginta septem"},
+        {48,   genus_f, "duodequinquaginta"},
+        {49,   genus_n, "undequinquaginta"},
+
+        {50,   genus_m, "quinquaginta"},
+        {60,   genus_m, "sexaginta"},
+        {70,   genus_m, "septuaginta"},
+        {80,   genus_m, "octoginta"},
+        {90,   genus_m, "nonaginta"},
+
+        {97,   genus_m, "nonaginta septem"},
 
         /*
 
@@ -196,7 +214,7 @@ proba_loca_numerum_cardinalem(void)
 
     for (int i = 0; i < casuum_rectorum_numerus; ++i) {
         struct numerus n = numerum_fac(casus_recti[i].vis);
-        char *cardinalis = numero_loca_numerum_cardinalem(n, casus_recti[i].genus);
+        char *cardinalis = numero_loca_cardinalem(n, casus_recti[i].genus);
         LIN_AEQ(casus_recti[i].cardinalis, cardinalis);
         free(cardinalis);
     }
@@ -215,7 +233,7 @@ main(int argc, char *argv[])
 {
     proba_fac_e_linea();
     proba_loca_linea();
-    proba_loca_numerum_cardinalem();
+    proba_loca_cardinalem();
     proba_max();
     return EXIT_SUCCESS;
 }
