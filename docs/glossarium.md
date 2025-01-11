@@ -9,7 +9,9 @@ Format: _[lemma][1]_ (part of speech): jargon; "Latin meaning"
 [1]: https://en.wikipedia.org/wiki/Lemma_(morphology)
 
 - _addo_ (v): add
+- _adjungo_ (v): append; "join to"
 - _aequus, -a, -um_ (adj): equal
+- _attingo_ (v): reach; "touch, come in contact with"
 
 
 - _casus, -us_ (n): a (test) case
@@ -20,6 +22,8 @@ Format: _[lemma][1]_ (part of speech): jargon; "Latin meaning"
 
 - _datus, -i_ (n): a data item, a value; "a given"
 - _decuplus, -a, -um_ (adj): ten times; "tenfold"
+- _debeo_ (v): should; "ought, must, should"
+- _duplicatus, -a, -um_ (adj): duplicate; "twofold"
 
 
 - _error, -oris_ (n): an error; "a wandering"
@@ -27,9 +31,14 @@ Format: _[lemma][1]_ (part of speech): jargon; "Latin meaning"
 
 - _facio_ (v): make
 - _finis, -is_ (n): an end
+- _fixus, -a, -um_ (adj): static; "fastened"
+
+
+- _genus, -eris_ (n): grammatical gender; "kind, sort"
 
 
 - _immodicus, -a, -um_ (adj): out of range; "excessive"
+- _initium, -i_ (n): a start; "a beginning"
 - _insero_ (v): include; "insert"
 
 
@@ -40,12 +49,16 @@ Format: _[lemma][1]_ (part of speech): jargon; "Latin meaning"
 
 
 - _maximus, -a, -um_ (adj): largest
+- _memoria, -ae_ (n): memory
+- _mensura, -ae_ (n): a size; "a measure"
 - _millecuplus, -a, -um_ (adj): a thousand times; "a thousandfold"
 - _minimus, -a, -um_ (adj): smallest
+- _mutabilis, -e_ (adj): mutable; "changeable"
 
 
 - _nihil_ (n): nil, null, zero; "nothing"
 - _nimius, -a, -um_ (adj): too large; "excessive"
+- _novus, -a, -um_ (adj): new
 - _nullus, -a, -um_ (adj): none; "not any, none"
 - _numerus, -i_ (n): a number
 - _nuntius, -a, -um_ (adj): a message; "announcing, a messenger, a message"
@@ -53,8 +66,10 @@ Format: _[lemma][1]_ (part of speech): jargon; "Latin meaning"
 
 - _passus, -us_ (n): a step; "a pace"
 - _pravus, -a, -um_ (adj): incorrect
+- _prior, -ius_ (adj): previous
 - _probo_ (v): test
 - _probatio, -onis_ (n): a test
+- _proximus, -a, -um_ (adj): next
 
 
 - _rectus, -a, -um_ (adj): correct

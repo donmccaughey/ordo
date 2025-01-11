@@ -2,6 +2,7 @@
 #define ORDO_NUMERUS_H_INSERTUS_EST
 
 
+#include <ordo/genus.h>
 #include <ordo/error.h>
 
 
@@ -27,6 +28,11 @@ numerum_fac_e_linea(char const *linea, enum error *error);
 /// string."  Call `free()` to deallocate the string.
 char *
 numero_loca_linea(struct numerus numerus);
+
+/// Allocate a cardinal number string for a number.  "For a number allocate a
+/// cardinal number."  Call `free()` to deallocate the string.
+char *
+numero_loca_numerum_cardinalem(struct numerus numerus, enum genus genus);
 
 
 #endif

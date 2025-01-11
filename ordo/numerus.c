@@ -1,10 +1,23 @@
 #include "numerus.h"
 
 #include <assert.h>
+#include <stdlib.h>
 #include <string.h>
+
+#include "linea_mutabilis.h"
 
 
 struct numerus const NUMERUS_MAX = { .vis=3999 };
+
+
+static void *
+xstrdup(char const *linea)
+{
+    assert(linea);
+    char *duplicata = strdup(linea);
+    if ( ! duplicata) abort();
+    return duplicata;
+}
 
 
 struct numerus
@@ -142,8 +155,8 @@ numero_loca_linea(struct numerus numerus)
 {
     assert(numerus.vis <= NUMERUS_MAX.vis);
 
-    if ( ! numerus.vis) return strdup("nihil");
-    if (numerus.vis > NUMERUS_MAX.vis) return strdup("nimium");
+    if ( ! numerus.vis) return xstrdup("nihil");
+    if (numerus.vis > NUMERUS_MAX.vis) return xstrdup("nimium");
 
     char cella[12];
     char *linea = cella;
@@ -223,5 +236,89 @@ numero_loca_linea(struct numerus numerus)
     *linea = '\0';
     assert(strlen(cella) < sizeof cella);
 
-    return strdup(cella);
+    return xstrdup(cella);
+}
+
+
+#define ADJUNGE(lmut, linea_fixa) \
+        linea_mutabilis_adjunge(&(lmut), (linea_fixa), LIN_LON((linea_fixa)));
+
+
+char *
+numero_loca_numerum_cardinalem(struct numerus numerus, enum genus genus)
+{
+    assert(numerus.vis <= NUMERUS_MAX.vis);
+    assert(genus > genus_nullus);
+    assert(genus <= genus_n);
+
+    if (0 == numerus.vis) return xstrdup("nihil");
+
+    struct linea_mutabilis lmut;
+    linea_mutabilis_fac(&lmut);
+    int reliquum = numerus.vis;
+
+    assert(reliquum + 2 < 40);
+    if (reliquum + 3 > 30) {
+        if (-2 == reliquum - 30) {
+            ADJUNGE(lmut, "duode");
+            reliquum += 2;
+        } else if (-1 == reliquum - 30) {
+            ADJUNGE(lmut, "unde");
+            reliquum += 1;
+        }
+        ADJUNGE(lmut, "triginta");
+        reliquum -= 30;
+        if (reliquum) ADJUNGE(lmut, " ");
+    }
+
+    assert(reliquum + 2 < 30);
+    if (reliquum + 3 > 20) {
+        if (-2 == reliquum - 20) {
+            ADJUNGE(lmut, "duode");
+            reliquum += 2;
+        } else if (-1 == reliquum - 20) {
+            ADJUNGE(lmut, "unde");
+            reliquum += 1;
+        }
+        ADJUNGE(lmut, "viginti");
+        reliquum -= 20;
+        if (reliquum) ADJUNGE(lmut, " ");
+    }
+
+    assert(reliquum < 18);
+    switch (reliquum) {
+        case 17: ADJUNGE(lmut, "septendecim"); reliquum -= 17; break;
+        case 16: ADJUNGE(lmut, "sedecim"); reliquum -= 16; break;
+        case 15: ADJUNGE(lmut, "quindecim"); reliquum -= 15; break;
+        case 14: ADJUNGE(lmut, "quattuordecim"); reliquum -= 14; break;
+        case 13: ADJUNGE(lmut, "tredecim"); reliquum -= 13; break;
+        case 12: ADJUNGE(lmut, "duodecim"); reliquum -= 12; break;
+        case 11: ADJUNGE(lmut, "undecim"); reliquum -= 11; break;
+
+        case 10: ADJUNGE(lmut, "decem"); reliquum -= 10; break;
+        case 9: ADJUNGE(lmut, "novem"); reliquum -= 9; break;
+        case 8: ADJUNGE(lmut, "octo"); reliquum -= 8; break;
+        case 7: ADJUNGE(lmut, "septem"); reliquum -= 7; break;
+        case 6: ADJUNGE(lmut, "sex"); reliquum -= 6; break;
+        case 5: ADJUNGE(lmut, "quinque"); reliquum -= 5; break;
+        case 4: ADJUNGE(lmut, "quattuor"); reliquum -= 4; break;
+        case 3:
+            ADJUNGE(lmut, (genus_m == genus || genus_f == genus) ? "tres" : "tria");
+            reliquum -= 3;
+            break;
+        case 2:
+            ADJUNGE(lmut, (genus_m == genus || genus_n == genus) ? "duo" : "duae");
+            reliquum -= 2;
+            break;
+        case 1:
+            ADJUNGE(lmut, (genus_m == genus) ? "unus" : ((genus_f == genus) ? "una" : "unum"));
+            reliquum -= 1;
+            break;
+        default:
+            assert("Non deberet attingere");
+            break;
+    }
+
+    assert( ! reliquum);
+    return lmut.linea;
 }
