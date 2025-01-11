@@ -1,16 +1,16 @@
 name: Tests
 on: [push, pull_request]
 jobs:
-  Cargo-Test:
-    name: Cargo Test
-    runs-on: ubuntu-latest
+  All-Tests-macOS:
+    name: All Tests (macOS)
+    runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-      - uses: actions-rs/cargo@v1
-        with:
-          command: test
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: |
+          cmake -S . -B ${{github.workspace}}/tmp
+      - name: Build
+        run: |
+          cmake --build ${{github.workspace}}/tmp --target all
+          cd ${{github.workspace}}/tmp
+          ctest --output-on-failure
