@@ -14,7 +14,7 @@ proba_fac(void)
 {
     struct linea_mutabilis lmut;
 
-    linea_mutabilis_fac(&lmut);
+    lineam_mutabilem_fac(&lmut);
     assert(lmut.linea);
     assert(lmut.mensura == 1);
     assert(lmut.proximus == 0);
@@ -28,7 +28,7 @@ proba_adjunge(void)
 {
     struct linea_mutabilis lmut;
 
-    linea_mutabilis_fac(&lmut);
+    lineam_mutabilem_fac(&lmut);
 
     LIN_AEQ("", lmut.linea);
 

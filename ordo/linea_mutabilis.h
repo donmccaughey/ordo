@@ -15,7 +15,7 @@ struct linea_mutabilis {
 
 /// Make a mutable string.  "A string mutable make."
 void
-linea_mutabilis_fac(struct linea_mutabilis *lmut);
+lineam_mutabilem_fac(struct linea_mutabilis *lmut);
 
 /// Append to a mutable string.  "For a string mutable append."
 void

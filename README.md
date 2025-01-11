@@ -72,6 +72,8 @@ char *cardinalis = numero_loca_cardinalem(n, genus_m);
 printf("%s = %i\n", cardinalis, n.vis);
 // prints "septendecim = 17"
 
+free(cardinalis);
+
 // make a number from a Roman numeral string
 enum error error;
 struct numerus m = numerum_fac_e_notae_romanae("MMXVIII", &error);
@@ -94,6 +96,31 @@ printf("Erroris nota %i: %s\n", e, erroris_nuntium(e));
 // prints "Erroris nota 1: data vitiosa (invalid input)"
 ```
 
+### struct 'linea_mutabilis'
+
+A mutable string of characters.  Used internally in `ordo` for string building.
+The struct contains a heap allocated string `linea`.  Call `free()` on `linea`
+when done.
+
+```c
+#include <ordo/ordo.h>
+
+// make an empty mutable string
+struct linea_mutabilis lmut;
+lineam_mutabilem_fac(&lmut);
+
+printf("Linea = '%s'\n", lmut.linea);
+// prints "Linea = ''"
+
+// append a string to the mutable string
+char const salve[] = "Salve, Munde!";
+lineae_mutabili_adjunge(&lmut, salve, strlen(salve));
+
+printf("Linea = '%s'\n", lmut.linea);
+// prints "Linea = 'Salve, Munde!'"
+
+free(lmut.linea);
+```
 
 ## License
 

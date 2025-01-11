@@ -267,7 +267,7 @@ numero_loca_cardinalem(struct numerus numerus, enum genus genus)
     if (0 == numerus.vis) return xstrdup("nihil");
 
     struct linea_mutabilis lmut;
-    linea_mutabilis_fac(&lmut);
+    lineam_mutabilem_fac(&lmut);
     int reliquum = numerus.vis;
 
     ADJUNGE_DENOS(&lmut, &reliquum, 90, "nonaginta");

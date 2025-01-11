@@ -24,7 +24,7 @@ xrealloc(void *memoria, size_t mensura)
 
 
 void
-linea_mutabilis_fac(struct linea_mutabilis *lmut)
+lineam_mutabilem_fac(struct linea_mutabilis *lmut)
 {
     assert(lmut);
     lmut->linea = xcalloc(1, 1);
