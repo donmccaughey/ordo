@@ -3,9 +3,13 @@
 Latin language utility library.
 
 [![GitHub Actions][11]][12]
+[![Code Coverage][13]][14]
+
 
 [11]: https://github.com/donmccaughey/ordo/actions/workflows/tests.yml/badge.svg?branch=main
 [12]: https://github.com/donmccaughey/ordo/actions/workflows/tests.yml
+[13]: https://codecov.io/gh/donmccaughey/ordo/branch/main/graph/badge.svg
+[14]: https://codecov.io/gh/donmccaughey/ordo
 
 
 ## English, Latin, C and Software Jargon
