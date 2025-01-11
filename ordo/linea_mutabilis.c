@@ -34,12 +34,22 @@ linea_mutabilis_fac(struct linea_mutabilis *lmut)
 
 
 void
-linea_mutabilis_adjunge(
+lineae_mutabili_adjunge(
         struct linea_mutabilis *lmut,
         char const *linea, int lineae_longitudo
 ) {
+    assert(lmut);
+    assert(linea);
+    assert(lineae_longitudo >= 0);
+    assert(lineae_longitudo == strlen(linea));
+
+    if ( ! linea && ! linea[0] && ! lineae_longitudo) return;
+
     lmut->mensura += lineae_longitudo;
     lmut->linea = xrealloc(lmut->linea, lmut->mensura);
-    strcpy(&lmut->linea[lmut->proximus], linea);
+    strncpy(&lmut->linea[lmut->proximus], linea, lineae_longitudo);
     lmut->proximus += lineae_longitudo;
+
+    assert(lmut->proximus <= lmut->mensura - 1);
+    lmut->linea[lmut->proximus] = '\0';
 }

@@ -37,15 +37,15 @@ struct segmentum_numeri {
 };
 
 
-static struct segmentum_numeri const millecupla[] = {
+static struct segmentum_numeri const milleni[] = {
     {"MMM", 3, 3, 3000},
     {"MM", 2, 2,2000},
     {"M", 1, 1, 1000}
 };
-static size_t const millecuplorum_numerus = sizeof millecupla / sizeof millecupla[0];
+static size_t const millenorum_numerus = sizeof milleni / sizeof milleni[0];
 
 
-static struct segmentum_numeri const centupla[] = {
+static struct segmentum_numeri const centeni[] = {
     {"CM", 2, 9, 900},
     {"DCCC", 4, 8, 800},
     {"DCC", 3, 7, 700},
@@ -56,10 +56,10 @@ static struct segmentum_numeri const centupla[] = {
     {"CC", 2, 2, 200},
     {"C", 1, 1, 100}
 };
-static size_t const centuplorum_numerus = sizeof centupla / sizeof centupla[0];
+static size_t const centenorum_numerus = sizeof centeni / sizeof centeni[0];
 
 
-static struct segmentum_numeri const decupla[] = {
+static struct segmentum_numeri const deni[] = {
     {"XC", 2, 9, 90},
     {"LXXX", 4, 8, 80},
     {"LXX", 3, 7, 70},
@@ -70,10 +70,10 @@ static struct segmentum_numeri const decupla[] = {
     {"XX", 2, 2, 20},
     {"X", 1, 1, 10}
 };
-static size_t const decuplorum_numerus = sizeof decupla / sizeof decupla[0];
+static size_t const denorum_numerus = sizeof deni / sizeof deni[0];
 
 
-static struct segmentum_numeri const simpla[] = {
+static struct segmentum_numeri const singuli[] = {
     {"IX", 2, 9, 9},
     {"VIII", 4, 8, 8},
     {"VII", 3, 7, 7},
@@ -84,18 +84,18 @@ static struct segmentum_numeri const simpla[] = {
     {"II", 2, 2, 2},
     {"I", 1, 1, 1}
 };
-static size_t const simplorum_numerus = sizeof simpla / sizeof simpla[0];
+static size_t const singulorum_numerus = sizeof singuli / sizeof singuli[0];
 
 
 static void
 adde_segmenta(
-        unsigned short *summa, char const **linea,
+        unsigned short *summa, char const **notae_romanae,
         struct segmentum_numeri const *segmenta, size_t numerus_segmentorum
 ) {
     for (int i = 0; i < numerus_segmentorum; /* vide saltum */) {
-        if (0 == strncmp(*linea, segmenta[i].linea, segmenta[i].longitudo_lineae)) {
+        if (0 == strncmp(*notae_romanae, segmenta[i].linea, segmenta[i].longitudo_lineae)) {
             *summa += segmenta[i].vis;
-            (*linea) += segmenta[i].longitudo_lineae;
+            (*notae_romanae) += segmenta[i].longitudo_lineae;
             i += segmenta[i].saltus;
         } else {
             ++i;
@@ -105,40 +105,40 @@ adde_segmenta(
 
 
 struct numerus
-numerum_fac_e_linea(char const *linea, enum error *error)
+numerum_fac_e_notae_romanae(char const *notae_romanae, enum error *error)
 {
-    assert(linea);
-    assert(linea[0]);
+    assert(notae_romanae);
+    assert(notae_romanae[0]);
 
-    if ( ! linea || ! linea[0]) {
+    if ( ! notae_romanae || ! notae_romanae[0]) {
         if (error) *error = error_datis_vitiosis;
         return numerum_fac(0);
     }
 
     if (error) *error = error_nullus;
 
-    if (0 == strcmp("nihil", linea)) return numerum_fac(0);
+    if (0 == strcmp("nihil", notae_romanae)) return numerum_fac(0);
 
     unsigned short summa = 0;
-    char const *ch = linea;
+    char const *ch = notae_romanae;
 
     if ('M' == *ch) {
-        adde_segmenta(&summa, &ch, millecupla, millecuplorum_numerus);
+        adde_segmenta(&summa, &ch, milleni, millenorum_numerus);
     }
 
     if ('D' == *ch || 'C' == *ch) {
-        adde_segmenta(&summa, &ch, centupla, centuplorum_numerus);
+        adde_segmenta(&summa, &ch, centeni, centenorum_numerus);
     }
 
     if ('L' == *ch || 'X' == *ch) {
-        adde_segmenta(&summa, &ch, decupla, decuplorum_numerus);
+        adde_segmenta(&summa, &ch, deni, denorum_numerus);
     }
 
     if ('V' == *ch || 'I' == *ch) {
-        adde_segmenta(&summa, &ch, simpla, simplorum_numerus);
+        adde_segmenta(&summa, &ch, singuli, singulorum_numerus);
     }
 
-    assert(ch - linea <= 15);  // longest accepted numeral is "MMMCCCCXXXXIIII"
+    assert(ch - notae_romanae <= 15);  // longest accepted numeral is "MMMCCCCXXXXIIII"
     assert(summa <= NUMERUS_MAX.vis);
 
     if ('\0' != *ch) {
@@ -151,89 +151,77 @@ numerum_fac_e_linea(char const *linea, enum error *error)
 
 
 char *
-numero_loca_linea(struct numerus numerus)
+numero_loca_notae_romanae(struct numerus numerus)
 {
     assert(numerus.vis <= NUMERUS_MAX.vis);
 
     if ( ! numerus.vis) return xstrdup("nihil");
-    if (numerus.vis > NUMERUS_MAX.vis) return xstrdup("nimium");
+    if (numerus.vis > NUMERUS_MAX.vis) return xstrdup("nimius");
 
     char cella[12];
-    char *linea = cella;
+    char *notae_romanae = cella;
     unsigned short reliquum = numerus.vis;
 
     while (reliquum >= 1000) {
-        *linea++ = 'M';
+        *notae_romanae++ = 'M';
         reliquum -= 1000;
     }
 
     if (reliquum >= 900) {
-        *linea++ = 'C';
-        *linea++ = 'M';
+        *notae_romanae++ = 'C';
+        *notae_romanae++ = 'M';
         reliquum -= 900;
-    }
-
-    if (reliquum >= 500) {
-        *linea++ = 'D';
+    } else if (reliquum >= 500) {
+        *notae_romanae++ = 'D';
         reliquum -= 500;
-    }
-
-    if (reliquum >= 400) {
-        *linea++ = 'C';
-        *linea++ = 'D';
+    } else if (reliquum >= 400) {
+        *notae_romanae++ = 'C';
+        *notae_romanae++ = 'D';
         reliquum -= 400;
     }
 
     while (reliquum >= 100) {
-        *linea++ = 'C';
+        *notae_romanae++ = 'C';
         reliquum -= 100;
     }
 
     if (reliquum >= 90) {
-        *linea++ = 'X';
-        *linea++ = 'C';
+        *notae_romanae++ = 'X';
+        *notae_romanae++ = 'C';
         reliquum -= 90;
-    }
-
-    if (reliquum >= 50) {
-        *linea++ = 'L';
+    } else if (reliquum >= 50) {
+        *notae_romanae++ = 'L';
         reliquum -= 50;
-    }
-
-    if (reliquum >= 40) {
-        *linea++ = 'X';
-        *linea++ = 'L';
+    } else if (reliquum >= 40) {
+        *notae_romanae++ = 'X';
+        *notae_romanae++ = 'L';
         reliquum -= 40;
     }
 
     while (reliquum >= 10) {
-        *linea++ = 'X';
+        *notae_romanae++ = 'X';
         reliquum -= 10;
     }
 
     if (reliquum >= 9) {
-        *linea++ = 'I';
-        *linea++ = 'X';
+        *notae_romanae++ = 'I';
+        *notae_romanae++ = 'X';
         reliquum -= 9;
-    }
-
-    if (reliquum >= 5) {
-        *linea++ = 'V';
+    } else if (reliquum >= 5) {
+        *notae_romanae++ = 'V';
         reliquum -= 5;
-    }
-
-    if (reliquum >= 4) {
-        *linea++ = 'I';
-        *linea++ = 'V';
+    } else if (reliquum >= 4) {
+        *notae_romanae++ = 'I';
+        *notae_romanae++ = 'V';
         reliquum -= 4;
     }
 
     while (reliquum >= 1) {
-        *linea++ = 'I';
+        *notae_romanae++ = 'I';
         reliquum -= 1;
     }
 
-    *linea = '\0';
+    *notae_romanae = '\0';
     assert(strlen(cella) < sizeof cella);
 
     return xstrdup(cella);
@@ -241,7 +229,7 @@ numero_loca_linea(struct numerus numerus)
 
 
 #define ADJUNGE(lmut, linea_fixa) \
-        linea_mutabilis_adjunge((lmut), (linea_fixa), LIN_LON((linea_fixa)))
+        lineae_mutabili_adjunge((lmut), (linea_fixa), LIN_LON((linea_fixa)))
 
 
 static void
@@ -258,7 +246,7 @@ adjunge_denos(
             ADJUNGE(lmut, "unde");
             *reliquum += 1;
         }
-        linea_mutabilis_adjunge(lmut, verbum, verbi_longitudo);
+        lineae_mutabili_adjunge(lmut, verbum, verbi_longitudo);
         *reliquum -= deni;
         if (*reliquum) ADJUNGE(lmut, " ");
     }
@@ -309,15 +297,29 @@ numero_loca_cardinalem(struct numerus numerus, enum genus genus)
         case 5: ADJUNGE(&lmut, "quinque"); reliquum -= 5; break;
         case 4: ADJUNGE(&lmut, "quattuor"); reliquum -= 4; break;
         case 3:
-            ADJUNGE(&lmut, (genus_m == genus || genus_f == genus) ? "tres" : "tria");
+            if (genus_n == genus) {
+                ADJUNGE(&lmut, "tria");
+            } else {
+                ADJUNGE(&lmut, "tres");
+            }
             reliquum -= 3;
             break;
         case 2:
-            ADJUNGE(&lmut, (genus_m == genus || genus_n == genus) ? "duo" : "duae");
+            if (genus_f == genus) {
+                ADJUNGE(&lmut, "duae");
+            } else {
+                ADJUNGE(&lmut, "duo");
+            }
             reliquum -= 2;
             break;
         case 1:
-            ADJUNGE(&lmut, (genus_m == genus) ? "unus" : ((genus_f == genus) ? "una" : "unum"));
+            if (genus_m == genus) {
+                ADJUNGE(&lmut, "unus");
+            } else if (genus_f == genus) {
+                ADJUNGE(&lmut, "una");
+            } else {
+                ADJUNGE(&lmut, "unum");
+            }
             reliquum -= 1;
             break;
         default:

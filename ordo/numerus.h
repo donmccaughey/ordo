@@ -20,19 +20,20 @@ extern struct numerus const NUMERUS_MAX;
 struct numerus
 numerum_fac(unsigned short vis);
 
-/// Make a numerus struct from a string.  "A number make from a string."
+/// Make a numerus struct from a Roman numeral string.  "A number make from
+/// numerals Roman."
 struct numerus
-numerum_fac_e_linea(char const *linea, enum error *error);
-
-/// Allocate a Roman numeral string for a number.  "For a number allocate a
-/// string."  Call `free()` to deallocate the string.
-char *
-numero_loca_linea(struct numerus numerus);
+numerum_fac_e_notae_romanae(char const *notae_romanae, enum error *error);
 
 /// Allocate a cardinal number string for a number.  "For a number allocate a
 /// cardinal [number]."  Call `free()` to deallocate the string.
 char *
 numero_loca_cardinalem(struct numerus numerus, enum genus genus);
+
+/// Allocate a Roman numeral string for a number.  "For a number allocate
+/// numerals Roman."  Call `free()` to deallocate the string.
+char *
+numero_loca_notae_romanae(struct numerus numerus);
 
 
 #endif

@@ -5,7 +5,7 @@
 #include "linea_mutabilis.h"
 
 
-#define LIN_AEQ(f1, f2) assert(0 == strcmp((f1), (f2)))
+#define LIN_AEQ(lin1, lin2) assert(0 == strcmp((lin1), (lin2)))
 #define NUM_AEQ(n1, n2) assert((n1) == (n2))
 
 
@@ -32,13 +32,13 @@ proba_adjunge(void)
 
     LIN_AEQ("", lmut.linea);
 
-    linea_mutabilis_adjunge(&lmut, "mus", LIN_LON("mus"));
+    lineae_mutabili_adjunge(&lmut, "mus", LIN_LON("mus"));
 
     LIN_AEQ("mus", lmut.linea);
     NUM_AEQ(4, lmut.mensura);
     NUM_AEQ(3, lmut.proximus);
 
-    linea_mutabilis_adjunge(&lmut, " parvus est.", LIN_LON(" parvus est."));
+    lineae_mutabili_adjunge(&lmut, " parvus est.", LIN_LON(" parvus est."));
 
     LIN_AEQ("mus parvus est.", lmut.linea);
     NUM_AEQ(16, lmut.mensura);

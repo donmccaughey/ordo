@@ -58,23 +58,23 @@ It's single field `vis` holds the numeric value as an unsigned short.
 // make a number
 struct numerus n = numerum_fac(17);
 
-// allocate a string for a number
-char *linea = numero_loca_linea(n);
+// allocate a Roman numeral string for a number
+char *notae_romanae = numero_loca_notae_romanae(n);
 
-printf("%s = %i\n", linea, n.vis);  
+printf("%s = %i\n", notae_romanae, n.vis);  
 // prints "XVII = 17"
 
-free(linea);
+free(notae_romanae);
 
 // allocate a cardinal number string for a number
-char *cardinalis = numero_loca_cardinalem(n);
+char *cardinalis = numero_loca_cardinalem(n, genus_m);
 
 printf("%s = %i\n", cardinalis, n.vis);
 // prints "septendecim = 17"
 
-// make a number from a string
+// make a number from a Roman numeral string
 enum error error;
-struct numerus m = numerum_fac_e_linea("MMXVIII", &error);
+struct numerus m = numerum_fac_e_notae_romanae("MMXVIII", &error);
 assert(error_nullus == error);
 
 printf("m = %i\n", m.vis);
@@ -90,8 +90,8 @@ Error codes for the `ordo` library.
 
 // get the message for an error code
 enum error e = error_datis_vitiosis;
-printf("Error code %i: %s\n", e, erroris_nuntium(e));
-// prints "Error code 1: data vitiosa (invalid input)"
+printf("Erroris nota %i: %s\n", e, erroris_nuntium(e));
+// prints "Erroris nota 1: data vitiosa (invalid input)"
 ```
 
 

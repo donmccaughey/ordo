@@ -7,10 +7,10 @@ enum error {
     /// "No error."
     error_nullus = 0,
 
-    /// Invalid input.  "Data corrupt."
+    /// Invalid input.  "Error due to data corrupt."
     error_datis_vitiosis,
 
-    /// Number out of range.  "Number excessive."
+    /// Number out of range.  "Error due to number excessive."
     error_numero_immodico,
 };
 

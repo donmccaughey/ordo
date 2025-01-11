@@ -14,15 +14,19 @@ Format: _[lemma][1]_ (part of speech): jargon; "Latin meaning"
 - _attingo_ (v): reach; "touch, come in contact with"
 
 
+- _cardinalis, -e_ (adj): cardinal; "principal, chief"
 - _casus, -us_ (n): a (test) case
 - _cella, -ae_ (n): a buffer; "a cell, a storeroom"
 - _centuplus, -a, -um_ (adj): a hundred times; "a hundredfold"
+- _centeni_ (_centenus, -a, -um_) (adj): hundreds; "a hundred each, a hundred at a time"
 - _character, -eris_ (n): a character; "a burned/imprinted mark/sign, χαρακτήρ"
+- _cifra, -ae_ (n): a Hindu-Arabic digit; "a cypher, a shorthand character"; _cifrae Arabicae_ 
 
 
 - _datus, -i_ (n): a data item, a value; "a given"
 - _decuplus, -a, -um_ (adj): ten times; "tenfold"
 - _debeo_ (v): should; "ought, must, should"
+- _deni_ (_denus, -a, -um_) (adj): tens; "ten each, ten at a time"
 - _duplicatus, -a, -um_ (adj): duplicate; "twofold"
 
 
@@ -52,12 +56,14 @@ Format: _[lemma][1]_ (part of speech): jargon; "Latin meaning"
 - _memoria, -ae_ (n): memory
 - _mensura, -ae_ (n): a size; "a measure"
 - _millecuplus, -a, -um_ (adj): a thousand times; "a thousandfold"
+- _milleni_ (_millenus, -a, -um_) (adj): thousands; "a thousand each, a thousand at a time"
 - _minimus, -a, -um_ (adj): smallest
 - _mutabilis, -e_ (adj): mutable; "changeable"
 
 
 - _nihil_ (n): nil, null, zero; "nothing"
 - _nimius, -a, -um_ (adj): too large; "excessive"
+- _nota, -ae_ (n): a symbol, a Roman numeral; "a mark, a sign"; _notae Romanae_
 - _novus, -a, -um_ (adj): new
 - _nullus, -a, -um_ (adj): none; "not any, none"
 - _numerus, -i_ (n): a number
@@ -79,6 +85,7 @@ Format: _[lemma][1]_ (part of speech): jargon; "Latin meaning"
 - _saltus, -us_ (n): a jump; "a leap"
 - _segmentum, -i_ (n): a segment; "a piece"
 - _simplus, -a, -um_ (adj): one times; "a number taken once"
+- _singuli_ (_singulus, -a, -um_) (adj): ones; "one each, one at a time"
 - _summa, -ae_ (n): an amount or total
 
 

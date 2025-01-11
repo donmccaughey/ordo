@@ -5,7 +5,7 @@
 #include "error.h"
 
 
-#define LIN_AEQ(f1, f2) assert(0 == strcmp((f1), (f2)))
+#define LIN_AEQ(lin1, lin2) assert(0 == strcmp((lin1), (lin2)))
 
 
 static void
