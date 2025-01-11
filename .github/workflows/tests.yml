@@ -1,6 +1,27 @@
 name: Tests
 on: [push, pull_request]
 jobs:
+  Coverage:
+    name: Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: |
+          cmake -S . -B ${{github.workspace}}/tmp -DCOVERAGE=ON
+      - name: Build
+        run: |
+          cmake --build ${{github.workspace}}/tmp --target all
+      - name: Test
+        run: |
+          cd ${{github.workspace}}/tmp
+          ctest --output-on-failure
+      - name: Upload Coverage
+        uses: codecov/codecov-action@v4
+        with:
+          codecov_yml_path: ${{github.workspace}}/.codecov.yml
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
   All-Tests-macOS:
     name: All Tests (macOS)
     runs-on: macos-latest
