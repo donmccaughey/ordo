@@ -5,6 +5,7 @@
 #include <ordo/error.h>
 #include <ordo/genus.h>
 #include <ordo/linea_mutabilis.h>
+#include <ordo/litterae.h>
 #include <ordo/numerus.h>
 
 

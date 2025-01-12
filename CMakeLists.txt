@@ -44,6 +44,8 @@ add_library(ordo STATIC
         ordo/genus.c
         ordo/linea_mutabilis.c
         ordo/linea_mutabilis.h
+        ordo/litterae.h
+        ordo/litterae.c
         ordo/numerus.h
         ordo/numerus.c
         ordo/ordo.h
@@ -63,6 +65,10 @@ if(is_top_level_project AND BUILD_TESTING)
     add_executable(lineae_mutabilis_probationes ordo/lineae_mutabilis_probationes.c)
     target_link_libraries(lineae_mutabilis_probationes ordo)
     add_test(lineae_mutabilis_probationes lineae_mutabilis_probationes)
+
+    add_executable(litterarum_probationes ordo/litterarum_probationes.c)
+    target_link_libraries(litterarum_probationes ordo)
+    add_test(litterarum_probationes litterarum_probationes)
 
     add_executable(numeri_probationes ordo/numeri_probationes.c)
     target_link_libraries(numeri_probationes ordo)
