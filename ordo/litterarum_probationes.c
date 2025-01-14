@@ -35,9 +35,41 @@ proba_estne_majuscula(void)
 }
 
 
+static void
+proba_estne_minuscula(void)
+{
+    assert(estne_minuscula('a'));
+    assert(estne_minuscula(A_LONGA_MINUSCULA));
+    assert(estne_minuscula('e'));
+    assert(estne_minuscula(E_LONGA_MINUSCULA));
+    assert(estne_minuscula('i'));
+    assert(estne_minuscula(I_LONGA_MINUSCULA));
+    assert(estne_minuscula('o'));
+    assert(estne_minuscula(O_LONGA_MINUSCULA));
+    assert(estne_minuscula('u'));
+    assert(estne_minuscula(U_LONGA_MINUSCULA));
+    assert(estne_minuscula('y'));
+    assert(estne_minuscula(Y_LONGA_MINUSCULA));
+
+    assert( ! estne_minuscula('A'));
+    assert( ! estne_minuscula(A_LONGA_MAJUSCULA));
+    assert( ! estne_minuscula('E'));
+    assert( ! estne_minuscula(E_LONGA_MAJUSCULA));
+    assert( ! estne_minuscula('I'));
+    assert( ! estne_minuscula(I_LONGA_MAJUSCULA));
+    assert( ! estne_minuscula('O'));
+    assert( ! estne_minuscula(O_LONGA_MAJUSCULA));
+    assert( ! estne_minuscula('U'));
+    assert( ! estne_minuscula(U_LONGA_MAJUSCULA));
+    assert( ! estne_minuscula('Y'));
+    assert( ! estne_minuscula(Y_LONGA_MAJUSCULA));
+}
+
+
 int
 main(int argc, char *argv[])
 {
     proba_estne_majuscula();
+    proba_estne_minuscula();
     return EXIT_SUCCESS;
 }

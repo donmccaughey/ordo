@@ -9,7 +9,7 @@
 typedef uint32_t unichar_t;
 
 
-/// Convert a Unicode code point to UTF-8.  "unicode in[to] utf-8."
+/// Convert a Unicode code point to UTF-8.  "unicode into utf-8."
 int
 unicode_in_utf8(unichar_t codepoint, char cella[], int cellae_mensura);
 
