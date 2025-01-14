@@ -50,6 +50,8 @@ add_library(ordo STATIC
         ordo/numerus.c
         ordo/ordo.h
         ordo/ordo.c
+        ordo/characteres.c
+        ordo/characteres.h
 )
 target_include_directories(ordo PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
@@ -58,6 +60,10 @@ target_include_directories(ordo PUBLIC
 
 
 if(is_top_level_project AND BUILD_TESTING)
+    add_executable(characterum_probationes ordo/characterum_probationes.c)
+    target_link_libraries(characterum_probationes ordo)
+    add_test(characterum_probationes characterum_probationes)
+
     add_executable(erroris_probationes ordo/erroris_probationes.c)
     target_link_libraries(erroris_probationes ordo)
     add_test(erroris_probationes erroris_probationes)

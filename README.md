@@ -101,6 +101,22 @@ printf("Linea = '%s'\n", lmut.linea);
 free(lmut.linea);
 ```
 
+### typedef `unichar_t`
+
+An alias for `uint32_t` used to store a Unicode code point.
+
+```c
+#include <ordo/ordo.h>
+
+// convert a Unicode code point to a UTF-8 string
+unichar_t a_longa = 0x0101;  // long a: 'ā'
+char littera[5];
+int longitudo = unichar_in_utf8(a_longa, littera, sizeof littera);
+
+printf("Littera = '%s'\n", cella);
+// prints "Littera = 'ā'"
+```
+
 
 ## Build
 

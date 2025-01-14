@@ -4,14 +4,14 @@
 
 
 static bool
-estne_ascii(char_uni ch)
+estne_ascii(unichar_t ch)
 {
     return ch < 128;
 }
 
 
 bool
-estne_majuscula(char_uni ch)
+estne_majuscula(unichar_t ch)
 {
     if (estne_ascii(ch)) {
         return isupper((int)ch);

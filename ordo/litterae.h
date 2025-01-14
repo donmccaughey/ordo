@@ -3,10 +3,8 @@
 
 
 #include <stdbool.h>
-#include <stdint.h>
 
-
-typedef uint32_t char_uni;
+#include <ordo/characteres.h>
 
 
 // Precomposed long vowels
@@ -34,7 +32,7 @@ typedef uint32_t char_uni;
 
 
 bool
-estne_majuscula(char_uni ch);
+estne_majuscula(unichar_t ch);
 
 
 #endif
