@@ -31,12 +31,12 @@
 #define MACRON 0x0304  // \u0304 "\xcc\x84"
 
 
-/// Is the character uppercase?  "Is [it] uppercase?"
+/// Is the letter uppercase?  "Is [it] uppercase?"
 /// Handles ASCII characters and precomposed long vowels.
 bool
 estne_majuscula(unichar_t ch);
 
-/// Is the character lowercase?  "Is [it] lowercase?"
+/// Is the letter lowercase?  "Is [it] lowercase?"
 /// Handles ASCII characters and precomposed long vowels.
 bool
 estne_minuscula(unichar_t ch);
